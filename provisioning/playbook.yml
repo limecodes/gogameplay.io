@@ -1,0 +1,162 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  gather_facts: no
+  pre_tasks:
+    - name: 'install python2'
+      raw: apt-get -y install python
+
+    - name: Install Dependancies
+      apt: "name={{ item }} state=present"
+      with_items:
+      - curl
+      - unzip
+      - make
+      - gcc
+      - git
+      - acl
+      - python-pip
+      - nodejs
+      - software-properties-common
+
+    - name: Ensure Apache is installed on Ubuntu.
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - apache2
+
+    - name: Ensure Apache has selected state and enabled on boot.
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Add apache vhosts configuration.
+      template:
+        src: "templates/offer.gogameplay.local.conf.j2"
+        dest: "/etc/apache2/sites-available/offer.gogameplay.local.conf"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Remove default vhost
+      file:
+        path: "/etc/apache2/sites-available/000-default.conf"
+        state: absent
+
+    - name: Enable Apache Modules
+      apache2_module:
+        state: present
+        name: "{{ item }}"
+      with_items:
+        - rewrite
+        - ssl
+        - headers
+
+    - name: Install Mysql
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - mysql-server
+        - mysql-client
+        - python-mysqldb
+
+    - name: Install Mysql python
+      pip:
+        name: mysqlclient
+
+    - name: Ensure MySQL is started and enabled on boot.
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+      register: mysql_started
+
+    - name: Allow to use root on user vagrant
+      command: >
+        mysql -uroot mysql --execute "UPDATE user SET plugin='mysql_native_password' WHERE User='root';FLUSH PRIVILEGES;"
+      notify: restart mysql
+
+    - name: Install apt repository for PHP
+      apt_repository:
+        repo: ppa:ondrej/php
+
+    - name: Install PHP
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - php7.3
+      notify: restart apache
+
+    - name: Install PHP Modules
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - memcached
+        - composer
+        - phpunit
+        - php-pear
+        - php7.3-common
+        - php7.3-intl
+        - php7.3-mysql
+        - php7.3-curl
+        - php7.3-sqlite3
+        - php7.3-json
+        - php7.3-xml
+        - php7.3-mbstring
+        - php7.3-iconv
+        - php7.3-gd
+        - php7.3-mongodb
+        - php7.3-memcache
+
+    - name: Ensure OpenSSL is installed
+      package: name=openssl state=present
+
+    - name: Create SSL private folder
+      file:
+        path: "/etc/ssl/private"
+        state: directory
+        owner: "root"
+        group: "root"
+        mode: "700"  
+
+    - name: Generate RSA Key
+      command: openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=CA/ST=QC/L=Quebec/O=limecodes/CN=limecodes" -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
+      notify: restart apache
+
+    - name: a2ensite offer.gogameplay.local
+      command: a2ensite offer.gogameplay.local
+      notify:
+        - restart apache
+
+    - name: Create application database
+      mysql_db:
+        name: gogameplay
+        encoding: utf8
+        state: present
+
+    - name: Create application database
+      mysql_db:
+        name: gogameplaytest
+        encoding: utf8
+        state: present
+
+  handlers:
+    - name: restart ntpd
+      service: name=ntpd state=restarted
+
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
+
+    - name: restart mysql
+      service:
+        name: mysql
+        state: restarted
+        sleep: 5
