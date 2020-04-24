@@ -16,9 +16,9 @@ class CreateMobileNetworksTable extends Migration
         Schema::create('mobile_networks', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->integer('mcc');
-            $table->integer('mnc');
-            $table->foreignId('country_id');
+            $table->integer('mcc')->nullable();
+            $table->integer('mnc')->nullable();
+            $table->foreignId('country_id')->nullable();
             $table->timestamps();
         });
     }
