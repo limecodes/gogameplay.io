@@ -15,9 +15,11 @@ class BasicOperationTest extends TestCase
      */
     public function hittingTheRootShouldRedirect()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->get('/');
 
-        $response->assertStatus(302);
+        $response->assertRedirect(env('APP_REDIRECT_HOME'));
     }
 
     /**
@@ -27,6 +29,8 @@ class BasicOperationTest extends TestCase
      */
     public function shouldShowGamePage()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->get('/game/example');
 
         $response->assertStatus(200);
