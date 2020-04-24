@@ -24,6 +24,20 @@ class VisitorTest extends TestCase
 
         $response = $this->get('/game/'.$game->name);
 
-        $this->assertDatabaseHas('visitors', );
+        // $this->assertDatabaseHas('visitors', );
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function visitorIpAddressShouldUpdate()
+    {
+        $response = $this->patch('/api/visitor', [
+            'uuid' => $uuid,
+            'ip_address' => $newIpAddress
+        ]);
+
+        // $this->assertDatabaseHas('visitors') // Has new ip address
     }
 }

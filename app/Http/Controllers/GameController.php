@@ -36,6 +36,11 @@ class GameController extends Controller
         // 1. Trust the user to select their own carrier
         // 2. Do additional checks to ensure that the user is on a cellular connection
 
+        // NEXT TODO:
+        // 1. Echo the user IP address
+        // 2. Setup React
+        // 3. Echo the user's geolocation
+
     	// To make the controller return 422
     	// Later, will show a page with an error
     	$validator = Validator::make(['name' => $name], [
