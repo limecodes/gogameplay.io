@@ -9,6 +9,8 @@ use App\Models\Game;
 
 class BasicOperationTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Should redirect back to main site.
      *
@@ -21,6 +23,20 @@ class BasicOperationTest extends TestCase
         $response = $this->get('/');
 
         $response->assertRedirect(env('APP_REDIRECT_HOME'));
+    }
+
+    /**
+     * Should redirect back to main site.
+     *
+     * @test
+     */
+    public function shouldFailIfGameNameIsNumber()
+    {
+        // $this->withoutExceptionHandling();
+
+        $response = $this->get('/game/1234');
+
+        $response->assertStatus(422);
     }
 
     /**
@@ -46,9 +62,9 @@ class BasicOperationTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $game = factory(Game::class, 1)->create();
+        $game = factory(Game::class)->create();
 
-        $response = $this->get('/game/example');
+        $response = $this->get('/game/'.$game->name);
 
         $response->assertStatus(200);
     }

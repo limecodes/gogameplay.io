@@ -17,4 +17,4 @@ Route::get('/', function () {
     return redirect()->away(env('APP_REDIRECT_HOME'));
 });
 
-Route::get('/game/{game}', 'GameController@index');
+Route::get('/game/{name}', 'GameController@index');
