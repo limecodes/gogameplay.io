@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Game;
 
 class BasicOperationTest extends TestCase
 {
@@ -44,6 +45,8 @@ class BasicOperationTest extends TestCase
     public function shouldShowGamePage()
     {
         $this->withoutExceptionHandling();
+
+        $game = factory(Game::class, 1)->create();
 
         $response = $this->get('/game/example');
 
