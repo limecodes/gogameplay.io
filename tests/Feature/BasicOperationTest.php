@@ -27,6 +27,20 @@ class BasicOperationTest extends TestCase
      *
      * @test
      */
+    public function shouldFailIfGameNotExistent()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->get('/game/nonexistent');
+
+        $response->assertStatus(404);
+    }
+
+    /**
+     * Should redirect back to main site.
+     *
+     * @test
+     */
     public function shouldShowGamePage()
     {
         $this->withoutExceptionHandling();
