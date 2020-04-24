@@ -5,18 +5,25 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Game;
 
 class VisitorTest extends TestCase
 {
+    use RefreshDatabase;
+    
     /**
-     * A basic feature test example.
+     * Should redirect back to main site.
      *
-     * @return void
+     * @test
      */
-    public function testExample()
+    public function visitorDataShouldBeRecorded()
     {
-        $response = $this->get('/');
+        $this->withoutExceptionHandling();
 
-        $response->assertStatus(200);
+        $game = factory(Game::class)->create();
+
+        $response = $this->get('/game/'.$game->name);
+
+        $this->assertDatabaseHas('visitors', );
     }
 }

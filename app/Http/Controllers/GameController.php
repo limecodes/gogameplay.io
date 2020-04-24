@@ -26,7 +26,15 @@ class GameController extends Controller
         // On iPhone
         //  -> Check the user's IP and check if mobile carrier values are there
         //  -> If they are not present, then ask the user to switch to cellular network
+        //  -> Check if the IP address changed and do another lookup
         //  -> Have them select their carrier
+
+        // UUID will persist, but IP address may change
+
+        // In order to render the first page, I only need the geolocation to render the list
+        // of carriers, I have two options:
+        // 1. Trust the user to select their own carrier
+        // 2. Do additional checks to ensure that the user is on a cellular connection
 
     	// To make the controller return 422
     	// Later, will show a page with an error
