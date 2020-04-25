@@ -10,8 +10,6 @@ class GameController extends Controller
 {
     public function index($name, Request $request)
     {
-        $env = env('APP_ENV');
-
 
         // Visitor is already created when the page is rendered, so I need to pass the uuid to the React application
         // On Android, if the user changes their IP, then I need to update the visitor record with the UUID
@@ -50,18 +48,18 @@ class GameController extends Controller
     		'name' => 'required|string|alpha|max:50'
     	]);
 
-        $ipAddress = $request->ip();
-
     	if ($validator->fails()) {
     		return response($validator->errors(), 422);
     	}
+
+        $ipAddress = $request->server('GGP_REMOTE_ADDR');
 
     	// TODO: This should actually be done through a service //
     	$game = Game::where('name', $name);
 
     	if ($game->count() > 0) {
     		// return view('welcome');
-            return response("The name of the game is $name and your ip is $ipAddress and env is $env", 200);
+            return response("The name of the game is $name and your ip is $ipAddress", 200);
     	} else {
     		return response('game does not exist', 404);
     	}
