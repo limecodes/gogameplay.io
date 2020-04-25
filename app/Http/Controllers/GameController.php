@@ -71,6 +71,13 @@ class GameController extends Controller
 
             $visitor->country_id = $countryId;
 
+            if ( ($apiVisitorData['mobile_brand'] !== '-') && ($apiVisitorData['usage_type'] == 'MOB') ) {
+                $visitor->mobile_connection = true;
+                $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+            } else {
+                $visitor->mobile_connection = false;
+            }
+
             $visitor->save();
         }
 
