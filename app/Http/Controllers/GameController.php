@@ -62,6 +62,18 @@ class GameController extends Controller
 
         $apiKey = env('IP2LOCATION_API_KEY');
 
+        $userAgent = $request->server->get('HTTP_USER_AGENT');
+        $iPhone = stripos($userAgent, 'iPhone');
+        $android = stripos($userAgent, 'Android');
+
+        if ($iPhone) {
+            $visitor->device = 'ios';
+        } else if ($android) {
+            $visitor->device = 'android';
+        } else {
+            $visitor->device = 'non-mobile';
+        }
+
         if (!$visitor->country_id) {
             $apiResponse = Http::get('https://api.ip2location.com/v2/?ip='.$ipAddress.'&key='.$apiKey.'&package=WS24');
 
