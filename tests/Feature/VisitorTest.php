@@ -18,11 +18,11 @@ class VisitorTest extends TestCase
      */
     public function visitorDataShouldBeRecorded()
     {
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
-        $game = factory(Game::class)->create();
+        // $game = factory(Game::class)->create();
 
-        $response = $this->get('/game/'.$game->name);
+        // $response = $this->get('/game/'.$game->name);
 
         // $this->assertDatabaseHas('visitors', );
     }
@@ -33,10 +33,10 @@ class VisitorTest extends TestCase
      */
     public function visitorIpAddressShouldUpdate()
     {
-        $response = $this->patch('/api/visitor', [
-            'uuid' => $uuid,
-            'ip_address' => $newIpAddress
-        ]);
+        // $response = $this->patch('/api/visitor', [
+        //     'uuid' => $uuid,
+        //     'ip_address' => $newIpAddress
+        // ]);
 
         // $this->assertDatabaseHas('visitors') // Has new ip address
     }

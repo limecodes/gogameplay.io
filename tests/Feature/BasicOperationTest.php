@@ -67,5 +67,6 @@ class BasicOperationTest extends TestCase
         $response = $this->get('/game/'.$game->name);
 
         $response->assertStatus(200);
+        $response->assertSeeText("The name of the game is ".$game->name." and your ip is 127.0.0.1 and env is testing", $escaped = true);
     }
 }
