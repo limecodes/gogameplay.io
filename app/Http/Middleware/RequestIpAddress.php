@@ -15,9 +15,8 @@ class RequestIpAddress
      */
     public function handle($request, Closure $next)
     {
-        if (env('APP_ENV') == 'local') {
-            $correctIp = $request->server('REMOTE_ADDR');
-        } else if (env('APP_ENV') == 'testing') {
+        // I'm not exactly happy doing this way, but it allows me to test locally
+        if ( (env('APP_ENV') == 'local') || (env('APP_ENV') == 'testing') ) {
             $correctIp = env('APP_TEST_IP');
         } else {
             $correctIp = $request->server('REMOTE_ADDR');

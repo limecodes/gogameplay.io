@@ -15,12 +15,10 @@ class CreateVisitorsTable extends Migration
     {
         Schema::create('visitors', function (Blueprint $table) {
             $table->id();
-            $table->integer('sub_id');
             $table->uuid('uid')->unique();
             $table->ipAddress('ip_address')->unique();
-            $table->string('device', 255);
-            $table->string('country', 255);
-            $table->string('country_iso', 255);
+            $table->string('device', 255)->nullable();
+            $table->foreignId('country_id')->nullable();
             $table->timestamps();
         });
     }
