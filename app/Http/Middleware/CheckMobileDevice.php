@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 class CheckMobileDevice
 {
@@ -20,12 +21,12 @@ class CheckMobileDevice
         $android = stripos($userAgent, 'Android');
 
         if ($iPhone) {
-            $request->headers->add('DEVICE', 'ios');
+            $request->headers->add(['DEVICE' => 'ios']);
         } else if ($android) {
-            $request->headers->add('DEVICE', 'android');
+            $request->headers->add(['DEVICE' => 'android']);
         } else {
             // Redirect this to route showing non-mobile offers
-            $request->headers->add('DEVICE', 'non-mobile');
+            $request->headers->add(['DEVICE' => 'non-mobile']);
         }
 
         return $next($request);
