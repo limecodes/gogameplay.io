@@ -49,17 +49,20 @@ class GameController extends Controller
             ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
         );
 
-        if (!$visitor->country_id) {
-            $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
+        $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
 
-            $apiVisitorData = $apiResponse->json();
+        $apiVisitorData = $apiResponse->json();
 
-            $countryId = Country::where('iso_code', strtolower($apiVisitorData['country_code']))->first()->id;
+        $countryId = Country::where('iso_code', strtolower($apiVisitorData['country_code']))->first()->id;
 
-            $visitor->country_id = $countryId;
+        $visitor->country_id = $countryId;
 
-            $visitor->save();
+        if ( ($visitor->mobile_connection === false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
+            $visitor->mobile_connection = true;
+            $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
         }
+
+        $visitor->save();
     }
 
     public function index($name, GameRequest $request)

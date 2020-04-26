@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Game;
+use App\Models\Country;
 
 class BasicOperationTest extends TestCase
 {
@@ -72,6 +73,7 @@ class BasicOperationTest extends TestCase
         $this->withoutExceptionHandling();
 
         $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
 
         $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
 
@@ -89,11 +91,12 @@ class BasicOperationTest extends TestCase
         $this->withoutExceptionHandling();
 
         $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
 
         $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.2']);
         $response->assertStatus(200);
         $response->assertSeeText("The name of the game is ".$game->name." and your ip is 1.1.1.2", $escaped = true);
-        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.2', 'device' => 'non-mobile', 'country_id' => 1]);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.2', 'device' => 'non-mobile']);
     }
 
     /**
@@ -105,9 +108,10 @@ class BasicOperationTest extends TestCase
         $this->withoutExceptionHandling();
 
         $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
 
         $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.3', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
-        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.3', 'device' => 'ios', 'country_id' => 1]);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.3', 'device' => 'ios']);
     }
 
     /**
@@ -119,9 +123,10 @@ class BasicOperationTest extends TestCase
         $this->withoutExceptionHandling();
 
         $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
 
         $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.3', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-A105F) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/11.1 Chrome/75.0.3770.143 Mobile Safari/537.36']);
-        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.3', 'device' => 'android', 'country_id' => 1]);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.3', 'device' => 'android']);
     }
 
     /**
@@ -133,9 +138,10 @@ class BasicOperationTest extends TestCase
         $this->withoutExceptionHandling();
 
         $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
 
         $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.4', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-A105F) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/11.1 Chrome/75.0.3770.143 Mobile Safari/537.36']);
-        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.4', 'device' => 'android', 'mobile_connection' => false, 'country_id' => 1]);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.4', 'device' => 'android', 'mobile_connection' => false]);
     }
 
     /**
@@ -147,9 +153,10 @@ class BasicOperationTest extends TestCase
         $this->withoutExceptionHandling();
 
         $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
 
         $response = $this->post('/game/'.$game->name, ['connection' => '1'], ['HTTP_GGP_TEST_IP' => '1.1.1.5', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-A105F) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/11.1 Chrome/75.0.3770.143 Mobile Safari/537.36']);
-        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.5', 'device' => 'android', 'mobile_connection' => true, 'country_id' => 1]);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.5', 'device' => 'android', 'mobile_connection' => true]);
     }
 
     /**
@@ -158,11 +165,42 @@ class BasicOperationTest extends TestCase
      */
     public function shouldRecordVisitorIOSMobileConnection()
     {
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
 
-        // $game = factory(Game::class)->create();
+        $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
 
-        // $response = $this->post('/game/'.$game->name, ['connection' => 'unknown'], ['HTTP_GGP_TEST_IP' => '1.1.1.6', 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
-        // $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.6', 'device' => 'ios', 'mobile_connection' => false]);
+        $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.6', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.6', 'device' => 'ios', 'mobile_connection' => true, 'carrier_from_data' => 'Vodafone']);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldRecordVisitorIOSWifiConnection()
+    {
+        $this->withoutExceptionHandling();
+
+        $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
+
+        $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.7', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.7', 'device' => 'ios', 'mobile_connection' => false]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldRecordVisitorCountry()
+    {
+        $this->withoutExceptionHandling();
+
+        $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
+
+        $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.8', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.8', 'device' => 'ios', 'mobile_connection' => false, 'country_id' => $country->id]);
     }
 }
