@@ -9,6 +9,7 @@ use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use App\Http\Requests\GameRequest;
 
 class GameController extends Controller
 {
@@ -49,7 +50,7 @@ class GameController extends Controller
         );
     }
 
-    public function index($name, Request $request)
+    public function index($name, GameRequest $request)
     {
     	$validator = Validator::make(['name' => $name], [
     		'name' => 'required|string|alpha|max:50'
@@ -58,6 +59,9 @@ class GameController extends Controller
     	if ($validator->fails()) {
     		return response($validator->errors(), 422);
     	}
+
+        $gameRequestValidated = $request->validated();
+
 
     	$game = Game::where('name', $name);
 
