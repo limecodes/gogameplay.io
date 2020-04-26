@@ -13,35 +13,6 @@ use App\Http\Requests\GameRequest;
 
 class GameController extends Controller
 {
-    private function visitor()
-    {
-        $ipAddress = $request->server('GGP_REMOTE_ADDR');
-
-        $visitor = Visitor::firstOrCreate(['ip_address' => $ipAddress], ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress]);
-
-        $apiKey = env('IP2LOCATION_API_KEY');
-
-        if (!$visitor->country_id) {
-            // TODO: This should actually be done through a service //
-            $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.$apiKey.'&package=WS24');
-
-            $apiVisitorData = $apiResponse->json();
-
-            $countryId = Country::where('iso_code', strtolower($apiVisitorData['country_code']))->first()->id;
-
-            $visitor->country_id = $countryId;
-
-            if ( ($apiVisitorData['mobile_brand'] !== '-') && ($apiVisitorData['usage_type'] == 'MOB') ) {
-                $visitor->mobile_connection = true;
-                $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
-            } else {
-                $visitor->mobile_connection = false;
-            }
-
-            $visitor->save();
-        }
-    }
-
     private function recordVisitor($ipAddress, $device, $connection)
     {
         $visitor = Visitor::firstOrCreate(
