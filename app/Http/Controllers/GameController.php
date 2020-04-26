@@ -42,11 +42,11 @@ class GameController extends Controller
         }
     }
 
-    private function recordVisitor($ipAddress, $device)
+    private function recordVisitor($ipAddress, $device, $connection)
     {
         $visitor = Visitor::firstOrCreate(
             ['ip_address' => $ipAddress],
-            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device]
+            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
         );
     }
 
@@ -62,13 +62,13 @@ class GameController extends Controller
 
         $gameRequestValidated = $request->validated();
 
-
     	$game = Game::where('name', $name);
 
     	if ($game->count() > 0) {
             $ipAddress = $request->server('GGP_REMOTE_ADDR');
             $device = $request->headers->get('device');
-            $this->recordVisitor($ipAddress, $device);
+            $connection = boolval($gameRequestValidated['connection']);
+            $this->recordVisitor($ipAddress, $device, $connection);
 
     		// return view('welcome');
             return response("The name of the game is $name and your ip is $ipAddress", 200);
