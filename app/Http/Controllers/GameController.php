@@ -23,7 +23,7 @@ class GameController extends Controller
 
         if (!$visitor->country_id) {
             // TODO: This should actually be done through a service //
-            $apiResponse = Http::get('https://api.ip2location.com/v2/?ip='.$ipAddress.'&key='.$apiKey.'&package=WS24');
+            $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.$apiKey.'&package=WS24');
 
             $apiVisitorData = $apiResponse->json();
 
@@ -48,6 +48,18 @@ class GameController extends Controller
             ['ip_address' => $ipAddress],
             ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
         );
+
+        if (!$visitor->country_id) {
+            $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
+
+            $apiVisitorData = $apiResponse->json();
+
+            $countryId = Country::where('iso_code', strtolower($apiVisitorData['country_code']))->first()->id;
+
+            $visitor->country_id = $countryId;
+
+            $visitor->save();
+        }
     }
 
     public function index($name, GameRequest $request)
