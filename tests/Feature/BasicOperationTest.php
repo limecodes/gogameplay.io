@@ -156,7 +156,7 @@ class BasicOperationTest extends TestCase
         $country = factory(Country::class)->create();
 
         $response = $this->post('/game/'.$game->name, ['connection' => '1'], ['HTTP_GGP_TEST_IP' => '1.1.1.5', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-A105F) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/11.1 Chrome/75.0.3770.143 Mobile Safari/537.36']);
-        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.5', 'device' => 'android', 'mobile_connection' => true]);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.5', 'device' => 'android', 'mobile_connection' => true, 'carrier_from_data' => null]);
     }
 
     /**

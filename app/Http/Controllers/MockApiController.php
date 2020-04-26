@@ -70,7 +70,7 @@ class MockApiController extends Controller
     			return response()->json($responseWeb, 200);
     			break;
     		case '1.1.1.5':
-    			return response()->json($responseWeb, 200);
+    			return response()->json($responseMobile, 200);
     			break;
     		case '1.1.1.6':
     			return response()->json($responseMobile, 200);
