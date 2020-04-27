@@ -35170,12 +35170,14 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (navigator.connection) {
-        navigator.connection.onchange = this.connectionDidChange.bind(this);
+        navigator.connection.ontypechange = this.connectionDidChange.bind(this);
       }
     }
   }, {
     key: "connectionDidChange",
-    value: function connectionDidChange() {
+    value: function connectionDidChange(e) {
+      console.log('network change', e);
+
       if (navigator.connection.type == 'cellular') {
         this.props.connectionChanged(this.props.visitor.uid);
       }

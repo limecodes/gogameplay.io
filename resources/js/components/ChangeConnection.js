@@ -9,11 +9,12 @@ class ChangeConnection extends Component {
 
 	componentDidMount() {
 		if (navigator.connection) {
-			navigator.connection.onchange = this.connectionDidChange.bind(this);
+			navigator.connection.ontypechange = this.connectionDidChange.bind(this);
 		}
 	}
 
-	connectionDidChange() {
+	connectionDidChange(e) {
+		console.log('network change', e);
 		if (navigator.connection.type == 'cellular') {
 			this.props.connectionChanged(this.props.visitor.uid);
 		}
