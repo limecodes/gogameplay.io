@@ -14,12 +14,10 @@ class ChangeConnection extends Component {
 	}
 
 	connectionDidChange(e) {
-		console.log('network change', e);
+		setTimeout(function() { console.log('wait'); }, 1000);
 		if (navigator.connection.type == 'cellular') {
 			// I hate to do this, but looks like I have to
-			setTimeout(function() {
-				this.props.connectionChanged(this.props.visitor.uid);
-			}, 1000);
+			this.props.connectionChanged(this.props.visitor.uid);
 		}
 	}
 
