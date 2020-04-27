@@ -31,6 +31,8 @@ class GameController extends Controller
         if ( ($visitor->mobile_connection === false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
             $visitor->mobile_connection = true;
             $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+        } else if ($apiVisitorData['mobile_brand'] !== '-') {
+            $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
         }
 
         $visitor->save();
