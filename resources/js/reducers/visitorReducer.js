@@ -19,7 +19,13 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				connection: (action.payload.connection == 1) ? true : false,
-				carrier: action.payload.carrier
+				carrier: action.payload.carrier,
+				error: false
+			}
+		case CONNECTION_CHANGE_FAILURE:
+			return {
+				...state,
+				error: true
 			}
 		default:
 			return state;

@@ -35376,7 +35376,13 @@ var initialState = {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["CONNECTION_CHANGE_SUCCESS"]:
       return _objectSpread({}, state, {
         connection: action.payload.connection == 1 ? true : false,
-        carrier: action.payload.carrier
+        carrier: action.payload.carrier,
+        error: false
+      });
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["CONNECTION_CHANGE_FAILURE"]:
+      return _objectSpread({}, state, {
+        error: true
       });
 
     default:
