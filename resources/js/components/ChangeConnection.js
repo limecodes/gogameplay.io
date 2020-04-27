@@ -14,7 +14,9 @@ class ChangeConnection extends Component {
 	}
 
 	connectionDidChange() {
-		this.props.connectionChanged(this.props.visitor.uid);
+		if (navigator.connection.type == 'cellular') {
+			this.props.connectionChanged(this.props.visitor.uid);
+		}
 	}
 
 	render() {
