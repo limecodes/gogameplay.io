@@ -16,7 +16,10 @@ class ChangeConnection extends Component {
 	connectionDidChange(e) {
 		console.log('network change', e);
 		if (navigator.connection.type == 'cellular') {
-			this.props.connectionChanged(this.props.visitor.uid);
+			// I hate to do this, but looks like I have to
+			this.setTimeout(function() {
+				this.props.connectionChanged(this.props.visitor.uid);
+			}, 1000)
 		}
 	}
 
