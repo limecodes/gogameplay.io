@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class RootComponent extends Component {
+import { connect } from 'react-redux';
 
+import { setVisitorData } from '../actions/visitor';
+
+import ChangeConnection from './ChangeConnection';
+
+class RootComponent extends Component {
+	
+	constructor(props) {
+		super(props);
+		this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true);
+	}
 
 	render() {
 		return (
@@ -11,7 +21,8 @@ class RootComponent extends Component {
 	                <div className="col-md-8">
 	                    <div className="card">
 	                        <div className="card-header">Example Component</div>
-	                        <div className="card-body">placeholder for device</div>
+	                        <ChangeConnection />
+	                        <div className="card-body">{ this.props.visitor.device }</div>
 	                    </div>
 	                </div>
 	            </div>
@@ -20,4 +31,8 @@ class RootComponent extends Component {
 	}
 }
 
-export default RootComponent;
+const mapStateToProps = state => ({
+	visitor: state.visitor
+});
+
+export default connect(mapStateToProps, { setVisitorData })(RootComponent);

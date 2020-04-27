@@ -72,4 +72,9 @@ class GameController extends Controller
     		return response('game does not exist', 404);
     	}
     }
+
+    public function connection(Request $request)
+    {
+        return response()->json([], 200);
+    }
 }

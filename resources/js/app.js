@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import { Provider } from 'react-redux';
+
+import { store } from './store';
+
 import RootComponent from './components/RootComponent';
 
 export default class App extends Component {
 
 	render() {
-
 		return (
-	        <RootComponent />
+			<Provider store={ store }>
+	        	<RootComponent uid={ this.props.uid } device={ this.props.device } connection={ this.props.connection } />
+	        </Provider>
     	);
 	}
 }
