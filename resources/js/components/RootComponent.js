@@ -11,7 +11,7 @@ class RootComponent extends Component {
 	
 	constructor(props) {
 		super(props);
-		this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true);
+		this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true, this.props.carrier);
 	}
 
 	render() {
@@ -22,7 +22,7 @@ class RootComponent extends Component {
 	                    <div className="card">
 	                        <div className="card-header">Example Component</div>
 	                        <ChangeConnection />
-	                        <div className="card-body">{ this.props.visitor.device }</div>
+	                        <div className="card-body">{ this.props.visitor.carrier }</div>
 	                    </div>
 	                </div>
 	            </div>

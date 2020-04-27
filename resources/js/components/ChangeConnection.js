@@ -22,11 +22,11 @@ class ChangeConnection extends Component {
 			return (
 				<div className="alert alert-danger">Please switch to cellular connection</div>
 			);
-		} else if ( (this.props.visitor.device == 'ios') && (!this.props.connection) ) {
+		} else if ( (this.props.visitor.device == 'ios') && (!this.props.visitor.connection) ) {
 			return (
 				<div>
 					<div className="alert alert-danger">Please switch to cellular connection</div>
-					<div className="btn btn-success">I've switched to cellular, Next ></div>
+					<button className="btn btn-success" onClick={ this.connectionDidChange.bind(this) }>I've switched to cellular, Next ></button>
 				</div>
 			);
 		} else {

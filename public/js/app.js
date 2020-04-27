@@ -34942,7 +34942,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var setVisitorData = function setVisitorData(uid, device, connection) {
+var setVisitorData = function setVisitorData(uid, device, connection, carrier) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -34954,7 +34954,8 @@ var setVisitorData = function setVisitorData(uid, device, connection) {
                 payload: {
                   uid: uid,
                   device: device,
-                  connection: connection
+                  connection: connection,
+                  carrier: carrier
                 }
               });
 
@@ -35085,7 +35086,8 @@ var App = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_RootComponent__WEBPACK_IMPORTED_MODULE_4__["default"], {
         uid: this.props.uid,
         device: this.props.device,
-        connection: this.props.connection
+        connection: this.props.connection,
+        carrier: this.props.carrier
       }));
     }
   }]);
@@ -35100,10 +35102,12 @@ if (document.getElementById('app')) {
   var uid = elem.getAttribute('data-uid');
   var device = elem.getAttribute('data-device');
   var connection = elem.getAttribute('data-connection');
+  var carrier = elem.getAttribute('data-carrier');
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, {
     uid: uid,
     device: device,
-    connection: connection
+    connection: connection,
+    carrier: carrier
   }), elem);
 }
 
@@ -35181,11 +35185,12 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-danger"
         }, "Please switch to cellular connection");
-      } else if (this.props.visitor.device == 'ios' && !this.props.connection) {
+      } else if (this.props.visitor.device == 'ios' && !this.props.visitor.connection) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-danger"
-        }, "Please switch to cellular connection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "btn btn-success"
+        }, "Please switch to cellular connection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn btn-success",
+          onClick: this.connectionDidChange.bind(this)
         }, "I've switched to cellular, Next >"));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
@@ -35264,7 +35269,7 @@ var RootComponent = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
 
-    _this.props.setVisitorData(_this.props.uid, _this.props.device, _this.props.connection == "" ? false : true);
+    _this.props.setVisitorData(_this.props.uid, _this.props.device, _this.props.connection == "" ? false : true, _this.props.carrier);
 
     return _this;
   }
@@ -35284,7 +35289,7 @@ var RootComponent = /*#__PURE__*/function (_Component) {
         className: "card-header"
       }, "Example Component"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, this.props.visitor.device)))));
+      }, this.props.visitor.carrier)))));
     }
   }]);
 
@@ -35347,6 +35352,12 @@ var initialState = [];
   switch (action.type) {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_VISITOR_STATE"]:
       return _objectSpread({}, action.payload);
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["CONNECTION_CHANGE_SUCCESS"]:
+      return _objectSpread({}, state, {
+        connection: action.payload.connection == 1 ? true : false,
+        carrier: action.payload.carrier
+      });
 
     default:
       return state;

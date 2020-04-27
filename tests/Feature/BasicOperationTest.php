@@ -218,7 +218,7 @@ class BasicOperationTest extends TestCase
 
         $visitor = Visitor::where('ip_address', '1.1.1.4')->first();
 
-        $response = $this->post('/api/connectionchanged', ['uid' => $visitor->uid]);
-        $response->assertStatus(200);
+        $response = $this->post('/api/connectionchanged', ['uid' => $visitor->uid], ['HTTP_GGP_TEST_IP' => '1.1.1.5', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-A105F) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/11.1 Chrome/75.0.3770.143 Mobile Safari/537.36']);
+        $this->assertDatabaseHas('visitors', ['uid' => $visitor->uid, 'ip_address' => '1.1.1.5', 'mobile_connection' => true, 'carrier_from_data' => 'Vodafone']);
     }
 }

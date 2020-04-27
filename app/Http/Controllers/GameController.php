@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Http\Requests\GameRequest;
+use App\Http\Requests\ConnectionRequest;
+use App\Http\Resources\ConnectionResource;
 
 class GameController extends Controller
 {
@@ -28,7 +30,7 @@ class GameController extends Controller
 
         $visitor->country_id = $countryId;
 
-        if ( ($visitor->mobile_connection === false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
+        if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
             $visitor->mobile_connection = true;
             $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
         } else if ($apiVisitorData['mobile_brand'] !== '-') {
@@ -65,16 +67,35 @@ class GameController extends Controller
             $uid = $visitor->uid;
             $device = $visitor->device;
             $connection = boolval($visitor->mobile_connection);
+            $carrier = $visitor->carrier_from_data;
 
-    		return view('game', ['name' => $gameName, 'uid' => $uid, 'device' => $device, 'connection' => $connection]);
+    		return view('game', ['name' => $gameName, 'uid' => $uid, 'device' => $device, 'connection' => $connection, 'carrier' => $carrier]);
             // return response("The name of the game is $name and your ip is $ipAddress", 200);
     	} else {
     		return response('game does not exist', 404);
     	}
     }
 
-    public function connection(Request $request)
+    public function connection(ConnectionRequest $request)
     {
-        return response()->json([], 200);
+        $connectionRequestValidated = $request->validated();
+
+        $ipAddress = $request->server('GGP_REMOTE_ADDR');
+
+        $visitor = Visitor::where('uid', $connectionRequestValidated['uid'])->first();
+
+        $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
+
+        $apiVisitorData = $apiResponse->json();
+
+        if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
+            $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
+            $visitor->mobile_connection = true;
+            $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+
+            $visitor->save();
+        }
+
+        return response()->json(new ConnectionResource($visitor), 200);
     }
 }

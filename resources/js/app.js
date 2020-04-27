@@ -12,7 +12,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<Provider store={ store }>
-	        	<RootComponent uid={ this.props.uid } device={ this.props.device } connection={ this.props.connection } />
+	        	<RootComponent uid={ this.props.uid } device={ this.props.device } connection={ this.props.connection } carrier={ this.props.carrier } />
 	        </Provider>
     	);
 	}
@@ -23,6 +23,7 @@ if (document.getElementById('app')) {
 	var uid = elem.getAttribute('data-uid');
 	var device = elem.getAttribute('data-device');
 	var connection = elem.getAttribute('data-connection');
+	var carrier = elem.getAttribute('data-carrier')
 
-    ReactDOM.render(<App uid={ uid } device={ device } connection={ connection } />, elem);
+    ReactDOM.render(<App uid={ uid } device={ device } connection={ connection } carrier={ carrier } />, elem);
 }
