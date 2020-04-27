@@ -34,6 +34,8 @@ class GameController extends Controller
         }
 
         $visitor->save();
+
+        return $visitor;
     }
 
     public function index($name, GameRequest $request)
@@ -54,10 +56,14 @@ class GameController extends Controller
             $ipAddress = $request->server('GGP_REMOTE_ADDR');
             $device = $request->headers->get('device');
             $connection = boolval($gameRequestValidated['connection']);
-            $this->recordVisitor($ipAddress, $device, $connection);
+            $visitor = $this->recordVisitor($ipAddress, $device, $connection);
 
-    		// return view('welcome');
-            return response("The name of the game is $name and your ip is $ipAddress", 200);
+            $gameName = $game->first()->name;
+
+            $uid = $visitor->uid;
+
+    		return view('game', ['name' => $gameName, 'uid' => $uid]);
+            // return response("The name of the game is $name and your ip is $ipAddress", 200);
     	} else {
     		return response('game does not exist', 404);
     	}
