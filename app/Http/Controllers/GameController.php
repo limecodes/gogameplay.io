@@ -63,8 +63,10 @@ class GameController extends Controller
             $gameName = $game->first()->name;
 
             $uid = $visitor->uid;
+            $device = $visitor->device;
+            $connection = boolval($visitor->mobile_connection);
 
-    		return view('game', ['name' => $gameName, 'uid' => $uid]);
+    		return view('game', ['name' => $gameName, 'uid' => $uid, 'device' => $device, 'connection' => $connection]);
             // return response("The name of the game is $name and your ip is $ipAddress", 200);
     	} else {
     		return response('game does not exist', 404);

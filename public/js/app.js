@@ -28640,22 +28640,58 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var App = /*#__PURE__*/function (_Component) {
-  _inherits(App, _Component);
+var ChangeConnection = /*#__PURE__*/function (_Component) {
+  _inherits(ChangeConnection, _Component);
 
-  var _super = _createSuper(App);
+  var _super = _createSuper(ChangeConnection);
 
-  function App() {
-    _classCallCheck(this, App);
+  function ChangeConnection() {
+    _classCallCheck(this, ChangeConnection);
 
     return _super.apply(this, arguments);
+  }
+
+  _createClass(ChangeConnection, [{
+    key: "render",
+    value: function render() {
+      if (this.props.device == 'android' && !this.props.connection) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "alert alert-danger"
+        }, "Please switch to cellular connection");
+      } else if (this.props.device == 'ios' && !this.props.connection) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "btn btn-danger"
+        }, "Please switch to cellular connection >");
+      }
+    }
+  }]);
+
+  return ChangeConnection;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var App = /*#__PURE__*/function (_Component2) {
+  _inherits(App, _Component2);
+
+  var _super2 = _createSuper(App);
+
+  function App(props) {
+    _classCallCheck(this, App);
+
+    return _super2.call(this, props);
   }
 
   _createClass(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       console.log('mounted', this.props);
-      console.log('navigator', navigator);
+
+      if (navigator.connection) {
+        navigator.connection.onchange = this.onChangeConnection.bind(this);
+      }
+    }
+  }, {
+    key: "onChangeConnection",
+    value: function onChangeConnection() {// call uid => /api/connectionchanged
     }
   }, {
     key: "render",
@@ -28670,9 +28706,12 @@ var App = /*#__PURE__*/function (_Component) {
         className: "card"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
-      }, "Example Component"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Example Component"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ChangeConnection, {
+        device: this.props.device,
+        connection: this.props.connection
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, "I'm an example component!")))));
+      }, this.props.device)))));
     }
   }]);
 
@@ -28684,8 +28723,12 @@ var App = /*#__PURE__*/function (_Component) {
 if (document.getElementById('app')) {
   var elem = document.getElementById('app');
   var uid = elem.getAttribute('data-uid');
+  var device = elem.getAttribute('data-device');
+  var connection = elem.getAttribute('data-connection');
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, {
-    uid: uid
+    uid: uid,
+    device: device,
+    connection: connection
   }), elem);
 }
 
