@@ -9,7 +9,19 @@ class ChangeConnection extends Component {
 
 	componentDidMount() {
 		if (navigator.connection) {
-			navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+			// Commenting this for now.
+			//navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+		}
+
+		window.addEventListener('online', this.connectivityChange.bind(this));
+		window.addEventListener('offline', this.connectivityChange.bind(this));
+	}
+
+	connectivityChange() {
+		if (navigator.onLine) {
+			console.log('connection regained');
+		} else {
+			console.log('connection lost');
 		}
 	}
 
@@ -20,6 +32,8 @@ class ChangeConnection extends Component {
 			this.props.connectionChanged(this.props.visitor.uid);
 		}
 	}
+
+
 
 	render() {
 		if ( (this.props.visitor.device == 'android') && (!this.props.visitor.connection) ) {

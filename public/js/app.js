@@ -35169,8 +35169,20 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
   _createClass(ChangeConnection, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (navigator.connection) {
-        navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+      if (navigator.connection) {// Commenting this for now.
+        //navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+      }
+
+      window.addEventListener('online', this.connectivityChange.bind(this));
+      window.addEventListener('offline', this.connectivityChange.bind(this));
+    }
+  }, {
+    key: "connectivityChange",
+    value: function connectivityChange() {
+      if (navigator.onLine) {
+        console.log('connection regained');
+      } else {
+        console.log('connection lost');
       }
     }
   }, {
