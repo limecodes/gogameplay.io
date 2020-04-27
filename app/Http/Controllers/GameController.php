@@ -78,6 +78,8 @@ class GameController extends Controller
 
     public function connection(ConnectionRequest $request)
     {
+        // BUG: Duplicate entry when trying to update if the user has been on the site before
+        //      It's not grabbing the uid by previously used ip address
         $connectionRequestValidated = $request->validated();
 
         $ipAddress = $request->server('GGP_REMOTE_ADDR');
