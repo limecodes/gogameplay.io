@@ -11,8 +11,7 @@ class RootComponent extends Component {
 	                <div className="col-md-8">
 	                    <div className="card">
 	                        <div className="card-header">Example Component</div>
-	                        <ChangeConnection device={ this.props.device } connection={ this.props.connection } />
-	                        <div className="card-body">{ this.props.device }</div>
+	                        <div className="card-body">placeholder for device</div>
 	                    </div>
 	                </div>
 	            </div>
