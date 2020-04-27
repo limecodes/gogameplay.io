@@ -32,7 +32,10 @@ export const connectionChanged = (uid) => async dispatch => {
 		});
 	} catch (error) {
 		dispatch({
-			type: CONNECTION_CHANGE_FAILURE
+			type: CONNECTION_CHANGE_FAILURE,
+			payload: {
+				error: true
+			}
 		});
 	}
 }

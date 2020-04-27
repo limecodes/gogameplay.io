@@ -35003,7 +35003,10 @@ var connectionChanged = function connectionChanged(uid) {
               _context2.prev = 9;
               _context2.t0 = _context2["catch"](1);
               dispatch({
-                type: _types__WEBPACK_IMPORTED_MODULE_1__["CONNECTION_CHANGE_FAILURE"]
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["CONNECTION_CHANGE_FAILURE"],
+                payload: {
+                  error: true
+                }
               });
 
             case 12:
@@ -35169,29 +35172,21 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
   _createClass(ChangeConnection, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (navigator.connection) {// Commenting this for now.
-        //navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+      if (navigator.connection) {
+        // Commenting this for now.
+        navigator.connection.ontypechange = this.connectionDidChange.bind(this);
       }
-
-      window.addEventListener('online', this.connectivityChange.bind(this));
-      window.addEventListener('offline', this.connectivityChange.bind(this));
     }
   }, {
-    key: "connectivityChange",
-    value: function connectivityChange() {
-      if (navigator.onLine) {
-        console.log('connection regained');
-      } else {
-        console.log('connection lost');
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
+        this.props.connectionChanged(this.props.visitor.uid);
       }
     }
   }, {
     key: "connectionDidChange",
     value: function connectionDidChange(e) {
-      setTimeout(function () {
-        console.log('wait');
-      }, 1000);
-
       if (navigator.connection.type == 'cellular') {
         // I hate to do this, but looks like I have to
         this.props.connectionChanged(this.props.visitor.uid);
@@ -35363,14 +35358,20 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-var initialState = [];
+var initialState = {
+  uid: null,
+  device: null,
+  connection: null,
+  carrier: null,
+  error: false
+};
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_VISITOR_STATE"]:
-      return _objectSpread({}, action.payload);
+      return _objectSpread({}, state, {}, action.payload);
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["CONNECTION_CHANGE_SUCCESS"]:
       return _objectSpread({}, state, {

@@ -10,23 +10,17 @@ class ChangeConnection extends Component {
 	componentDidMount() {
 		if (navigator.connection) {
 			// Commenting this for now.
-			//navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+			navigator.connection.ontypechange = this.connectionDidChange.bind(this);
 		}
-
-		window.addEventListener('online', this.connectivityChange.bind(this));
-		window.addEventListener('offline', this.connectivityChange.bind(this));
 	}
 
-	connectivityChange() {
-		if (navigator.onLine) {
-			console.log('connection regained');
-		} else {
-			console.log('connection lost');
+	componentDidUpdate(prevProps) {
+		if ( (this.props.visitor.error !== prevProps.visitor.error) && (this.props.visitor.error) ) {
+			this.props.connectionChanged(this.props.visitor.uid);
 		}
 	}
 
 	connectionDidChange(e) {
-		setTimeout(function() { console.log('wait'); }, 1000);
 		if (navigator.connection.type == 'cellular') {
 			// I hate to do this, but looks like I have to
 			this.props.connectionChanged(this.props.visitor.uid);
