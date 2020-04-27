@@ -35176,7 +35176,9 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
   }, {
     key: "connectionDidChange",
     value: function connectionDidChange() {
-      this.props.connectionChanged(this.props.visitor.uid);
+      if (navigator.connection.type == 'cellular') {
+        this.props.connectionChanged(this.props.visitor.uid);
+      }
     }
   }, {
     key: "render",
