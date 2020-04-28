@@ -44589,13 +44589,14 @@ var validateCarrier = function validateCarrier() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/visitor.js ***!
   \*****************************************/
-/*! exports provided: setVisitorData, connectionChanged */
+/*! exports provided: setVisitorData, connectionChanged, updateVisitorCarrier */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setVisitorData", function() { return setVisitorData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectionChanged", function() { return connectionChanged; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateVisitorCarrier", function() { return updateVisitorCarrier; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/actions/types.js");
@@ -44665,10 +44666,7 @@ var connectionChanged = function connectionChanged(uid) {
                 dispatch({
                   type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST"],
                   payload: response.data.carriers_by_country
-                }); // payload = {
-                // 	connection: response.data.visitor.connection,
-                // 	carrier: false
-                // }
+                });
               } else {
                 payload = response.data;
                 dispatch({
@@ -44700,6 +44698,54 @@ var connectionChanged = function connectionChanged(uid) {
 
     return function (_x2) {
       return _ref2.apply(this, arguments);
+    };
+  }();
+};
+var updateVisitorCarrier = function updateVisitorCarrier(uid, carrier) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(dispatch) {
+      var response, payload;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_VISITOR_CARRIER_START"]
+              });
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/updatecarrier', {
+                uid: uid,
+                carrier: carrier
+              });
+
+            case 4:
+              response = _context3.sent;
+              payload = response.data;
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_VISITOR_CARRIER_SUCCESS"],
+                payload: payload
+              });
+              _context3.next = 12;
+              break;
+
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](1);
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_VISITOR_CARRIER_FAIL"]
+              });
+
+            case 12:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 9]]);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
     };
   }();
 };
@@ -45890,6 +45936,12 @@ var initialState = {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["CONNECTION_CHANGE_FAILURE"]:
       return _objectSpread({}, state, {
         error: true
+      });
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["UPDATE_VISITOR_CARRIER_SUCCESS"]:
+      return _objectSpread({}, state, {
+        carrier: action.payload.carrier,
+        error: false
       });
 
     default:

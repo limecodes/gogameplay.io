@@ -38,10 +38,6 @@ export const connectionChanged = (uid) => async dispatch => {
 				type: RECEIVED_CARRIER_LIST,
 				payload: response.data.carriers_by_country
 			});
-			// payload = {
-			// 	connection: response.data.visitor.connection,
-			// 	carrier: false
-			// }
 		} else {
 			const payload = response.data;
 
@@ -57,6 +53,30 @@ export const connectionChanged = (uid) => async dispatch => {
 			payload: {
 				error: true
 			}
+		});
+	}
+}
+
+export const updateVisitorCarrier = (uid, carrier) => async dispatch => {
+	dispatch({
+		type: UPDATE_VISITOR_CARRIER_START
+	});
+
+	try {
+		const response = await axios.post('/api/updatecarrier', {
+			uid: uid,
+			carrier: carrier
+		});
+
+		const payload = response.data;
+
+		dispatch({
+			type: UPDATE_VISITOR_CARRIER_SUCCESS,
+			payload: payload
+		});
+	} catch (error) {
+		dispatch({
+			type: UPDATE_VISITOR_CARRIER_FAIL
 		});
 	}
 }

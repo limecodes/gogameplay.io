@@ -245,4 +245,22 @@ class BasicOperationTest extends TestCase
             ])
             ->assertJsonPath('visitor.carrier', false);
     }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldUpdateVisitorCarrierAndReturnCarrier()
+    {
+        $this->withoutExceptionHandling();
+
+        $game = factory(Game::class)->create();
+        $country = factory(Country::class)->create();
+
+        $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.7', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
+
+        $visitor = Visitor::where('ip_address', '1.1.1.7')->first();
+        $response = $this->post('/api/updatecarrier', ['uid' => $visitor->uid], ['HTTP_GGP_TEST_IP' => '1.1.1.9', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
+        $response->assertOk();
+    }
 }

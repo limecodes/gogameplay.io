@@ -124,4 +124,9 @@ class GameController extends Controller
 
         return response()->json($response, 200);
     }
+
+    public function carrier(CarrierRequest $request)
+    {
+        $carrierRequestValidated = $request->validated();
+    }
 }

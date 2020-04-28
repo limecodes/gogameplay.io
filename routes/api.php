@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/mock', 'MockApiController@index');
 Route::post('/connectionchanged', 'GameController@connection');
+Route::post('/updatecarrier', 'GameController@carrier');

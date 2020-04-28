@@ -1,4 +1,4 @@
-import { SET_VISITOR_STATE, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE } from '../actions/types';
+import { SET_VISITOR_STATE, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, UPDATE_VISITOR_CARRIER_SUCCESS } from '../actions/types';
 
 const initialState = {
 	uid: null,
@@ -26,6 +26,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				error: true
+			}
+		case UPDATE_VISITOR_CARRIER_SUCCESS:
+			return {
+				...state,
+				carrier: action.payload.carrier,
+				error: false
 			}
 		default:
 			return state;
