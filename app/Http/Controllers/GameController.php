@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Http\Requests\GameRequest;
 use App\Http\Requests\ConnectionRequest;
+use App\Http\Requests\CarrierRequest;
 use App\Http\Resources\ConnectionResource;
 use App\Http\Resources\CarrierResource;
 
@@ -128,5 +129,14 @@ class GameController extends Controller
     public function carrier(CarrierRequest $request)
     {
         $carrierRequestValidated = $request->validated();
+
+        $visitor = Visitor::where('uid', $carrierRequestValidated['uid'])->first();
+
+        // TODO: Should I really do carrier_from_data or create another column for user entered carrier
+        $visitor->carrier_from_data = $carrierRequestValidated['carrier'];
+
+        $visitor->save();
+
+        return response()->json(new ConnectionResource($visitor), 200);
     }
 }
