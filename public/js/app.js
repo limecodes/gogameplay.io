@@ -44485,7 +44485,7 @@ module.exports = function(module) {
 /*!***************************************!*\
   !*** ./resources/js/actions/types.js ***!
   \***************************************/
-/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECEIVED_CARRIER_LIST */
+/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECEIVED_CARRIER_LIST, UPDATE_VISITOR_CARRIER_START, UPDATE_VISITOR_CARRIER_SUCCESS, UPDATE_VISITOR_CARRIER_FAIL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44497,6 +44497,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATE_PLATFORM", function() { return VALIDATE_PLATFORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATE_CARRIER", function() { return VALIDATE_CARRIER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVED_CARRIER_LIST", function() { return RECEIVED_CARRIER_LIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_START", function() { return UPDATE_VISITOR_CARRIER_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_SUCCESS", function() { return UPDATE_VISITOR_CARRIER_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_FAIL", function() { return UPDATE_VISITOR_CARRIER_FAIL; });
 var SET_VISITOR_STATE = 'SET_VISITOR_STATE';
 var CONNECTION_CHANGE_START = 'CONNECTION_CHANGE_START';
 var CONNECTION_CHANGE_SUCCESS = 'CONNECTION_CHANGE_SUCCESS';
@@ -44504,6 +44507,9 @@ var CONNECTION_CHANGE_FAILURE = 'CONNECTION_CHANGE_FAILURE';
 var VALIDATE_PLATFORM = 'VALIDATE_PLATFORM';
 var VALIDATE_CARRIER = 'VALIDATE_CARRIER';
 var RECEIVED_CARRIER_LIST = 'RECEIVED_CARRIER_LIST';
+var UPDATE_VISITOR_CARRIER_START = 'UPDATE_VISITOR_CARRIER_START';
+var UPDATE_VISITOR_CARRIER_SUCCESS = 'UPDATE_VISITOR_CARRIER_SUCCESS';
+var UPDATE_VISITOR_CARRIER_FAIL = 'UPDATE_VISITOR_CARRIER_FAIL';
 
 /***/ }),
 
@@ -44920,6 +44926,33 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
+/***/ "./resources/js/components/CarrierList.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/CarrierList.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var CarrierList = function CarrierList(_ref) {
+  var carriers = _ref.carriers;
+  return carriers.map(function (carrier, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: i,
+      name: carrier.name
+    }, carrier.name);
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CarrierList);
+
+/***/ }),
+
 /***/ "./resources/js/components/ChangeConnection.js":
 /*!*****************************************************!*\
   !*** ./resources/js/components/ChangeConnection.js ***!
@@ -44935,6 +44968,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_visitor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/visitor */ "./resources/js/actions/visitor.js");
+/* harmony import */ var _CarrierList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CarrierList */ "./resources/js/components/CarrierList.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44956,6 +44990,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -45015,12 +45050,24 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
       this.props.connectionChanged(this.props.visitor.uid);
     }
   }, {
+    key: "carrierHandleChange",
+    value: function carrierHandleChange(e) {
+      // TODO: Should show loading thing if it's updating the backend
+      var selectedCarrier = e.target.value;
+    }
+  }, {
     key: "render",
     value: function render() {
       if (this.props.carriers instanceof Array) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-primary"
-        }, "Select your carrier");
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+          onChange: function onChange(e) {
+            return console.log('carrier change', e.target.value);
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Select your mobile carrier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CarrierList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          carriers: this.props.carriers
+        })));
       } else if (this.props.visitor.device == 'android' && !this.props.visitor.connection) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-danger"

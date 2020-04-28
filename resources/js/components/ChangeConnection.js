@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { connectionChanged } from '../actions/visitor';
 
+import CarrierList from './CarrierList';
+
 class ChangeConnection extends Component {
 
 	componentDidMount() {
@@ -43,11 +45,21 @@ class ChangeConnection extends Component {
 		this.props.connectionChanged(this.props.visitor.uid);
 	}
 
-
+	carrierHandleChange(e) {
+		// TODO: Should show loading thing if it's updating the backend
+		const selectedCarrier = e.target.value;
+	}
 
 	render() {
 		if (this.props.carriers instanceof Array) {
-			return <div className="alert alert-primary">Select your carrier</div>;
+			return (
+				<div className="alert alert-primary">
+					<select onChange={(e) => console.log('carrier change', e.target.value) }>
+						<option>Select your mobile carrier</option>
+						<CarrierList carriers={ this.props.carriers } />
+					</select>
+				</div>
+			);
 		} else if ( (this.props.visitor.device == 'android') && (!this.props.visitor.connection) ) {
 			return (
 				<div className="alert alert-danger">Please switch to cellular connection</div>
