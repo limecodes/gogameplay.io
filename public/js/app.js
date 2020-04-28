@@ -44485,7 +44485,7 @@ module.exports = function(module) {
 /*!***************************************!*\
   !*** ./resources/js/actions/types.js ***!
   \***************************************/
-/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECEIVED_CARRIER_LIST */
+/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECEIVED_CARRIER_LIST, UPDATE_VISITOR_CARRIER_START, UPDATE_VISITOR_CARRIER_SUCCESS, UPDATE_VISITOR_CARRIER_FAIL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44497,6 +44497,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATE_PLATFORM", function() { return VALIDATE_PLATFORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATE_CARRIER", function() { return VALIDATE_CARRIER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVED_CARRIER_LIST", function() { return RECEIVED_CARRIER_LIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_START", function() { return UPDATE_VISITOR_CARRIER_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_SUCCESS", function() { return UPDATE_VISITOR_CARRIER_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_FAIL", function() { return UPDATE_VISITOR_CARRIER_FAIL; });
 var SET_VISITOR_STATE = 'SET_VISITOR_STATE';
 var CONNECTION_CHANGE_START = 'CONNECTION_CHANGE_START';
 var CONNECTION_CHANGE_SUCCESS = 'CONNECTION_CHANGE_SUCCESS';
@@ -44504,6 +44507,9 @@ var CONNECTION_CHANGE_FAILURE = 'CONNECTION_CHANGE_FAILURE';
 var VALIDATE_PLATFORM = 'VALIDATE_PLATFORM';
 var VALIDATE_CARRIER = 'VALIDATE_CARRIER';
 var RECEIVED_CARRIER_LIST = 'RECEIVED_CARRIER_LIST';
+var UPDATE_VISITOR_CARRIER_START = 'UPDATE_VISITOR_CARRIER_START';
+var UPDATE_VISITOR_CARRIER_SUCCESS = 'UPDATE_VISITOR_CARRIER_SUCCESS';
+var UPDATE_VISITOR_CARRIER_FAIL = 'UPDATE_VISITOR_CARRIER_FAIL';
 
 /***/ }),
 
@@ -44583,13 +44589,14 @@ var validateCarrier = function validateCarrier() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/visitor.js ***!
   \*****************************************/
-/*! exports provided: setVisitorData, connectionChanged */
+/*! exports provided: setVisitorData, connectionChanged, updateVisitorCarrier */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setVisitorData", function() { return setVisitorData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectionChanged", function() { return connectionChanged; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateVisitorCarrier", function() { return updateVisitorCarrier; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/actions/types.js");
@@ -44659,10 +44666,7 @@ var connectionChanged = function connectionChanged(uid) {
                 dispatch({
                   type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST"],
                   payload: response.data.carriers_by_country
-                }); // payload = {
-                // 	connection: response.data.visitor.connection,
-                // 	carrier: false
-                // }
+                });
               } else {
                 payload = response.data;
                 dispatch({
@@ -44694,6 +44698,54 @@ var connectionChanged = function connectionChanged(uid) {
 
     return function (_x2) {
       return _ref2.apply(this, arguments);
+    };
+  }();
+};
+var updateVisitorCarrier = function updateVisitorCarrier(uid, carrier) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(dispatch) {
+      var response, payload;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_VISITOR_CARRIER_START"]
+              });
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/updatecarrier', {
+                uid: uid,
+                carrier: carrier
+              });
+
+            case 4:
+              response = _context3.sent;
+              payload = response.data;
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_VISITOR_CARRIER_SUCCESS"],
+                payload: payload
+              });
+              _context3.next = 12;
+              break;
+
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](1);
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_VISITOR_CARRIER_FAIL"]
+              });
+
+            case 12:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 9]]);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
     };
   }();
 };
@@ -44920,6 +44972,33 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
+/***/ "./resources/js/components/CarrierList.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/CarrierList.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var CarrierList = function CarrierList(_ref) {
+  var carriers = _ref.carriers;
+  return carriers.map(function (carrier, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: i,
+      name: carrier.name
+    }, carrier.name);
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CarrierList);
+
+/***/ }),
+
 /***/ "./resources/js/components/ChangeConnection.js":
 /*!*****************************************************!*\
   !*** ./resources/js/components/ChangeConnection.js ***!
@@ -44935,6 +45014,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_visitor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/visitor */ "./resources/js/actions/visitor.js");
+/* harmony import */ var _CarrierList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CarrierList */ "./resources/js/components/CarrierList.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44962,6 +45042,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var ChangeConnection = /*#__PURE__*/function (_Component) {
   _inherits(ChangeConnection, _Component);
 
@@ -44977,28 +45058,24 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (navigator.connection) {
-        // Commenting this for now.
         if (_typeof(navigator.connection.ontypechange) == 'object') {
           navigator.connection.ontypechange = this.connectionDidChange.bind(this);
-        } else if (_typeof(navigator.connection.onchange) == 'object') {
-          // TODO: Remove this after front-end is done
-          navigator.connection.onchange = this.connectionOnChange.bind(this);
         }
       }
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
+      var self = this;
+
       if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
+        console.log('Attempting one more time');
         this.props.connectionChanged(this.props.visitor.uid);
       }
-    } // TODO: Remove this after front-end is done
 
-  }, {
-    key: "connectionOnChange",
-    value: function connectionOnChange(e) {
-      console.log('connection on change');
-      this.props.connectionChanged(this.props.visitor.uid);
+      if (this.props.visitor.error == prevProps.visitor.error) {
+        console.log('Failed even after re-try');
+      }
     }
   }, {
     key: "connectionDidChange",
@@ -45013,12 +45090,27 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
       this.props.connectionChanged(this.props.visitor.uid);
     }
   }, {
+    key: "carrierHandleChange",
+    value: function carrierHandleChange(e) {
+      // TODO: Should show loading thing if it's updating the backend
+      var selectedCarrier = e.target.value;
+      this.props.updateVisitorCarrier(this.props.visitor.uid, selectedCarrier);
+    }
+  }, {
     key: "render",
     value: function render() {
-      if (this.props.carriers instanceof Array) {
+      if (this.props.carriers instanceof Array && !this.props.visitor.carrier) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-primary"
-        }, "Select your carrier");
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+          onChange: this.carrierHandleChange.bind(this)
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Select your mobile carrier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CarrierList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          carriers: this.props.carriers
+        })));
+      } else if (this.props.visitor.carrier) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "alert alert-success"
+        }, this.props.visitor.carrier);
       } else if (this.props.visitor.device == 'android' && !this.props.visitor.connection) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-danger"
@@ -45049,7 +45141,8 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  connectionChanged: _actions_visitor__WEBPACK_IMPORTED_MODULE_3__["connectionChanged"]
+  connectionChanged: _actions_visitor__WEBPACK_IMPORTED_MODULE_3__["connectionChanged"],
+  updateVisitorCarrier: _actions_visitor__WEBPACK_IMPORTED_MODULE_3__["updateVisitorCarrier"]
 })(ChangeConnection));
 
 /***/ }),
@@ -45364,8 +45457,6 @@ var RootComponent = /*#__PURE__*/function (_Component) {
   _createClass(RootComponent, [{
     key: "render",
     value: function render() {
-      var platformImage = 'http://static.offers.gogameplay.io/images/' + this.props.visitor.device + '.png';
-
       if (this.props.validation.platform && this.props.validation.carrier && this.props.validation.search) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "container"
@@ -45841,6 +45932,12 @@ var initialState = {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["CONNECTION_CHANGE_FAILURE"]:
       return _objectSpread({}, state, {
         error: true
+      });
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["UPDATE_VISITOR_CARRIER_SUCCESS"]:
+      return _objectSpread({}, state, {
+        carrier: action.payload.carrier,
+        error: false
       });
 
     default:

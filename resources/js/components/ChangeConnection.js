@@ -3,32 +3,31 @@ import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux';
 
-import { connectionChanged } from '../actions/visitor';
+import { connectionChanged, updateVisitorCarrier } from '../actions/visitor';
+
+import CarrierList from './CarrierList';
 
 class ChangeConnection extends Component {
 
 	componentDidMount() {
 		if (navigator.connection) {
-			// Commenting this for now.
 			if (typeof navigator.connection.ontypechange == 'object') {
 				navigator.connection.ontypechange = this.connectionDidChange.bind(this);
-			} else if (typeof navigator.connection.onchange == 'object') {
-				// TODO: Remove this after front-end is done
-				navigator.connection.onchange = this.connectionOnChange.bind(this);
 			}
 		}
 	}
 
 	componentDidUpdate(prevProps) {
+		var self = this;
+
 		if ( (this.props.visitor.error !== prevProps.visitor.error) && (this.props.visitor.error) ) {
+			console.log('Attempting one more time');
 			this.props.connectionChanged(this.props.visitor.uid);
 		}
-	}
 
-	// TODO: Remove this after front-end is done
-	connectionOnChange(e) {
-		console.log('connection on change');
-		this.props.connectionChanged(this.props.visitor.uid);
+		if (this.props.visitor.error == prevProps.visitor.error) {
+			console.log('Failed even after re-try');
+		}
 	}
 
 	connectionDidChange(e) {
@@ -41,11 +40,25 @@ class ChangeConnection extends Component {
 		this.props.connectionChanged(this.props.visitor.uid);
 	}
 
+	carrierHandleChange(e) {
+		// TODO: Should show loading thing if it's updating the backend
+		const selectedCarrier = e.target.value;
 
+		this.props.updateVisitorCarrier(this.props.visitor.uid, selectedCarrier);
+	}
 
 	render() {
-		if (this.props.carriers instanceof Array) {
-			return <div className="alert alert-primary">Select your carrier</div>;
+		if ( (this.props.carriers instanceof Array) && (!this.props.visitor.carrier) ) {
+			return (
+				<div className="alert alert-primary">
+					<select onChange={ this.carrierHandleChange.bind(this) }>
+						<option>Select your mobile carrier</option>
+						<CarrierList carriers={ this.props.carriers } />
+					</select>
+				</div>
+			);
+		} else if (this.props.visitor.carrier) {
+			return <div className="alert alert-success">{ this.props.visitor.carrier }</div>;
 		} else if ( (this.props.visitor.device == 'android') && (!this.props.visitor.connection) ) {
 			return (
 				<div className="alert alert-danger">Please switch to cellular connection</div>
@@ -69,4 +82,4 @@ const mapStateToProps = state => ({
 	carriers: state.carriers.carriers
 });
 
-export default connect(mapStateToProps, { connectionChanged })(ChangeConnection);
+export default connect(mapStateToProps, { connectionChanged, updateVisitorCarrier })(ChangeConnection);

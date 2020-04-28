@@ -18,7 +18,6 @@ class RootComponent extends Component {
 	}
 
 	render() {
-		const platformImage = 'http://static.offers.gogameplay.io/images/' + this.props.visitor.device + '.png';
 
 		if ( (this.props.validation.platform) && (this.props.validation.carrier) && (this.props.validation.search) ) {
 			return (
