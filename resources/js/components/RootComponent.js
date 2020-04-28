@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { setVisitorData } from '../actions/visitor';
 
 import StackContainer from '../containers/StackContainer';
+import StepContainer from '../containers/StepContainer';
 import Instructions from './Instructions';
 import Searching from './Searching';
 
@@ -28,7 +29,7 @@ class RootComponent extends Component {
 		} else {
 			return (
 		        <div className="container">
-		            <StackContainer />
+		            <StepContainer />
 		        </div>
     		);
 		}

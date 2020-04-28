@@ -7,44 +7,78 @@ import { validatePlatform } from '../actions/validation';
 
 class PlatformCard extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			androidStyle: {
+				padding: '1rem'
+			},
+			iosStyle: {
+				padding: '1rem'
+			},
+			selected: false
+		}
+	}
+
 	handleConfimPlatform() {
 		this.props.validatePlatform();
 	}
 
-	render() {
-		let androidStyle = { padding: '1rem' };
-		let iosStyle = { padding: '1rem' };
-
-		if (this.props.device == 'android') {
-			androidStyle = {
-				...androidStyle,
+	handleSelectAndroid() {
+		this.setState({
+			androidStyle: {
+				padding: '1rem',
 				border: '1px solid #a9d301',
 				borderRadius: '2.25rem'
-			}
-		} else if (this.props.device == 'ios') {
-			iosStyle = {
-				...iosStyle,
+			},
+			iosStyle: {
+				padding: '1rem'
+			},
+			selected: true
+		})
+	}
+
+	handleSelectIOS() {
+		this.setState({
+			androidStyle: {
+				padding: '1rem'
+			},
+			iosStyle: {
+				padding: '1rem',
 				border: '1px solid black',
 				borderRadius: '2.25rem'
-			}
-		}
+			},
+			selected: true
+		})
+	}
+
+	render() {
 
 		return (
 			<div className="card">
-				<div className="card-header">Platform</div>
+				<div className="card-header" style={{ textAlign: 'center' }}>
+					<p style={{ marginBottom: 0 }}>1. Select your device/platform</p>
+					<small style={{ marginBottom: 0 }}>Tap on your platform</small>
+				</div>
 					<div className="card-body">
 						<div className="row">
-			                <div className="col-6" style={ androidStyle }>
+			                <button className="btn btn-link col-6" style={ this.state.androidStyle } onClick={ this.handleSelectAndroid.bind(this) }>
 			                	<img src="http://static.offers.gogameplay.io/images/android.png" style={{ width: '50%' }} />
-			                </div>
+			                </button>
 
-			                <div className="col-6" style={ iosStyle }>
+			                <button className="btn btn-link col-6" style={ this.state.iosStyle } onClick={ this.handleSelectIOS.bind(this) }>
 			                	<img src="http://static.offers.gogameplay.io/images/ios.png" style={{ width: '50%' }} />
-			                </div>
+			                </button>
 		                </div>
 		            </div>
-		            <div className="card-footer" style={{ textAlign: 'right' }}>
-		            	<button className="btn btn-success" onClick={ this.handleConfimPlatform.bind(this) }>Confirm</button>
+		            <div className="card-footer">
+		            	{(this.state.selected) ? 
+		            		<button className="btn btn-success" style={{ width: '100%' }} onClick={ this.handleConfimPlatform.bind(this) }>Next ></button>
+		            		:
+		            		<div>
+		            			
+		            		</div>
+		            	}
 		            </div>
 		    </div>
 	    );

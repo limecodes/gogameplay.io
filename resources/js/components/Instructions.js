@@ -14,11 +14,9 @@ class Instructions extends Component {
 		return (
 			<div className="col-12">
 				<small>
-					<p><strong>Instructions</strong></p>
 					<ul>
-						<li>{(this.props.validation.platform) ? <DivCheck /> : '1.'}{' '}Confirm your device platform { this.props.validation.platform }</li>
-						<li>{(this.props.validation.carrier) ? <DivCheck /> : '2.'}{' '}Confirm your carrier</li>
-						<li>{(this.props.validation.search) ? <DivCheck /> : '3.'}{' '}Click button at the bottom to search for coupon</li>
+						{(this.props.validation.platform) ? <li><DivCheck /><span>{' '}1. Confirmed your device platform</span></li> : <li><p>{' '}</p></li>}
+						{(this.props.validation.carrier) ? <li><DivCheck /><span>{' '}2. Verified your carrier</span></li> : <li><p>{' '}</p></li>}
 					</ul>
 				</small>
 			</div>
