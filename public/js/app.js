@@ -45463,8 +45463,6 @@ var RootComponent = /*#__PURE__*/function (_Component) {
   _createClass(RootComponent, [{
     key: "render",
     value: function render() {
-      var platformImage = 'http://static.offers.gogameplay.io/images/' + this.props.visitor.device + '.png';
-
       if (this.props.validation.platform && this.props.validation.carrier && this.props.validation.search) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "container"
