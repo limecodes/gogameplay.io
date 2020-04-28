@@ -17,24 +17,26 @@ class CarrierCard extends Component {
 		const ConfirmButton = () => {
 			if (this.props.visitor.carrier) {
 				return (
-					<div className="card-footer" style={{ textAlign: 'right' }}>
-						<button className="btn btn-success" onClick={ this.handleCarrierValidate.bind(this) }>Confirm</button>
+					<div className="card-footer">
+						<button className="btn btn-success" style={{ width: '100%' }} onClick={ this.handleCarrierValidate.bind(this) }>Next ></button>
 					</div>
 				);
 			} else {
 				return (
-					<div className="card-footer" style={{ textAlign: 'right' }}>
-						<button className="btn btn-secondary">Confirm</button>
+					<div className="card-footer">
+						
+						
 					</div>
 				);
 			}
 		}
 
 		return (
-			<div className="card">
-				<div className="card-header">Carrier</div>
+			<div className="card" style={{ marginTop: '1rem' }}>
+				<div className="card-header" style={{ textAlign: 'center' }}>2. Verify Your Cellular Carrier</div>
 				<div className="card-body">
 					<ChangeConnection />
+					{(!this.props.visitor.carrier) ? <small>You need to be on a cellular connection to verify carrier</small> : <p></p>}
 				</div>
 				<ConfirmButton />
 			</div>
