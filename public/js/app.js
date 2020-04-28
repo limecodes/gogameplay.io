@@ -35941,6 +35941,27 @@ var Searching = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
+      var Progress = function Progress() {
+        if (!_this2.state.searching) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress-bar progress-bar-striped progress-bar-animated",
+            role: "progressbar",
+            "aria-valuenow": "75",
+            "aria-valuemin": "0",
+            "aria-valuemax": "100",
+            style: {
+              width: '100%'
+            }
+          }));
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+        }
+      };
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card",
         style: {
@@ -35950,18 +35971,7 @@ var Searching = /*#__PURE__*/function (_Component) {
         className: "card-body"
       }, this.state.searching ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "badge badge-success"
-      }, "check"), "Coupon Found") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Searching"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "progress"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "progress-bar progress-bar-striped progress-bar-animated",
-        role: "progressbar",
-        "aria-valuenow": "75",
-        "aria-valuemin": "0",
-        "aria-valuemax": "100",
-        style: {
-          width: '100%'
-        }
-      }))));
+      }, "check"), "Coupon Found") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Searching"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Progress, null)));
     }
   }]);
 
