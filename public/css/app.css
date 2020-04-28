@@ -10882,3 +10882,11 @@ a.text-dark:focus {
   }
 }
 
+img {
+  width: 100%;
+}
+
+.strike {
+  text-decoration: line-through;
+}
+

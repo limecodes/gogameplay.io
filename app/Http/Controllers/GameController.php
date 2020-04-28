@@ -62,14 +62,17 @@ class GameController extends Controller
             $connection = boolval($gameRequestValidated['connection']);
             $visitor = $this->recordVisitor($ipAddress, $device, $connection);
 
-            $gameName = $game->first()->name;
+            $gameObject = $game->first();
+            $gameTitle = $gameObject->title;
+            $gameImage = $gameObject->image;
+            $gamePrice = $gameObject->price;
 
             $uid = $visitor->uid;
             $device = $visitor->device;
             $connection = boolval($visitor->mobile_connection);
             $carrier = $visitor->carrier_from_data;
 
-    		return view('game', ['name' => $gameName, 'uid' => $uid, 'device' => $device, 'connection' => $connection, 'carrier' => $carrier]);
+    		return view('game', ['title' => $gameTitle, 'image' => $gameImage, 'price' => $gamePrice, 'uid' => $uid, 'device' => $device, 'connection' => $connection, 'carrier' => $carrier]);
             // return response("The name of the game is $name and your ip is $ipAddress", 200);
     	} else {
     		return response('game does not exist', 404);

@@ -18,12 +18,9 @@ class RootComponent extends Component {
 		return (
 	        <div className="container">
 	            <div className="row justify-content-center">
-	                <div className="col-md-8">
-	                    <div className="card">
-	                        <div className="card-header">Example Component</div>
-	                        <ChangeConnection />
-	                        <div className="card-body">{ this.props.visitor.carrier }</div>
-	                    </div>
+	                <div className="col-12">
+	                	<ChangeConnection />
+	                    <div className="card-body">{ this.props.visitor.carrier }</div>
 	                </div>
 	            </div>
 	        </div>

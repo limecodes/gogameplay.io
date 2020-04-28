@@ -11,9 +11,20 @@
         
     </head>
     <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <img src="{{ $image }}" />
+                </div>
+                <div class="col-9">
+                    <h4>{{ $title }}</h4>
+                    <p><span class="badge badge-warning strike">${{ $price }}</span> => <span class="badge badge-success">Free</span></p>
+                </div>
+            </div>
+        </div>
         <div>
-            <p>Game Data {{ $name }}</p>
-            <div id="app" class="content" data-uid="{{ $uid }}" data-device="{{ $device }}" data-connection="{{ $connection }}" data-carrier="{{ $carrier }}"></div>
+            <!-- <div id="app" class="content" data-uid="{{ $uid }}" data-device="{{ $device }}" data-connection="{{ $connection }}" data-carrier="{{ $carrier }}"></div> -->
+            <div id="app" class="content" data-uid="{{ $uid }}" data-device="android" data-connection="{{ $connection }}" data-carrier="{{ $carrier }}"></div>
         </div>
         <script type="text/javascript" src="/js/app.js"></script>
     </body>
