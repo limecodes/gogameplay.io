@@ -24,8 +24,8 @@ class CarrierCard extends Component {
 			} else {
 				return (
 					<div className="card-footer">
-						<button className="btn btn-danger" style={{ width: '100%' }} >Next ></button>
-						<small>You need to be on a cellular connection to verify carrier</small>
+						
+						
 					</div>
 				);
 			}
@@ -36,6 +36,7 @@ class CarrierCard extends Component {
 				<div className="card-header" style={{ textAlign: 'center' }}>2. Verify Your Cellular Carrier</div>
 				<div className="card-body">
 					<ChangeConnection />
+					{(!this.props.visitor.carrier) ? <small>You need to be on a cellular connection to verify carrier</small> : <p></p>}
 				</div>
 				<ConfirmButton />
 			</div>

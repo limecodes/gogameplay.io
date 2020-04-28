@@ -34902,7 +34902,7 @@ module.exports = function(originalModule) {
 /*!***************************************!*\
   !*** ./resources/js/actions/types.js ***!
   \***************************************/
-/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, VALIDATE_SEARCH */
+/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34913,14 +34913,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONNECTION_CHANGE_FAILURE", function() { return CONNECTION_CHANGE_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATE_PLATFORM", function() { return VALIDATE_PLATFORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATE_CARRIER", function() { return VALIDATE_CARRIER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATE_SEARCH", function() { return VALIDATE_SEARCH; });
 var SET_VISITOR_STATE = 'SET_VISITOR_STATE';
 var CONNECTION_CHANGE_START = 'CONNECTION_CHANGE_START';
 var CONNECTION_CHANGE_SUCCESS = 'CONNECTION_CHANGE_SUCCESS';
 var CONNECTION_CHANGE_FAILURE = 'CONNECTION_CHANGE_FAILURE';
 var VALIDATE_PLATFORM = 'VALIDATE_PLATFORM';
 var VALIDATE_CARRIER = 'VALIDATE_CARRIER';
-var VALIDATE_SEARCH = 'VALIDATE_SEARCH';
 
 /***/ }),
 
@@ -34928,14 +34926,13 @@ var VALIDATE_SEARCH = 'VALIDATE_SEARCH';
 /*!********************************************!*\
   !*** ./resources/js/actions/validation.js ***!
   \********************************************/
-/*! exports provided: validatePlatform, validateCarrier, validateSearch */
+/*! exports provided: validatePlatform, validateCarrier */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validatePlatform", function() { return validatePlatform; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateCarrier", function() { return validateCarrier; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateSearch", function() { return validateSearch; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/actions/types.js");
@@ -34991,30 +34988,6 @@ var validateCarrier = function validateCarrier() {
 
     return function (_x2) {
       return _ref2.apply(this, arguments);
-    };
-  }();
-};
-var validateSearch = function validateSearch() {
-  return /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(dispatch) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              dispatch({
-                type: _types__WEBPACK_IMPORTED_MODULE_1__["VALIDATE_SEARCH"]
-              });
-
-            case 1:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-
-    return function (_x3) {
-      return _ref3.apply(this, arguments);
     };
   }();
 };
@@ -35298,12 +35271,7 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "card-footer"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            className: "btn btn-danger",
-            style: {
-              width: '100%'
-            }
-          }, "Next >"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier"));
+          });
         }
       };
 
@@ -35319,7 +35287,7 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
         }
       }, "2. Verify Your Cellular Carrier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_4__["default"], null), !this.props.visitor.carrier ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
     }
   }]);
 
@@ -36241,47 +36209,9 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./resources/js/reducers/validationReducer.js ***!
   \****************************************************/
 /*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./resources/js/actions/types.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-var initialState = {
-  platform: false,
-  carrier: false,
-  search: false
-};
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["VALIDATE_PLATFORM"]:
-      return _objectSpread({}, state, {
-        platform: true
-      });
-
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["VALIDATE_CARRIER"]:
-      return _objectSpread({}, state, {
-        carrier: true
-      });
-
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["VALIDATE_SEARCH"]:
-      return _objectSpread({}, state, {
-        search: true
-      });
-
-    default:
-      return state;
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOSPC: no space left on device, write");
 
 /***/ }),
 

@@ -11,9 +11,3 @@ export const validateCarrier = () => async dispatch => {
 		type: VALIDATE_CARRIER
 	});
 };
-
-export const validateSearch = () => async dispatch => {
-	dispatch({
-		type: VALIDATE_SEARCH
-	});
-}

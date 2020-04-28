@@ -2,8 +2,7 @@ import { VALIDATE_PLATFORM, VALIDATE_CARRIER, VALIDATE_SEARCH } from '../actions
 
 const initialState = {
 	platform: false,
-	carrier: false,
-	search: false
+	carrier: false
 }
 
 export default (state = initialState, action) => {
@@ -17,11 +16,6 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				carrier: true
-			}
-		case VALIDATE_SEARCH:
-			return {
-				...state,
-				search: true
 			}
 		default:
 			return state;
