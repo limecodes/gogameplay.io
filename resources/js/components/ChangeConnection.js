@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux';
 
-import { connectionChanged } from '../actions/visitor';
+import { connectionChanged, updateVisitorCarrier } from '../actions/visitor';
 
 import CarrierList from './CarrierList';
 
@@ -48,18 +48,22 @@ class ChangeConnection extends Component {
 	carrierHandleChange(e) {
 		// TODO: Should show loading thing if it's updating the backend
 		const selectedCarrier = e.target.value;
+
+		this.props.updateVisitorCarrier(this.props.visitor.uid, selectedCarrier);
 	}
 
 	render() {
-		if (this.props.carriers instanceof Array) {
+		if ( (this.props.carriers instanceof Array) && (!this.props.visitor.carrier) ) {
 			return (
 				<div className="alert alert-primary">
-					<select onChange={(e) => console.log('carrier change', e.target.value) }>
+					<select onChange={ this.carrierHandleChange.bind(this) }>
 						<option>Select your mobile carrier</option>
 						<CarrierList carriers={ this.props.carriers } />
 					</select>
 				</div>
 			);
+		} else if (this.props.visitor.carrier) {
+			return <div className="alert alert-success">{ this.props.visitor.carrier }</div>;
 		} else if ( (this.props.visitor.device == 'android') && (!this.props.visitor.connection) ) {
 			return (
 				<div className="alert alert-danger">Please switch to cellular connection</div>
@@ -83,4 +87,4 @@ const mapStateToProps = state => ({
 	carriers: state.carriers.carriers
 });
 
-export default connect(mapStateToProps, { connectionChanged })(ChangeConnection);
+export default connect(mapStateToProps, { connectionChanged, updateVisitorCarrier })(ChangeConnection);

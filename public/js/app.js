@@ -45100,20 +45100,23 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
     value: function carrierHandleChange(e) {
       // TODO: Should show loading thing if it's updating the backend
       var selectedCarrier = e.target.value;
+      this.props.updateVisitorCarrier(this.props.visitor.uid, selectedCarrier);
     }
   }, {
     key: "render",
     value: function render() {
-      if (this.props.carriers instanceof Array) {
+      if (this.props.carriers instanceof Array && !this.props.visitor.carrier) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-primary"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-          onChange: function onChange(e) {
-            return console.log('carrier change', e.target.value);
-          }
+          onChange: this.carrierHandleChange.bind(this)
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Select your mobile carrier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CarrierList__WEBPACK_IMPORTED_MODULE_4__["default"], {
           carriers: this.props.carriers
         })));
+      } else if (this.props.visitor.carrier) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "alert alert-success"
+        }, this.props.visitor.carrier);
       } else if (this.props.visitor.device == 'android' && !this.props.visitor.connection) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-danger"
@@ -45144,7 +45147,8 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  connectionChanged: _actions_visitor__WEBPACK_IMPORTED_MODULE_3__["connectionChanged"]
+  connectionChanged: _actions_visitor__WEBPACK_IMPORTED_MODULE_3__["connectionChanged"],
+  updateVisitorCarrier: _actions_visitor__WEBPACK_IMPORTED_MODULE_3__["updateVisitorCarrier"]
 })(ChangeConnection));
 
 /***/ }),
