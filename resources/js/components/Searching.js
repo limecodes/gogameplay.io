@@ -20,7 +20,7 @@ class Searching extends Component {
 			self.setState({
 				searching: true
 			});
-		}, 1000);
+		}, 5000);
 	}
 
 	render() {
@@ -28,7 +28,7 @@ class Searching extends Component {
 			if (!this.state.searching) {
 				return (
 					<div className="progress">
-						<div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{ width: '100%'}}></div>
+						<div className="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{ width: '100%'}}></div>
 					</div>
 				);
 			} else {

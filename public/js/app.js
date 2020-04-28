@@ -55397,14 +55397,14 @@ var PlatformCard = /*#__PURE__*/function (_Component) {
     _this.state = {
       androidStyle: {
         padding: '1rem',
-        border: '1px solid black',
+        border: '1px solid rgba(0,0,0,0.5)',
         borderRadius: '2.25rem',
         marginRight: '1rem',
         marginLeft: '0.5rem'
       },
       iosStyle: {
         padding: '1rem',
-        border: '1px solid black',
+        border: '1px solid rgba(0,0,0,0.5)',
         borderRadius: '2.25rem'
       },
       selected: false
@@ -55423,7 +55423,7 @@ var PlatformCard = /*#__PURE__*/function (_Component) {
       this.setState({
         androidStyle: {
           padding: '1rem',
-          border: '1px solid black',
+          border: '1px solid rgba(0,0,0,0.5)',
           borderRadius: '2.25rem',
           background: 'rgba(169,211,1,0.2)',
           marginRight: '1rem',
@@ -55431,7 +55431,7 @@ var PlatformCard = /*#__PURE__*/function (_Component) {
         },
         iosStyle: {
           padding: '1rem',
-          border: '1px solid black',
+          border: '1px solid rgba(0,0,0,0.5)',
           borderRadius: '2.25rem'
         },
         selected: true
@@ -55443,14 +55443,14 @@ var PlatformCard = /*#__PURE__*/function (_Component) {
       this.setState({
         androidStyle: {
           padding: '1rem',
-          border: '1px solid black',
+          border: '1px solid rgba(0,0,0,0.5)',
           borderRadius: '2.25rem',
           marginRight: '1rem',
           marginLeft: '0.5rem'
         },
         iosStyle: {
           padding: '1rem',
-          border: '1px solid black',
+          border: '1px solid rgba(0,0,0,0.5)',
           borderRadius: '2.25rem',
           background: 'rgba(0,0,0,0.2)'
         },
@@ -55685,7 +55685,7 @@ var Searching = /*#__PURE__*/function (_Component) {
         self.setState({
           searching: true
         });
-      }, 1000);
+      }, 5000);
     }
   }, {
     key: "render",
@@ -55697,7 +55697,7 @@ var Searching = /*#__PURE__*/function (_Component) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "progress"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "progress-bar progress-bar-striped progress-bar-animated",
+            className: "progress-bar progress-bar-striped progress-bar-animated bg-success",
             role: "progressbar",
             "aria-valuenow": "75",
             "aria-valuemin": "0",
