@@ -45058,30 +45058,24 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (navigator.connection) {
-        // Commenting this for now.
         if (_typeof(navigator.connection.ontypechange) == 'object') {
           navigator.connection.ontypechange = this.connectionDidChange.bind(this);
-        } else if (_typeof(navigator.connection.onchange) == 'object') {
-          // TODO: (MERGE NOTE)
-          // TODO: Remove this after front-end is done
-          navigator.connection.onchange = this.connectionOnChange.bind(this);
         }
       }
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
+      var self = this;
+
       if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
+        console.log('Attempting one more time');
         this.props.connectionChanged(this.props.visitor.uid);
       }
-    } // TODO: (MERGE NOTE)
-    // TODO: Remove this after front-end is done
 
-  }, {
-    key: "connectionOnChange",
-    value: function connectionOnChange(e) {
-      console.log('connection on change');
-      this.props.connectionChanged(this.props.visitor.uid);
+      if (this.props.visitor.error == prevProps.visitor.error) {
+        console.log('Failed even after re-try');
+      }
     }
   }, {
     key: "connectionDidChange",
