@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 
 import { setVisitorData } from '../actions/visitor';
 
-import ChangeConnection from './ChangeConnection';
+import StackContainer from '../containers/StackContainer';
+import Instructions from './Instructions';
+import Searching from './Searching';
 
 class RootComponent extends Component {
 	
@@ -15,21 +17,27 @@ class RootComponent extends Component {
 	}
 
 	render() {
-		return (
-	        <div className="container">
-	            <div className="row justify-content-center">
-	                <div className="col-12">
-	                	<ChangeConnection />
-	                    <div className="card-body">{ this.props.visitor.carrier }</div>
-	                </div>
-	            </div>
-	        </div>
-    	);
+		const platformImage = 'http://static.offers.gogameplay.io/images/' + this.props.visitor.device + '.png';
+
+		if ( (this.props.validation.platform) && (this.props.validation.carrier) && (this.props.validation.search) ) {
+			return (
+				<div className="container">
+					<Searching />
+				</div>
+			);
+		} else {
+			return (
+		        <div className="container">
+		            <StackContainer />
+		        </div>
+    		);
+		}
 	}
 }
 
 const mapStateToProps = state => ({
-	visitor: state.visitor
+	visitor: state.visitor,
+	validation: state.validation
 });
 
 export default connect(mapStateToProps, { setVisitorData })(RootComponent);

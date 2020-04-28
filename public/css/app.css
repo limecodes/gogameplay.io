@@ -10890,3 +10890,26 @@ img {
   text-decoration: line-through;
 }
 
+.card {
+  margin-bottom: 1rem;
+}
+
+.card-body {
+  text-align: center;
+}
+
+small p {
+  margin-bottom: 0;
+}
+
+small ol,
+small ul {
+  margin-left: 0.5rem;
+  margin-bottom: 0.2rem;
+  padding-left: 0.5rem;
+}
+
+small ul {
+  list-style-type: none;
+}
+

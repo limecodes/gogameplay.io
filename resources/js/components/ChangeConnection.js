@@ -10,7 +10,12 @@ class ChangeConnection extends Component {
 	componentDidMount() {
 		if (navigator.connection) {
 			// Commenting this for now.
-			navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+			if (typeof navigator.connection.ontypechange == 'object') {
+				navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+			} else if (typeof navigator.connection.onchange == 'object') {
+				// TODO: Remove this after front-end is done
+				navigator.connection.onchange = this.connectionOnChange.bind(this);
+			}
 		}
 	}
 
@@ -20,9 +25,13 @@ class ChangeConnection extends Component {
 		}
 	}
 
+	connectionOnChange(e) {
+		console.log('connection on change');
+		this.props.connectionChanged(this.props.visitor.uid);
+	}
+
 	connectionDidChange(e) {
 		if (navigator.connection.type == 'cellular') {
-			// I hate to do this, but looks like I have to
 			this.props.connectionChanged(this.props.visitor.uid);
 		}
 	}
@@ -41,8 +50,8 @@ class ChangeConnection extends Component {
 					<button className="btn btn-success" onClick={ this.connectionDidChange.bind(this) }>I've switched to cellular, Next ></button>
 				</div>
 			);
-		} else {
-			return <div></div>;
+		} else if (this.props.visitor.connection) {
+			return <div className="alert alert-success">{ this.props.visitor.carrier }</div>;
 		}
 	}
 
