@@ -8,6 +8,7 @@
 
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
+        
         <link rel="preload" href="http://static.offers.gogameplay.io/images/android.png" as="image">
         <link rel="preload" href="http://static.offers.gogameplay.io/images/ios.png" as="image">
         <link rel="preload" href="{{ $image }}" as="image">
@@ -21,7 +22,7 @@
                 </div>
                 <div class="col-8">
                     <h4>{{ $title }}</h4>
-                    <p><span class="badge badge-warning strike">${{ $price }}</span> => <span class="badge badge-success">Free</span></p>
+                    <p><span class="badge badge-warning strike">${{ $price }}</span><span class="badge badge-success">Free</span></p>
                 </div>
             </div>
         </div>

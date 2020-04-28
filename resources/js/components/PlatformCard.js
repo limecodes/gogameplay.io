@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { validatePlatform } from '../actions/validation';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+ 
 class PlatformCard extends Component {
 
 	constructor(props) {
@@ -73,8 +75,8 @@ class PlatformCard extends Component {
 		return (
 			<div className="card">
 				<div className="card-header" style={{ textAlign: 'center' }}>
-					<p style={{ marginBottom: 0 }}>1. Select your device/platform</p>
-					<small style={{ marginBottom: 0 }}>Tap on your platform</small>
+					<p style={{ marginBottom: 0, fontSize: '1rem' }}><strong>Step 1. Select your device/platform</strong></p>
+					<p style={{ marginBottom: 0, fontWeight: 'bolder' }}>Tap on your platform</p>
 				</div>
 					<div className="card-body">
 						<div className="row">
@@ -89,7 +91,7 @@ class PlatformCard extends Component {
 		            </div>
 		            <div className="card-footer">
 		            	{(this.state.selected) ? 
-		            		<button className="btn btn-success" style={{ width: '100%' }} onClick={ this.handleConfimPlatform.bind(this) }>Next ></button>
+		            		<button className="btn btn-success" style={{ width: '100%' }} onClick={ this.handleConfimPlatform.bind(this) }>Next <FontAwesomeIcon icon='angle-right' /></button>
 		            		:
 		            		<div>
 		            			

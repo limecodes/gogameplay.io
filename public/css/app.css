@@ -10908,13 +10908,17 @@ small p {
 
 small ol,
 small ul {
-  margin-left: 0.5rem;
+  margin-left: 0;
   margin-bottom: 0.2rem;
-  padding-left: 0.5rem;
+  padding-left: 0;
 }
 
 small ul {
   list-style-type: none;
+}
+
+small ul li {
+  margin-bottom: 0.5rem;
 }
 
 .col-6 {

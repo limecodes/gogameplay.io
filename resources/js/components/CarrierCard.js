@@ -33,7 +33,7 @@ class CarrierCard extends Component {
 
 		return (
 			<div className="card" style={{ marginTop: '1rem' }}>
-				<div className="card-header" style={{ textAlign: 'center' }}>2. Verify Your Cellular Carrier</div>
+				<div className="card-header" style={{ textAlign: 'center' }}><p style={{ marginBottom: 0, fontSize: '1rem' }}><strong>Step 2. Verify Your Cellular Carrier</strong></p></div>
 				<div className="card-body">
 					<ChangeConnection />
 					{(!this.props.visitor.carrier) ? <small>You need to be on a cellular connection to verify carrier</small> : <p></p>}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 class Searching extends Component {
 
 	constructor(props) {
@@ -37,7 +39,7 @@ class Searching extends Component {
 		return (
 			<div className="card" style={{ marginTop: '1rem' }}>
 				<div className="card-body">
-					{ (this.state.searching) ? <div><span className="badge badge-success">check</span>Coupon Found</div> : <div>Searching</div> }
+					{ (this.state.searching) ? <div><span className="badge badge-success"><FontAwesomeIcon icon='check' /></span>{' '}Coupon Found</div> : <div>Searching</div> }
 					<Progress />
 				</div>
 			</div>
