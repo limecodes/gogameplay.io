@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import { store } from './store';
+import { store, persistor } from './store';
 
 import RootComponent from './components/RootComponent';
 
@@ -12,7 +13,9 @@ export default class App extends Component {
 	render() {
 		return (
 			<Provider store={ store }>
-	        	<RootComponent uid={ this.props.uid } device={ this.props.device } connection={ this.props.connection } carrier={ this.props.carrier } />
+				<PersistGate persistor={ persistor }>
+	        		<RootComponent uid={ this.props.uid } device={ this.props.device } connection={ this.props.connection } carrier={ this.props.carrier } />
+	        	</PersistGate>
 	        </Provider>
     	);
 	}
