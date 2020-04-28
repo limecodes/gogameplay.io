@@ -25,6 +25,7 @@ class ChangeConnection extends Component {
 		}
 	}
 
+	// TODO: Remove this after front-end is done
 	connectionOnChange(e) {
 		console.log('connection on change');
 		this.props.connectionChanged(this.props.visitor.uid);
@@ -36,10 +37,16 @@ class ChangeConnection extends Component {
 		}
 	}
 
+	connectionHandleChange() {
+		this.props.connectionChanged(this.props.visitor.uid);
+	}
+
 
 
 	render() {
-		if ( (this.props.visitor.device == 'android') && (!this.props.visitor.connection) ) {
+		if (this.props.carriers instanceof Array) {
+			return <div className="alert alert-primary">Select your carrier</div>;
+		} else if ( (this.props.visitor.device == 'android') && (!this.props.visitor.connection) ) {
 			return (
 				<div className="alert alert-danger">Please switch to cellular connection</div>
 			);
@@ -47,7 +54,7 @@ class ChangeConnection extends Component {
 			return (
 				<div>
 					<div className="alert alert-danger">Please switch to cellular connection</div>
-					<button className="btn btn-success" onClick={ this.connectionDidChange.bind(this) }>I've switched to cellular, Next ></button>
+					<button className="btn btn-success" onClick={ this.connectionHandleChange.bind(this) }>I've switched to cellular, Next ></button>
 				</div>
 			);
 		} else if (this.props.visitor.connection) {
@@ -58,7 +65,8 @@ class ChangeConnection extends Component {
 }
 
 const mapStateToProps = state => ({
-	visitor: state.visitor
-})
+	visitor: state.visitor,
+	carriers: state.carriers.carriers
+});
 
 export default connect(mapStateToProps, { connectionChanged })(ChangeConnection);

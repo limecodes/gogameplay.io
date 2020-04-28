@@ -56,6 +56,30 @@ class MockApiController extends Controller
 		    "credits_consumed" => 18
     	];
 
+    	$responseUnknownCarrier = [
+		    "country_code" => "GE",
+		    "country_name" => "Abkhazia",
+		    "region_name" => "Abkhazia",
+		    "city_name" => "Abkhazia",
+		    "latitude" => "00.00000",
+		    "longitude" => "00.00000",
+		    "zip_code" => "00000",
+		    "time_zone" => "+00:00",
+		    "isp" => "localhost",
+		    "domain" => "mobile.gogameplay.local",
+		    "net_speed" => "DSL",
+		    "idd_code" => "000",
+		    "area_code" => "00000",
+		    "weather_station_code" => "UPXX0000",
+		    "weather_station_name" => "Abkhazia",
+		    "mcc" => "255",
+		    "mnc" => "01",
+		    "mobile_brand" => "-",
+		    "elevation" => "213",
+		    "usage_type" => "MOB",
+		    "credits_consumed" => 18
+    	];
+
     	switch ($request->ip) {
     		case '1.1.1.1':
     			return response()->json($responseWeb, 200);
@@ -80,6 +104,9 @@ class MockApiController extends Controller
     			break;
     		case '1.1.1.8':
     			return response()->json($responseWeb, 200);
+    			break;
+    		case '1.1.1.9':
+    			return response()->json($responseUnknownCarrier, 200);
     			break;
     		default:
     			# code...

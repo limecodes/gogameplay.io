@@ -14,7 +14,7 @@ class RootComponent extends Component {
 	
 	constructor(props) {
 		super(props);
-		this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true, this.props.carrier);
+		this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true, (this.props.carrier !== 'unknown') ? this.props.carrier : '');
 	}
 
 	render() {

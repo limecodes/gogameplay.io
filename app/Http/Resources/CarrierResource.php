@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ConnectionResource extends JsonResource
+class CarrierResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,7 @@ class ConnectionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'connection' => $this->mobile_connection,
-            'carrier' => ($this->carrier_from_data !== 'unknown') ? $this->carrier_from_data : false
+            'name' => $this->name
         ];
     }
 }

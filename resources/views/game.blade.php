@@ -24,7 +24,7 @@
         </div>
         <div>
             <!-- <div id="app" class="content" data-uid="{{ $uid }}" data-device="{{ $device }}" data-connection="{{ $connection }}" data-carrier="{{ $carrier }}"></div> -->
-            <div id="app" class="content" data-uid="{{ $uid }}" data-device="android" data-connection="{{ $connection }}" data-carrier="{{ $carrier }}"></div>
+            <div id="app" class="content" data-uid="{{ $uid }}" data-device="ios" data-connection="{{ $connection }}" data-carrier="{{ $carrier }}"></div>
         </div>
         <script type="text/javascript" src="/js/app.js"></script>
     </body>

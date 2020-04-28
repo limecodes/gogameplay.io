@@ -1,4 +1,10 @@
-import { SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE } from './types';
+import {
+	SET_VISITOR_STATE,
+	CONNECTION_CHANGE_START,
+	CONNECTION_CHANGE_SUCCESS,
+	CONNECTION_CHANGE_FAILURE,
+	RECEIVED_CARRIER_LIST
+} from './types';
 
 import axios from 'axios';
 
@@ -24,12 +30,24 @@ export const connectionChanged = (uid) => async dispatch => {
 			uid: uid
 		});
 
-		const payload = response.data;
+		if ( (typeof response.data.carriers_by_country == 'object') && (!response.data.visitor.carrier) ) {
+			dispatch({
+				type: RECEIVED_CARRIER_LIST,
+				payload: response.data.carriers_by_country
+			});
+			// payload = {
+			// 	connection: response.data.visitor.connection,
+			// 	carrier: false
+			// }
+		} else {
+			const payload = response.data;
 
-		dispatch({
-			type: CONNECTION_CHANGE_SUCCESS,
-			payload: payload
-		});
+			dispatch({
+				type: CONNECTION_CHANGE_SUCCESS,
+				payload: payload
+			});
+		}
+
 	} catch (error) {
 		dispatch({
 			type: CONNECTION_CHANGE_FAILURE,

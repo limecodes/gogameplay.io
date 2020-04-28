@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use App\Http\Requests\GameRequest;
 use App\Http\Requests\ConnectionRequest;
 use App\Http\Resources\ConnectionResource;
+use App\Http\Resources\CarrierResource;
 
 class GameController extends Controller
 {
@@ -105,10 +106,22 @@ class GameController extends Controller
             $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
             $visitor->mobile_connection = true;
             $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
-
-            $visitor->save();
+        } else if ($apiVisitorData['mobile_brand'] == '-') {
+            $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
+            $visitor->carrier_from_data = 'unknown';
         }
 
-        return response()->json(new ConnectionResource($visitor), 200);
+        $visitor->save();
+
+        if ($visitor->carrier_from_data == 'unknown') {
+            $response = [
+                'visitor' => new ConnectionResource($visitor),
+                'carriers_by_country' => CarrierResource::collection($visitor->country->mobileNetwork)
+            ];
+        } else {
+            $response = new ConnectionResource($visitor);
+        }
+
+        return response()->json($response, 200);
     }
 }

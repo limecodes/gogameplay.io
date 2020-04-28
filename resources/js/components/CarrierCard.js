@@ -9,6 +9,14 @@ import ChangeConnection from './ChangeConnection';
 
 class CarrierCard extends Component {
 
+	componentDidMount() {
+		console.log('this.props.carriers', this.props.carriers);
+	}
+
+	componentDidUpdate() {
+		console.log('this.props.carriers', this.props.carriers);
+	}
+
 	handleCarrierValidate() {
 		this.props.validateCarrier();
 	}
@@ -45,7 +53,8 @@ class CarrierCard extends Component {
 }
 
 const mapStateToProps = state => ({
-	visitor: state.visitor
-})
+	visitor: state.visitor,
+	carriers: state.carriers.carriers
+});
 
 export default connect(mapStateToProps, { validateCarrier })(CarrierCard);
