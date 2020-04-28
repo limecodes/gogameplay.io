@@ -13,7 +13,7 @@ class StepContainer extends Component {
 	render() {
 		if ( (this.props.validation.platform) && (this.props.validation.carrier) ) {
 			return (
-				<div className="row justify-content-center">
+				<div className="row justify-content-center" style={{ marginTop: '1rem' }}>
 					<Instructions />
 					<div className="col-12">
 						<Searching />
@@ -23,7 +23,7 @@ class StepContainer extends Component {
 		} else if (this.props.validation.platform) {
 			return (
 				
-				<div className="row justify-content-center">
+				<div className="row justify-content-center" style={{ marginTop: '1rem' }}>
 					<Instructions />
 					<div className="col-12">
 						<CarrierCard />

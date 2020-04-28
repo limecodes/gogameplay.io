@@ -35308,7 +35308,10 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
       };
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card"
+        className: "card",
+        style: {
+          marginTop: '1rem'
+        }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header",
         style: {
@@ -36166,13 +36169,19 @@ var StepContainer = /*#__PURE__*/function (_Component) {
     value: function render() {
       if (this.props.validation.platform && this.props.validation.carrier) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "row justify-content-center"
+          className: "row justify-content-center",
+          style: {
+            marginTop: '1rem'
+          }
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Instructions__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "col-12"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Searching__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
       } else if (this.props.validation.platform) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "row justify-content-center"
+          className: "row justify-content-center",
+          style: {
+            marginTop: '1rem'
+          }
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Instructions__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "col-12"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_CarrierCard__WEBPACK_IMPORTED_MODULE_4__["default"], null)));

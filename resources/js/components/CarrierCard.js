@@ -32,7 +32,7 @@ class CarrierCard extends Component {
 		}
 
 		return (
-			<div className="card">
+			<div className="card" style={{ marginTop: '1rem' }}>
 				<div className="card-header" style={{ textAlign: 'center' }}>2. Verify Your Cellular Carrier</div>
 				<div className="card-body">
 					<ChangeConnection />
