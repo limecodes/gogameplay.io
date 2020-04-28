@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import PlatformCard from '../components/PlatformCard';
 import CarrierCard from '../components/CarrierCard';
 import Instructions from '../components/Instructions';
-import SearchCoupon from '../components/SearchCoupon';
 
 class StackContainer extends Component {
 	render() {
@@ -16,7 +15,6 @@ class StackContainer extends Component {
 				<div className="col-12">
 					<PlatformCard device={ this.props.visitor.device } />
 					<CarrierCard />
-					<SearchCoupon />
 				</div>
 			</div>
 		);
