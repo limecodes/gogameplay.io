@@ -123,7 +123,7 @@ class GameController extends Controller
             $response = new ConnectionResource($visitor);
         }
 
-        return response()->json($response, 400);
+        return response()->json($response, 200);
     }
 
     public function carrier(CarrierRequest $request)
