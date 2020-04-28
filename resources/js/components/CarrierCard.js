@@ -9,14 +9,6 @@ import ChangeConnection from './ChangeConnection';
 
 class CarrierCard extends Component {
 
-	componentDidMount() {
-		console.log('this.props.carriers', this.props.carriers);
-	}
-
-	componentDidUpdate() {
-		console.log('this.props.carriers', this.props.carriers);
-	}
-
 	handleCarrierValidate() {
 		this.props.validateCarrier();
 	}

@@ -44903,16 +44903,6 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(CarrierCard, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      console.log('this.props.carriers', this.props.carriers);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      console.log('this.props.carriers', this.props.carriers);
-    }
-  }, {
     key: "handleCarrierValidate",
     value: function handleCarrierValidate() {
       this.props.validateCarrier();
@@ -45281,10 +45271,16 @@ var PlatformCard = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = {
       androidStyle: {
-        padding: '1rem'
+        padding: '1rem',
+        border: '1px solid black',
+        borderRadius: '2.25rem',
+        marginRight: '1rem',
+        marginLeft: '0.5rem'
       },
       iosStyle: {
-        padding: '1rem'
+        padding: '1rem',
+        border: '1px solid black',
+        borderRadius: '2.25rem'
       },
       selected: false
     };
@@ -45302,11 +45298,16 @@ var PlatformCard = /*#__PURE__*/function (_Component) {
       this.setState({
         androidStyle: {
           padding: '1rem',
-          border: '1px solid #a9d301',
-          borderRadius: '2.25rem'
+          border: '1px solid black',
+          borderRadius: '2.25rem',
+          background: 'rgba(169,211,1,0.2)',
+          marginRight: '1rem',
+          marginLeft: '0.5rem'
         },
         iosStyle: {
-          padding: '1rem'
+          padding: '1rem',
+          border: '1px solid black',
+          borderRadius: '2.25rem'
         },
         selected: true
       });
@@ -45316,12 +45317,17 @@ var PlatformCard = /*#__PURE__*/function (_Component) {
     value: function handleSelectIOS() {
       this.setState({
         androidStyle: {
-          padding: '1rem'
+          padding: '1rem',
+          border: '1px solid black',
+          borderRadius: '2.25rem',
+          marginRight: '1rem',
+          marginLeft: '0.5rem'
         },
         iosStyle: {
           padding: '1rem',
           border: '1px solid black',
-          borderRadius: '2.25rem'
+          borderRadius: '2.25rem',
+          background: 'rgba(0,0,0,0.2)'
         },
         selected: true
       });

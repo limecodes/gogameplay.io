@@ -11,10 +11,16 @@ class PlatformCard extends Component {
 		super(props);
 		this.state = {
 			androidStyle: {
-				padding: '1rem'
+				padding: '1rem',
+				border: '1px solid black',
+				borderRadius: '2.25rem',
+				marginRight: '1rem',
+				marginLeft: '0.5rem'
 			},
 			iosStyle: {
-				padding: '1rem'
+				padding: '1rem',
+				border: '1px solid black',
+				borderRadius: '2.25rem'
 			},
 			selected: false
 		}
@@ -28,11 +34,16 @@ class PlatformCard extends Component {
 		this.setState({
 			androidStyle: {
 				padding: '1rem',
-				border: '1px solid #a9d301',
-				borderRadius: '2.25rem'
+				border: '1px solid black',
+				borderRadius: '2.25rem',
+				background: 'rgba(169,211,1,0.2)',
+				marginRight: '1rem',
+				marginLeft: '0.5rem'
 			},
 			iosStyle: {
-				padding: '1rem'
+				padding: '1rem',
+				border: '1px solid black',
+				borderRadius: '2.25rem'
 			},
 			selected: true
 		})
@@ -41,12 +52,17 @@ class PlatformCard extends Component {
 	handleSelectIOS() {
 		this.setState({
 			androidStyle: {
-				padding: '1rem'
+				padding: '1rem',
+				border: '1px solid black',
+				borderRadius: '2.25rem',
+				marginRight: '1rem',
+				marginLeft: '0.5rem'
 			},
 			iosStyle: {
 				padding: '1rem',
 				border: '1px solid black',
-				borderRadius: '2.25rem'
+				borderRadius: '2.25rem',
+				background: 'rgba(0,0,0,0.2)'
 			},
 			selected: true
 		})

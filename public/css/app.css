@@ -10882,6 +10882,10 @@ a.text-dark:focus {
   }
 }
 
+body {
+  margin-top: 1rem;
+}
+
 img {
   width: 100%;
 }
@@ -10911,5 +10915,18 @@ small ul {
 
 small ul {
   list-style-type: none;
+}
+
+.col-6 {
+  flex: 0 0 48%;
+  max-width: 45%;
+}
+
+.btn {
+  border-radius: 2.25rem;
+}
+
+.badge {
+  font-size: 100%;
 }
 
