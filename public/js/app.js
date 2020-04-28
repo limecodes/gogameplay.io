@@ -44981,6 +44981,7 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
         if (_typeof(navigator.connection.ontypechange) == 'object') {
           navigator.connection.ontypechange = this.connectionDidChange.bind(this);
         } else if (_typeof(navigator.connection.onchange) == 'object') {
+          // TODO: (MERGE NOTE)
           // TODO: Remove this after front-end is done
           navigator.connection.onchange = this.connectionOnChange.bind(this);
         }
@@ -44992,7 +44993,8 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
       if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
         this.props.connectionChanged(this.props.visitor.uid);
       }
-    } // TODO: Remove this after front-end is done
+    } // TODO: (MERGE NOTE)
+    // TODO: Remove this after front-end is done
 
   }, {
     key: "connectionOnChange",
