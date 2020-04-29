@@ -21,6 +21,6 @@ Route::middleware('mobile')->group(function() {
 	Route::post('/game/{name}', 'GameController@index');
 });
 
-Route::post('/nonmobile', 'GameController@nonmobile');
+Route::get('/nonmobile', 'GameController@nonmobile');
 
 
