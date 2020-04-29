@@ -9,7 +9,6 @@ $factory->define(Visitor::class, function (Faker $faker) {
     return [
         'uid' => $faker->uuid,
         'ip_address' => $faker->ipv4,
-        'device' => 'ios',
         'mobile_connection' => true
     ];
 });

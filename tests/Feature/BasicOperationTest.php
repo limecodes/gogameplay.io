@@ -327,4 +327,22 @@ class BasicOperationTest extends TestCase
                 ['name' => $mobileNetworks[2]->name]   
             ]);
     }
+
+    /**
+     *
+     * @test
+     */
+    public function returningUserChangedIPShouldFetchSameUUID()
+    {
+
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function existingIpDifferentDeviceShouldCreateNewRecord()
+    {
+        
+    }
 }
