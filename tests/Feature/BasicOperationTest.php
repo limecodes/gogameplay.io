@@ -302,4 +302,13 @@ class BasicOperationTest extends TestCase
         $response->assertOk();
         $this->assertDatabaseHas('visitors', ['uid' => $visitor->uid, 'ip_address' => $visitor->ip_address, 'mobile_connection' => true, 'country_id' => 2]);
     }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnCarrierListIfMobileConnectionButCarrierInvalid()
+    {
+        
+    }
 }
