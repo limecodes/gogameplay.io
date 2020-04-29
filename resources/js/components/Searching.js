@@ -20,7 +20,7 @@ class Searching extends Component {
 			self.setState({
 				searching: true
 			});
-		}, 5000);
+		}, 1000);
 	}
 
 	render() {

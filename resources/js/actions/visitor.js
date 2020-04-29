@@ -3,7 +3,7 @@ import {
 	CONNECTION_CHANGE_START,
 	CONNECTION_CHANGE_SUCCESS,
 	CONNECTION_CHANGE_FAILURE,
-	RECEIVED_CARRIER_LIST,
+	RECEIVED_CARRIER_LIST_SUCCESS,
 	UPDATE_VISITOR_CARRIER_START,
 	UPDATE_VISITOR_CARRIER_SUCCESS,
 	UPDATE_VISITOR_CARRIER_FAIL
@@ -34,6 +34,7 @@ export const connectionChanged = (uid) => async dispatch => {
 		});
 
 		if ( (typeof response.data.carriers_by_country == 'object') && (!response.data.visitor.carrier) ) {
+			console.log('got carrier list');
 			dispatch({
 				type: RECEIVED_CARRIER_LIST_SUCCESS,
 				payload: response.data.carriers_by_country

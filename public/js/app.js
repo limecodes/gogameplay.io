@@ -54849,8 +54849,9 @@ var connectionChanged = function connectionChanged(uid) {
               response = _context2.sent;
 
               if (_typeof(response.data.carriers_by_country) == 'object' && !response.data.visitor.carrier) {
+                console.log('got carrier list');
                 dispatch({
-                  type: RECEIVED_CARRIER_LIST_SUCCESS,
+                  type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST_SUCCESS"],
                   payload: response.data.carriers_by_country
                 });
               } else {
@@ -55147,7 +55148,7 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Step 2. Verify Your Cellular Carrier"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_5__["default"], null), !this.props.visitor.connection && !this.props.visitor.carrier ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_5__["default"], null), !this.props.visitor.connection && !this.props.visitor.carrier && this.props.visitor.device == 'android' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
     }
   }]);
 
@@ -55313,11 +55314,15 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
         }, "Please switch to cellular connection");
       } else if (this.props.visitor.device == 'ios' && !this.props.visitor.connection) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "alert alert-danger"
-        }, "Please switch to cellular connection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "alert alert-warning"
+        }, "You need to be on a cellular connection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", {
+          style: {
+            textAlign: 'left'
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "If you're on wifi, please switch off wifi and connect to cellular"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "If you're already on cellular or you've switched off wifi, click next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "btn btn-success",
           onClick: this.connectionHandleChange.bind(this)
-        }, "I've switched to cellular, Next >"));
+        }, "Next >"));
       } else if (this.props.visitor.connection) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-success"
@@ -55772,7 +55777,7 @@ var Searching = /*#__PURE__*/function (_Component) {
         self.setState({
           searching: true
         });
-      }, 5000);
+      }, 1000);
     }
   }, {
     key: "render",
@@ -56210,7 +56215,7 @@ var persistConfig = {
   key: 'root',
   storage: redux_persist_lib_storage__WEBPACK_IMPORTED_MODULE_7___default.a,
   stateReconciler: redux_persist_lib_stateReconciler_autoMergeLevel2__WEBPACK_IMPORTED_MODULE_6___default.a,
-  whitelist: ['validation']
+  whitelist: ['validation', 'carriers']
 };
 var initialState = {};
 var middleware = [redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]];

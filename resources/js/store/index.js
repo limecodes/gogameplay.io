@@ -13,7 +13,7 @@ const persistConfig = {
 	key: 'root',
 	storage: storage,
 	stateReconciler: autoMergeLevel2,
-	whitelist: ['validation']
+	whitelist: ['validation', 'carriers']
 };
 
 const initialState = {};

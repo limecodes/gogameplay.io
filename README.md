@@ -31,3 +31,14 @@ I can also have a flash for Android if the user is on wifi
 
         // To make the controller return 422
         // Later, will show a page with an error
+
+        // BUG: Duplicate entry when trying to update if the user has been on the site before
+        //      It's not grabbing the uid by previously used ip address
+        //      The bug is in firstOrCreate, it's not grabbing a previous user by ip address
+        //      This will eat up my API usage, I need to fix this to grab a previous user
+        //      Without using firstOrCreate
+        //      NO WAIT!!
+        //      When a user comes in with wifi, then changes to cellular, it's not grabbing the user
+        //      because it's not detecting their cellular IP, since I'm updating it.
+        //      A fix would be to add another field or another record, instead of updating it.
+        //      OR: I can add an ip_address-to-user_id table

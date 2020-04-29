@@ -66,8 +66,12 @@ class ChangeConnection extends Component {
 		} else if ( (this.props.visitor.device == 'ios') && (!this.props.visitor.connection) ) {
 			return (
 				<div>
-					<div className="alert alert-danger">Please switch to cellular connection</div>
-					<button className="btn btn-success" onClick={ this.connectionHandleChange.bind(this) }>I've switched to cellular, Next ></button>
+					<div className="alert alert-warning">You need to be on a cellular connection</div>
+					<ol style={{ textAlign: 'left' }}>
+						<li>If you're on wifi, please switch off wifi and connect to cellular</li>
+						<li>If you're already on cellular or you've switched off wifi, click next</li>
+					</ol>
+					<button className="btn btn-success" onClick={ this.connectionHandleChange.bind(this) }>Next ></button>
 				</div>
 			);
 		} else if (this.props.visitor.connection) {
