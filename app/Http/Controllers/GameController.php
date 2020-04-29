@@ -122,22 +122,24 @@ class GameController extends Controller
 
         $visitor = Visitor::where('uid', $connectionRequestValidated['uid'])->first();
 
-        $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
+        if ($visitor->ip_address !== $ipAddress) {
+            $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
 
-        $apiVisitorData = $apiResponse->json();
+            $apiVisitorData = $apiResponse->json();
 
-        if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
-            $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
-            $visitor->mobile_connection = true;
-            $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
-        } else if ($apiVisitorData['mobile_brand'] == '-') {
-            $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
-            $visitor->carrier_from_data = 'unknown';
+            if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
+                $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
+                $visitor->mobile_connection = true;
+                $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+            } else if ($apiVisitorData['mobile_brand'] == '-') {
+                $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
+                $visitor->carrier_from_data = 'unknown';
+            }
+
+            $visitor->save();
         }
 
-        $visitor->save();
-
-        if ($visitor->carrier_from_data == 'unknown') {
+        if ( ($visitor->carrier_from_data == 'unknown') || (!$visitor->carrier_from_data) ){
             $response = [
                 'visitor' => new ConnectionResource($visitor),
                 'carriers_by_country' => CarrierResource::collection($visitor->country->mobileNetwork)
