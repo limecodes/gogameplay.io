@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,7 @@ class CheckMobileDevice
         } else if ($android) {
             $request->headers->add(['DEVICE' => 'android']);
         } else {
-            // Redirect this to route showing non-mobile offers
-            $request->headers->add(['DEVICE' => 'non-mobile']);
+            return redirect(RouteServiceProvider::NONMOBILE);
         }
 
         return $next($request);

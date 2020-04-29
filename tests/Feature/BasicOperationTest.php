@@ -30,13 +30,28 @@ class BasicOperationTest extends TestCase
      *
      * @test
      */
+    public function nonMobileUserShouldBeRedirected()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->post('/game/example', ['connection' => '0']);
+
+        $response->assertRedirect('/nonmobile');
+    }
+
+    /**
+     *
+     * @test
+     */
     public function shouldFailIfConnectionNotProvided()
     {
         // $this->withoutExceptionHandling();
 
         $response = $this->post('/game/example', []);
 
-        $response->assertStatus(302);
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(env('/nonmobile'));
     }
 
     /**
@@ -47,7 +62,7 @@ class BasicOperationTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('/game/1234', ['connection' => '0']);
+        $response = $this->post('/game/1234', ['connection' => '0'], ['HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
 
         $response->assertStatus(422);
     }
@@ -60,7 +75,7 @@ class BasicOperationTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('/game/nonexistent', ['connection' => '0']);
+        $response = $this->post('/game/nonexistent', ['connection' => '0'], ['HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
 
         $response->assertStatus(404);
     }
@@ -76,7 +91,7 @@ class BasicOperationTest extends TestCase
         $game = factory(Game::class)->create();
         $country = factory(Country::class)->create();
 
-        $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
+        $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.1', 'HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
 
         $response->assertStatus(200);
         $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.1']);
@@ -93,9 +108,9 @@ class BasicOperationTest extends TestCase
         $game = factory(Game::class)->create();
         $country = factory(Country::class)->create();
 
-        $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.2']);
+        $response = $this->post('/nonmobile', ['connection' => '0'], ['HTTP_GGP_TEST_IP' => '1.1.1.2']);
         $response->assertStatus(200);
-        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.2', 'device' => 'non-mobile']);
+        $this->assertDatabaseHas('visitors', ['ip_address' => '1.1.1.2', 'device' => 'non-mobile', 'country_id' => $country->id]);
     }
 
     /**
@@ -268,5 +283,23 @@ class BasicOperationTest extends TestCase
                 'connection' => false,
                 'carrier' => 'A-Mobile'
             ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldNotLookupDatabaseIfDataExists()
+    {
+        $this->withoutExceptionHandling();
+
+        $game = factory(Game::class)->create();
+        $visitor = factory(Visitor::class)->create();
+        $visitor->country_id = 2;
+        $visitor->save();
+
+        $response = $this->post('/game/'.$game->name, ['connection' => '0'], ['HTTP_GGP_TEST_IP' => $visitor->ip_address, 'HTTP_USER_AGENT' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1']);
+        $response->assertOk();
+        $this->assertDatabaseHas('visitors', ['uid' => $visitor->uid, 'ip_address' => $visitor->ip_address, 'mobile_connection' => true, 'country_id' => 2]);
     }
 }

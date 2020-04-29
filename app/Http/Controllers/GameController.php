@@ -17,14 +17,14 @@ use App\Http\Resources\CarrierResource;
 
 class GameController extends Controller
 {
-    private function recordVisitor($ipAddress, $device, $connection)
+    private function recordVisitorNonMobile($ipAddress)
     {
         $visitor = Visitor::firstOrCreate(
             ['ip_address' => $ipAddress],
-            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
+            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => 'non-mobile', 'mobile_connection' => false]
         );
 
-        $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
+        $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS1');
 
         $apiVisitorData = $apiResponse->json();
 
@@ -32,16 +32,48 @@ class GameController extends Controller
 
         $visitor->country_id = $countryId;
 
-        if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
-            $visitor->mobile_connection = true;
-            $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
-        } else if ($apiVisitorData['mobile_brand'] !== '-') {
-            $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+        $visitor->save();
+    }
+
+    private function recordVisitor($ipAddress, $device, $connection)
+    {
+        $visitor = Visitor::firstOrCreate(
+            ['ip_address' => $ipAddress],
+            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
+        );
+
+        if (!$visitor->country_id) {
+
+            // TODO: Should only lookup user if country isn't filled and connection is false
+            $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
+
+            $apiVisitorData = $apiResponse->json();
+
+            $countryId = Country::where('iso_code', strtolower($apiVisitorData['country_code']))->first()->id;
+
+            $visitor->country_id = $countryId;
+
+            if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
+                $visitor->mobile_connection = true;
+                $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+            } else if ($apiVisitorData['mobile_brand'] !== '-') {
+                $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+            }
+
+            $visitor->save();
+
         }
 
-        $visitor->save();
-
         return $visitor;
+    }
+
+    public function nonmobile(Request $request)
+    {
+        $ipAddress = $request->server('GGP_REMOTE_ADDR');
+
+        $visitor = $this->recordVisitorNonMobile($ipAddress);
+
+        return response('non mobile', 200);
     }
 
     public function index($name, GameRequest $request)
