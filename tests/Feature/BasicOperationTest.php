@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Models\Game;
 use App\Models\Country;
 use App\Models\Visitor;
+use App\Models\MobileNetwork;
 
 class BasicOperationTest extends TestCase
 {
@@ -309,6 +310,21 @@ class BasicOperationTest extends TestCase
      */
     public function shouldReturnCarrierListIfMobileConnectionButCarrierInvalid()
     {
-        
+        $this->withoutExceptionHandling();
+
+        $country = factory(Country::class)->create();
+        $visitor = factory(Visitor::class)->create(['country_id' => $country->id]);
+
+        $mobileNetworks = factory(MobileNetwork::class, 3)->create(['country_id' => $country->id]);
+
+        $response = $this->post('/api/carrierlist', ['uid' => $visitor->uid]);
+        $response
+            ->assertOk()
+            ->assertJsonCount(3)
+            ->assertJson([
+                ['name' => $mobileNetworks[0]->name],
+                ['name' => $mobileNetworks[1]->name],
+                ['name' => $mobileNetworks[2]->name]   
+            ]);
     }
 }
