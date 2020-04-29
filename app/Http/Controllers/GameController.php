@@ -39,7 +39,7 @@ class GameController extends Controller
     private function recordVisitor($ipAddress, $device, $connection)
     {
         $visitor = Visitor::firstOrCreate(
-            ['ip_address' => $ipAddress],
+            ['ip_address' => $ipAddress, 'device' => $device],
             ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
         );
 

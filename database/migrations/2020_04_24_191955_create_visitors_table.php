@@ -16,7 +16,7 @@ class CreateVisitorsTable extends Migration
         Schema::create('visitors', function (Blueprint $table) {
             $table->id();
             $table->uuid('uid');
-            $table->ipAddress('ip_address');
+            $table->ipAddress('ip_address')->unique();
             $table->string('device', 255)->nullable();
             $table->foreignId('country_id')->nullable();
             $table->boolean('mobile_connection')->nullable();
