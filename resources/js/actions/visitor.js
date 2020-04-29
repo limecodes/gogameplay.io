@@ -35,7 +35,7 @@ export const connectionChanged = (uid) => async dispatch => {
 
 		if ( (typeof response.data.carriers_by_country == 'object') && (!response.data.visitor.carrier) ) {
 			dispatch({
-				type: RECEIVED_CARRIER_LIST,
+				type: RECEIVED_CARRIER_LIST_SUCCESS,
 				payload: response.data.carriers_by_country
 			});
 		} else {

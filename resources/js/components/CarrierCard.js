@@ -4,10 +4,17 @@ import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 
 import { validateCarrier } from '../actions/validation';
+import { getCarrierList } from '../actions/carrier';
 
 import ChangeConnection from './ChangeConnection';
 
 class CarrierCard extends Component {
+
+	componentDidMount() {
+		if ( (this.props.visitor.connection) && (!this.props.visitor.carrier) ) {
+			this.props.getCarrierList(this.props.visitor.uid);
+		}
+	}
 
 	handleCarrierValidate() {
 		this.props.validateCarrier();
@@ -36,7 +43,7 @@ class CarrierCard extends Component {
 				<div className="card-header" style={{ textAlign: 'center' }}><p style={{ marginBottom: 0, fontSize: '1rem' }}><strong>Step 2. Verify Your Cellular Carrier</strong></p></div>
 				<div className="card-body">
 					<ChangeConnection />
-					{(!this.props.visitor.carrier) ? <small>You need to be on a cellular connection to verify carrier</small> : <p></p>}
+					{( (!this.props.visitor.connection) && (!this.props.visitor.carrier) ) ? <small>You need to be on a cellular connection to verify carrier</small> : <p></p>}
 				</div>
 				<ConfirmButton />
 			</div>
@@ -49,4 +56,4 @@ const mapStateToProps = state => ({
 	carriers: state.carriers.carriers
 });
 
-export default connect(mapStateToProps, { validateCarrier })(CarrierCard);
+export default connect(mapStateToProps, { validateCarrier, getCarrierList })(CarrierCard);

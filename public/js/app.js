@@ -54590,11 +54590,84 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/actions/carrier.js":
+/*!*****************************************!*\
+  !*** ./resources/js/actions/carrier.js ***!
+  \*****************************************/
+/*! exports provided: getCarrierList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCarrierList", function() { return getCarrierList; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/actions/types.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var getCarrierList = function getCarrierList(uid) {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
+      var response, payload;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["RECIEVED_CARRIER_LIST_START"]
+              });
+              _context.prev = 1;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/carrierlist', {
+                'uid': uid
+              });
+
+            case 4:
+              response = _context.sent;
+              payload = response.data;
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST_SUCCESS"],
+                payload: payload
+              });
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST_FAIL"]
+              });
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 9]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+/***/ }),
+
 /***/ "./resources/js/actions/types.js":
 /*!***************************************!*\
   !*** ./resources/js/actions/types.js ***!
   \***************************************/
-/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECEIVED_CARRIER_LIST, UPDATE_VISITOR_CARRIER_START, UPDATE_VISITOR_CARRIER_SUCCESS, UPDATE_VISITOR_CARRIER_FAIL */
+/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECIEVED_CARRIER_LIST_START, RECEIVED_CARRIER_LIST_SUCCESS, RECEIVED_CARRIER_LIST_FAIL, UPDATE_VISITOR_CARRIER_START, UPDATE_VISITOR_CARRIER_SUCCESS, UPDATE_VISITOR_CARRIER_FAIL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54605,7 +54678,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONNECTION_CHANGE_FAILURE", function() { return CONNECTION_CHANGE_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATE_PLATFORM", function() { return VALIDATE_PLATFORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATE_CARRIER", function() { return VALIDATE_CARRIER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVED_CARRIER_LIST", function() { return RECEIVED_CARRIER_LIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECIEVED_CARRIER_LIST_START", function() { return RECIEVED_CARRIER_LIST_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVED_CARRIER_LIST_SUCCESS", function() { return RECEIVED_CARRIER_LIST_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVED_CARRIER_LIST_FAIL", function() { return RECEIVED_CARRIER_LIST_FAIL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_START", function() { return UPDATE_VISITOR_CARRIER_START; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_SUCCESS", function() { return UPDATE_VISITOR_CARRIER_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_FAIL", function() { return UPDATE_VISITOR_CARRIER_FAIL; });
@@ -54615,7 +54690,9 @@ var CONNECTION_CHANGE_SUCCESS = 'CONNECTION_CHANGE_SUCCESS';
 var CONNECTION_CHANGE_FAILURE = 'CONNECTION_CHANGE_FAILURE';
 var VALIDATE_PLATFORM = 'VALIDATE_PLATFORM';
 var VALIDATE_CARRIER = 'VALIDATE_CARRIER';
-var RECEIVED_CARRIER_LIST = 'RECEIVED_CARRIER_LIST';
+var RECIEVED_CARRIER_LIST_START = 'RECIEVED_CARRIER_LIST_START';
+var RECEIVED_CARRIER_LIST_SUCCESS = 'RECEIVED_CARRIER_LIST_SUCCESS';
+var RECEIVED_CARRIER_LIST_FAIL = 'RECEIVED_CARRIER_LIST_FAIL';
 var UPDATE_VISITOR_CARRIER_START = 'UPDATE_VISITOR_CARRIER_START';
 var UPDATE_VISITOR_CARRIER_SUCCESS = 'UPDATE_VISITOR_CARRIER_SUCCESS';
 var UPDATE_VISITOR_CARRIER_FAIL = 'UPDATE_VISITOR_CARRIER_FAIL';
@@ -54773,7 +54850,7 @@ var connectionChanged = function connectionChanged(uid) {
 
               if (_typeof(response.data.carriers_by_country) == 'object' && !response.data.visitor.carrier) {
                 dispatch({
-                  type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST"],
+                  type: RECEIVED_CARRIER_LIST_SUCCESS,
                   payload: response.data.carriers_by_country
                 });
               } else {
@@ -54976,7 +55053,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_validation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/validation */ "./resources/js/actions/validation.js");
-/* harmony import */ var _ChangeConnection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ChangeConnection */ "./resources/js/components/ChangeConnection.js");
+/* harmony import */ var _actions_carrier__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/carrier */ "./resources/js/actions/carrier.js");
+/* harmony import */ var _ChangeConnection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ChangeConnection */ "./resources/js/components/ChangeConnection.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55005,6 +55083,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var CarrierCard = /*#__PURE__*/function (_Component) {
   _inherits(CarrierCard, _Component);
 
@@ -55017,6 +55096,13 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(CarrierCard, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.visitor.connection && !this.props.visitor.carrier) {
+        this.props.getCarrierList(this.props.visitor.uid);
+      }
+    }
+  }, {
     key: "handleCarrierValidate",
     value: function handleCarrierValidate() {
       this.props.validateCarrier();
@@ -55061,7 +55147,7 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Step 2. Verify Your Cellular Carrier"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_4__["default"], null), !this.props.visitor.carrier ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_5__["default"], null), !this.props.visitor.connection && !this.props.visitor.carrier ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
     }
   }]);
 
@@ -55076,7 +55162,8 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  validateCarrier: _actions_validation__WEBPACK_IMPORTED_MODULE_3__["validateCarrier"]
+  validateCarrier: _actions_validation__WEBPACK_IMPORTED_MODULE_3__["validateCarrier"],
+  getCarrierList: _actions_carrier__WEBPACK_IMPORTED_MODULE_4__["getCarrierList"]
 })(CarrierCard));
 
 /***/ }),
@@ -55948,8 +56035,7 @@ var initialState = {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["RECEIVED_CARRIER_LIST"]:
-      console.log('RECEIVED_CARRIER_LIST');
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["RECEIVED_CARRIER_LIST_SUCCESS"]:
       return _objectSpread({}, state, {
         carriers: action.payload
       });

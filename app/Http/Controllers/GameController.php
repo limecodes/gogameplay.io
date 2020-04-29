@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use App\Http\Requests\GameRequest;
 use App\Http\Requests\ConnectionRequest;
 use App\Http\Requests\CarrierRequest;
+use App\Http\Requests\CarrierListRequest;
 use App\Http\Resources\ConnectionResource;
 use App\Http\Resources\CarrierResource;
 
@@ -170,5 +171,14 @@ class GameController extends Controller
         $visitor->save();
 
         return response()->json(new ConnectionResource($visitor), 200);
+    }
+
+    public function carrierlist(CarrierListRequest $request)
+    {
+        $carrierListRequestValidated = $request->validated();
+
+        $visitor = Visitor::where('uid', $carrierListRequestValidated['uid'])->first();
+
+        return response()->json(CarrierResource::collection($visitor->country->mobileNetwork));
     }
 }
