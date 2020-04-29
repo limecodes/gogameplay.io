@@ -12,19 +12,20 @@ use Illuminate\Support\Str;
 use App\Http\Requests\GameRequest;
 use App\Http\Requests\ConnectionRequest;
 use App\Http\Requests\CarrierRequest;
+use App\Http\Requests\CarrierListRequest;
 use App\Http\Resources\ConnectionResource;
 use App\Http\Resources\CarrierResource;
 
 class GameController extends Controller
 {
-    private function recordVisitor($ipAddress, $device, $connection)
+    private function recordVisitorNonMobile($ipAddress)
     {
         $visitor = Visitor::firstOrCreate(
             ['ip_address' => $ipAddress],
-            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
+            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => 'non-mobile', 'mobile_connection' => false]
         );
 
-        $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
+        $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS1');
 
         $apiVisitorData = $apiResponse->json();
 
@@ -32,16 +33,48 @@ class GameController extends Controller
 
         $visitor->country_id = $countryId;
 
-        if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
-            $visitor->mobile_connection = true;
-            $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
-        } else if ($apiVisitorData['mobile_brand'] !== '-') {
-            $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+        $visitor->save();
+    }
+
+    private function recordVisitor($ipAddress, $device, $connection)
+    {
+        $visitor = Visitor::firstOrCreate(
+            ['ip_address' => $ipAddress, 'device' => $device],
+            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
+        );
+
+        if (!$visitor->country_id) {
+
+            // TODO: Should only lookup user if country isn't filled and connection is false
+            $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
+
+            $apiVisitorData = $apiResponse->json();
+
+            $countryId = Country::where('iso_code', strtolower($apiVisitorData['country_code']))->first()->id;
+
+            $visitor->country_id = $countryId;
+
+            if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
+                $visitor->mobile_connection = true;
+                $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+            } else if ($apiVisitorData['mobile_brand'] !== '-') {
+                $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+            }
+
+            $visitor->save();
+
         }
 
-        $visitor->save();
-
         return $visitor;
+    }
+
+    public function nonmobile(Request $request)
+    {
+        $ipAddress = $request->server('GGP_REMOTE_ADDR');
+
+        $visitor = $this->recordVisitorNonMobile($ipAddress);
+
+        return response('non mobile', 200);
     }
 
     public function index($name, GameRequest $request)
@@ -83,38 +116,30 @@ class GameController extends Controller
 
     public function connection(ConnectionRequest $request)
     {
-        // BUG: Duplicate entry when trying to update if the user has been on the site before
-        //      It's not grabbing the uid by previously used ip address
-        //      The bug is in firstOrCreate, it's not grabbing a previous user by ip address
-        //      This will eat up my API usage, I need to fix this to grab a previous user
-        //      Without using firstOrCreate
-        //      NO WAIT!!
-        //      When a user comes in with wifi, then changes to cellular, it's not grabbing the user
-        //      because it's not detecting their cellular IP, since I'm updating it.
-        //      A fix would be to add another field or another record, instead of updating it.
-        //      OR: I can add an ip_address-to-user_id table
         $connectionRequestValidated = $request->validated();
 
         $ipAddress = $request->server('GGP_REMOTE_ADDR');
 
         $visitor = Visitor::where('uid', $connectionRequestValidated['uid'])->first();
 
-        $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
+        if ($visitor->ip_address !== $ipAddress) {
+            $apiResponse = Http::get(env('IP2LOCATION_BASE_URL').'?ip='.$ipAddress.'&key='.env('IP2LOCATION_API_KEY').'&package=WS19');
 
-        $apiVisitorData = $apiResponse->json();
+            $apiVisitorData = $apiResponse->json();
 
-        if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
-            $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
-            $visitor->mobile_connection = true;
-            $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
-        } else if ($apiVisitorData['mobile_brand'] == '-') {
-            $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
-            $visitor->carrier_from_data = 'unknown';
+            if ( ($visitor->mobile_connection == false) && ($apiVisitorData['mobile_brand'] !== '-') ) {
+                $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
+                $visitor->mobile_connection = true;
+                $visitor->carrier_from_data = $apiVisitorData['mobile_brand'];
+            } else if ($apiVisitorData['mobile_brand'] == '-') {
+                $visitor->ip_address = $request->server('GGP_REMOTE_ADDR');
+                $visitor->carrier_from_data = 'unknown';
+            }
+
+            $visitor->save();
         }
 
-        $visitor->save();
-
-        if ($visitor->carrier_from_data == 'unknown') {
+        if ( ($visitor->carrier_from_data == 'unknown') || (!$visitor->carrier_from_data) ){
             $response = [
                 'visitor' => new ConnectionResource($visitor),
                 'carriers_by_country' => CarrierResource::collection($visitor->country->mobileNetwork)
@@ -138,5 +163,14 @@ class GameController extends Controller
         $visitor->save();
 
         return response()->json(new ConnectionResource($visitor), 200);
+    }
+
+    public function carrierlist(CarrierListRequest $request)
+    {
+        $carrierListRequestValidated = $request->validated();
+
+        $visitor = Visitor::where('uid', $carrierListRequestValidated['uid'])->first();
+
+        return response()->json(CarrierResource::collection($visitor->country->mobileNetwork));
     }
 }

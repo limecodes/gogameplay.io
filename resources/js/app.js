@@ -6,7 +6,12 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from './store';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCheck, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+
 import RootComponent from './components/RootComponent';
+
+library.add(faCheck, faAngleRight);
 
 export default class App extends Component {
 

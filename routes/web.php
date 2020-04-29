@@ -17,4 +17,10 @@ Route::get('/', function () {
     return redirect()->away(env('APP_REDIRECT_HOME'));
 });
 
-Route::post('/game/{name}', 'GameController@index');
+Route::middleware('mobile')->group(function() {
+	Route::post('/game/{name}', 'GameController@index');
+});
+
+Route::get('/nonmobile', 'GameController@nonmobile');
+
+

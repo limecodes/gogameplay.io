@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 class Searching extends Component {
 
 	constructor(props) {
@@ -26,7 +28,7 @@ class Searching extends Component {
 			if (!this.state.searching) {
 				return (
 					<div className="progress">
-						<div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{ width: '100%'}}></div>
+						<div className="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{ width: '100%'}}></div>
 					</div>
 				);
 			} else {
@@ -37,7 +39,7 @@ class Searching extends Component {
 		return (
 			<div className="card" style={{ marginTop: '1rem' }}>
 				<div className="card-body">
-					{ (this.state.searching) ? <div><span className="badge badge-success">check</span>Coupon Found</div> : <div>Searching</div> }
+					{ (this.state.searching) ? <div><span className="badge badge-success"><FontAwesomeIcon icon='check' /></span>{' '}Coupon Found</div> : <div>Searching</div> }
 					<Progress />
 				</div>
 			</div>
