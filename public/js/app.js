@@ -55010,10 +55010,7 @@ var App = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(redux_persist_integration_react__WEBPACK_IMPORTED_MODULE_3__["PersistGate"], {
         persistor: _store__WEBPACK_IMPORTED_MODULE_4__["persistor"]
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_RootComponent__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        uid: this.props.uid,
-        device: this.props.device,
-        connection: this.props.connection,
-        carrier: this.props.carrier
+        device: this.props.device
       })));
     }
   }]);
@@ -55025,15 +55022,9 @@ var App = /*#__PURE__*/function (_Component) {
 
 if (document.getElementById('app')) {
   var elem = document.getElementById('app');
-  var uid = elem.getAttribute('data-uid');
   var device = elem.getAttribute('data-device');
-  var connection = elem.getAttribute('data-connection');
-  var carrier = elem.getAttribute('data-carrier');
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, {
-    uid: uid,
-    device: device,
-    connection: connection,
-    carrier: carrier
+    device: device
   }), elem);
 }
 
@@ -55670,15 +55661,14 @@ var RootComponent = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(RootComponent);
 
   function RootComponent(props) {
-    var _this;
-
     _classCallCheck(this, RootComponent);
 
-    _this = _super.call(this, props);
-
-    _this.props.setVisitorData(_this.props.uid, _this.props.device, _this.props.connection == "" ? false : true, _this.props.carrier !== 'unknown' ? _this.props.carrier : '');
-
-    return _this;
+    return _super.call(this, props); // TODO: Only the app needs to know the device, it doesn't need to be recorded in the databasee
+    // On android, I can get the connection right here via the navigator.connection
+    // Here, I can initiate to record the user and get the uid
+    // The uid can be used later
+    // The objective is to make more efficient use of the API
+    //this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true, (this.props.carrier !== 'unknown') ? this.props.carrier : '');
   }
 
   _createClass(RootComponent, [{

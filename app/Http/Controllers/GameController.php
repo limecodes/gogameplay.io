@@ -77,7 +77,7 @@ class GameController extends Controller
         return response('non mobile', 200);
     }
 
-    public function index($name, GameRequest $request)
+    public function index($name, Request $request)
     {
     	$validator = Validator::make(['name' => $name], [
     		'name' => 'required|string|alpha|max:50'
@@ -87,28 +87,17 @@ class GameController extends Controller
     		return response($validator->errors(), 422);
     	}
 
-        $gameRequestValidated = $request->validated();
-
     	$game = Game::where('name', $name);
 
     	if ($game->count() > 0) {
-            $ipAddress = $request->server('GGP_REMOTE_ADDR');
             $device = $request->headers->get('device');
-            $connection = boolval($gameRequestValidated['connection']);
-            $visitor = $this->recordVisitor($ipAddress, $device, $connection);
 
             $gameObject = $game->first();
             $gameTitle = $gameObject->title;
             $gameImage = $gameObject->image;
             $gamePrice = $gameObject->price;
 
-            $uid = $visitor->uid;
-            $device = $visitor->device;
-            $connection = boolval($visitor->mobile_connection);
-            $carrier = $visitor->carrier_from_data;
-
-    		return view('game', ['title' => $gameTitle, 'image' => $gameImage, 'price' => $gamePrice, 'uid' => $uid, 'device' => $device, 'connection' => $connection, 'carrier' => $carrier]);
-            // return response("The name of the game is $name and your ip is $ipAddress", 200);
+    		return view('game', ['title' => $gameTitle, 'image' => $gameImage, 'price' => $gamePrice, 'device' => $device]);
     	} else {
     		return response('game does not exist', 404);
     	}

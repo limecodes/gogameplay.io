@@ -14,7 +14,12 @@ class RootComponent extends Component {
 	
 	constructor(props) {
 		super(props);
-		this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true, (this.props.carrier !== 'unknown') ? this.props.carrier : '');
+		// TODO: Only the app needs to know the device, it doesn't need to be recorded in the databasee
+		// On android, I can get the connection right here via the navigator.connection
+		// Here, I can initiate to record the user and get the uid
+		// The uid can be used later
+		// The objective is to make more efficient use of the API
+		//this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true, (this.props.carrier !== 'unknown') ? this.props.carrier : '');
 	}
 
 	render() {
