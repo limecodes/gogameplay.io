@@ -17,7 +17,11 @@ class NonMobileTest extends TestCase
      */
     public function nonMobilePageShouldLoad()
     {
-        $response = $this->get('/nonmobile');
+        $this->withoutExceptionHandling();
+
+        $country = factory(Country::class)->create();
+
+        $response = $this->get('/nonmobile', ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
 
         $response->assertOk();
     }
@@ -28,6 +32,8 @@ class NonMobileTest extends TestCase
      */
     public function shouldRecordNonMobileUser()
     {
+        $this->withoutExceptionHandling();
+
         $country = factory(Country::class)->create();
 
         $response = $this->get('/nonmobile', ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
