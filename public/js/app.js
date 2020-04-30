@@ -55058,13 +55058,13 @@ var App = /*#__PURE__*/function (_Component) {
 
 
 if (document.getElementById('app')) {
-  // THIS IS FOR TESTING ONLY!!!
-  if (navigator.connection) {
+  var elem = document.getElementById('app');
+  var device = elem.getAttribute('data-device'); // THIS IS FOR TESTING ONLY!!!
+
+  if (device == 'android' && navigator.connection) {
     NetworkInformation.prototype.type = 'cellular';
   }
 
-  var elem = document.getElementById('app');
-  var device = elem.getAttribute('data-device');
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, {
     device: device
   }), elem);

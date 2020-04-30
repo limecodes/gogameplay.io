@@ -33,13 +33,13 @@ export default class App extends Component {
 }
 
 if (document.getElementById('app')) {
-	// THIS IS FOR TESTING ONLY!!!
-	if (navigator.connection) {
-		NetworkInformation.prototype.type = 'cellular';
-	}
-
 	var elem = document.getElementById('app');
 	var device = elem.getAttribute('data-device');
+
+	// THIS IS FOR TESTING ONLY!!!
+	if ( (device == 'android') && (navigator.connection) ) {
+		NetworkInformation.prototype.type = 'cellular';
+	}
 
     ReactDOM.render(<App device={ device } />, elem);
 }
