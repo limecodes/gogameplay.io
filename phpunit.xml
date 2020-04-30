@@ -13,6 +13,7 @@
             <file>./tests/Feature/GameTest.php</file>
             <file>./tests/Feature/VisitorTest.php</file>
             <file>./tests/Feature/ConnectionTest.php</file>
+            <file>./tests/Feature/CarrierTest.php</file>
         </testsuite>
     </testsuites>
     <filter>
