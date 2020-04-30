@@ -48,3 +48,4 @@ I can also have a flash for Android if the user is on wifi
         TODO: Cleanup the game controller
         TODO: Fix up the front-end
         TODO: Offers 😈 The fun part begins
+        TODO: Don't forget non-mobile
