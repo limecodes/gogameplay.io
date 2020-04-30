@@ -15,6 +15,7 @@
             <file>./tests/Feature/VisitorTest.php</file>
             <file>./tests/Feature/ConnectionTest.php</file>
             <file>./tests/Feature/CarrierTest.php</file>
+            <file>./tests/Feature/OfferTest.php</file>
         </testsuite>
     </testsuites>
     <filter>

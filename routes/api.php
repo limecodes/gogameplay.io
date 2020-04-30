@@ -31,3 +31,7 @@ Route::group(['prefix' => 'connection'], function() {
 Route::group(['prefix' => 'carrier'], function() {
 	Route::patch('update', 'CarrierController@updateCarrier');
 });
+
+Route::group(['prefix'=> 'offers'], function() {
+	Route::post('fetch', 'OfferController@fetch');
+});

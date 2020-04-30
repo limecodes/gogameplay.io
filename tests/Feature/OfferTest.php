@@ -9,9 +9,8 @@ use Tests\TestCase;
 class OfferTest extends TestCase
 {
     /**
-     * A basic feature test example.
      *
-     * @return void
+     * @test
      */
     public function testExample()
     {
