@@ -4,17 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Game;
-use App\Models\Visitor;
-use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use App\Http\Requests\GameRequest;
-use App\Http\Requests\ConnectionRequest;
-use App\Http\Requests\CarrierRequest;
-use App\Http\Requests\CarrierListRequest;
-use App\Http\Resources\ConnectionResource;
-use App\Http\Resources\CarrierResource;
 
 class GameController extends Controller
 {
