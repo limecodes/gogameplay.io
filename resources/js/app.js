@@ -15,11 +15,17 @@ library.add(faCheck, faAngleRight);
 
 export default class App extends Component {
 
+	constructor(props) {
+		super(props);
+
+		//TODO: Maybe instead of the server doing device detection, do it here
+	}
+
 	render() {
 		return (
 			<Provider store={ store }>
 				<PersistGate persistor={ persistor }>
-	        		<RootComponent uid={ this.props.uid } device={ this.props.device } connection={ this.props.connection } carrier={ this.props.carrier } />
+	        		<RootComponent device={ this.props.device } />
 	        	</PersistGate>
 	        </Provider>
     	);
@@ -28,10 +34,12 @@ export default class App extends Component {
 
 if (document.getElementById('app')) {
 	var elem = document.getElementById('app');
-	var uid = elem.getAttribute('data-uid');
 	var device = elem.getAttribute('data-device');
-	var connection = elem.getAttribute('data-connection');
-	var carrier = elem.getAttribute('data-carrier')
 
-    ReactDOM.render(<App uid={ uid } device={ device } connection={ connection } carrier={ carrier } />, elem);
+	// THIS IS FOR TESTING ONLY!!!
+	if ( (device == 'android') && (navigator.connection) ) {
+		NetworkInformation.prototype.type = 'wifi';
+	}
+
+    ReactDOM.render(<App device={ device } />, elem);
 }

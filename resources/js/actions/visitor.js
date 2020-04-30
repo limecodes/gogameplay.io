@@ -1,5 +1,7 @@
 import {
-	SET_VISITOR_STATE,
+	SET_VISITOR_STATE_START,
+	SET_VISITOR_STATE_COMPLETE,
+	SET_VISITOR_STATE_FAIL,
 	CONNECTION_CHANGE_START,
 	CONNECTION_CHANGE_SUCCESS,
 	CONNECTION_CHANGE_FAILURE,
@@ -11,30 +13,59 @@ import {
 
 import axios from 'axios';
 
-export const setVisitorData = (uid, device, connection, carrier) => async dispatch => {
+export const setVisitorData = (device) => async dispatch => {
+	const connection = ( (navigator.connection) && (navigator.connection.type == 'cellular') ) ? true : false;
+
 	dispatch({
-		type: SET_VISITOR_STATE,
+		type: SET_VISITOR_STATE_START,
 		payload: {
-			uid: uid,
 			device: device,
-			connection: connection,
-			carrier: carrier
+			connection: connection
 		}
 	});
+
+	try {
+		const response = await axios.post('/api/visitor/set', {
+			device: device,
+			connection: connection
+		});
+
+		let visitorData;
+
+		if (typeof response.data.carriers_by_country == 'object') {
+			dispatch({
+				type: RECEIVED_CARRIER_LIST_SUCCESS,
+				payload: response.data.carriers_by_country
+			});
+
+			visitorData = response.data.visitor;
+		} else {
+			visitorData = response.data;
+		}
+
+		dispatch({
+			type: SET_VISITOR_STATE_COMPLETE,
+			payload: visitorData
+		});
+	} catch (error) {
+		dispatch({
+			type: SET_VISITOR_STATE_FAIL
+		});
+	}
 }
 
-export const connectionChanged = (uid) => async dispatch => {
+export const connectionChanged = (uid, device) => async dispatch => {
 	dispatch({
 		type: CONNECTION_CHANGE_START
 	});
 
 	try {
-		const response = await axios.post('/api/connectionchanged', {
-			uid: uid
+		const response = await axios.patch('/api/connection/changed', {
+			uid: uid,
+			device: device
 		});
 
 		if ( (typeof response.data.carriers_by_country == 'object') && (!response.data.visitor.carrier) ) {
-			console.log('got carrier list');
 			dispatch({
 				type: RECEIVED_CARRIER_LIST_SUCCESS,
 				payload: response.data.carriers_by_country
@@ -64,7 +95,7 @@ export const updateVisitorCarrier = (uid, carrier) => async dispatch => {
 	});
 
 	try {
-		const response = await axios.post('/api/updatecarrier', {
+		const response = await axios.patch('/api/carrier/update', {
 			uid: uid,
 			carrier: carrier
 		});

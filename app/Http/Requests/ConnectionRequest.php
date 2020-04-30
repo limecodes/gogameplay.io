@@ -24,7 +24,8 @@ class ConnectionRequest extends FormRequest
     public function rules()
     {
         return [
-            'uid' => 'bail|required|uuid'
+            'uid' => 'bail|required|uuid',
+            'device' => 'required|string|max:10'
         ];
     }
 }

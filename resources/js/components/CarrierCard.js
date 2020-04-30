@@ -10,12 +10,6 @@ import ChangeConnection from './ChangeConnection';
 
 class CarrierCard extends Component {
 
-	componentDidMount() {
-		if ( (this.props.visitor.connection) && (!this.props.visitor.carrier) ) {
-			this.props.getCarrierList(this.props.visitor.uid);
-		}
-	}
-
 	handleCarrierValidate() {
 		this.props.validateCarrier();
 	}

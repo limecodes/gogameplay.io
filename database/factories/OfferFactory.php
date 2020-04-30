@@ -2,11 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Visitor;
+use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(Visitor::class, function (Faker $faker) {
+$factory->define(Model::class, function (Faker $faker) {
     return [
-        'uid' => $faker->uuid
+        //
     ];
 });

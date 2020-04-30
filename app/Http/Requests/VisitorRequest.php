@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GameRequest extends FormRequest
+class VisitorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class GameRequest extends FormRequest
     public function rules()
     {
         return [
-            'connection' => 'bail|required|boolean'
+            'device' => 'bail|required|string|max:10',
+            'connection' => 'required|boolean'
         ];
     }
 }

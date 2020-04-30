@@ -21,7 +21,6 @@ class CreateVisitorsTable extends Migration
             $table->foreignId('country_id')->nullable();
             $table->boolean('mobile_connection')->nullable();
             $table->string('carrier_from_data')->nullable();
-            $table->foreignId('mobile_network_id')->nullable();
             $table->timestamps();
         });
     }

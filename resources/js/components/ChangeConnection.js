@@ -13,31 +13,36 @@ class ChangeConnection extends Component {
 		if (navigator.connection) {
 			if (typeof navigator.connection.ontypechange == 'object') {
 				navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+			} else if (typeof navigator.connection.onchange == 'object') {
+				// TODO: (MERGE NOTE)
+				// TODO: Remove this after front-end is done
+				navigator.connection.onchange = this.connectionOnChange.bind(this);
 			}
 		}
+	}
+
+	// TODO: (MERGE NOTE)
+	// TODO: Remove this after front-end is done
+	connectionOnChange(e) {
+		this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 	}
 
 	componentDidUpdate(prevProps) {
 		var self = this;
 
 		if ( (this.props.visitor.error !== prevProps.visitor.error) && (this.props.visitor.error) ) {
-			console.log('Attempting one more time');
-			this.props.connectionChanged(this.props.visitor.uid);
-		}
-
-		if (this.props.visitor.error == prevProps.visitor.error) {
-			console.log('Failed even after re-try');
+			this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 		}
 	}
 
 	connectionDidChange(e) {
 		if (navigator.connection.type == 'cellular') {
-			this.props.connectionChanged(this.props.visitor.uid);
+			this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 		}
 	}
 
 	connectionHandleChange() {
-		this.props.connectionChanged(this.props.visitor.uid);
+		this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 	}
 
 	carrierHandleChange(e) {
