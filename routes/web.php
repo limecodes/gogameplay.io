@@ -19,6 +19,6 @@ Route::middleware('mobile')->group(function() {
 	Route::get('/game/{name}', 'GameController@index');
 });
 
-Route::get('/nonmobile', 'GameController@nonmobile');
+Route::get('/nonmobile', 'NonmobileController@index');
 
 
