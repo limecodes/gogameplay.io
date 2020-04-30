@@ -53,6 +53,7 @@ class VisitorTest extends TestCase
             'ip_address' => '1.1.1.4',
             'device' => 'android',
             'country_id' => null,
+            'mobile_connection' => false,
             'carrier_from_data' => null
         ]);
 
@@ -244,18 +245,5 @@ class VisitorTest extends TestCase
                 'connection' => false,
                 'carrier' => null
             ]);
-    }
-
-    /**
-     *
-     * @test
-     */
-    public function shouldUpdateVisitorOnConnectionChangeAndroidCellular()
-    {
-        $this->withoutExceptionHandling();
-
-        // TODO: Do this on another test file
-        // Create another api controller class "ConnectionController"
-        // Do I handle iOS and Android differently?
     }
 }
