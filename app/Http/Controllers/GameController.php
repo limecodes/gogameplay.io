@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Game;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\GameRequest;
 
 class GameController extends Controller
 {
