@@ -15,6 +15,12 @@ library.add(faCheck, faAngleRight);
 
 export default class App extends Component {
 
+	constructor(props) {
+		super(props);
+
+		//TODO: Maybe instead of the server doing device detection, do it here
+	}
+
 	render() {
 		return (
 			<Provider store={ store }>
@@ -27,6 +33,11 @@ export default class App extends Component {
 }
 
 if (document.getElementById('app')) {
+	// THIS IS FOR TESTING ONLY!!!
+	if (navigator.connection) {
+		NetworkInformation.prototype.type = 'cellular';
+	}
+
 	var elem = document.getElementById('app');
 	var device = elem.getAttribute('data-device');
 

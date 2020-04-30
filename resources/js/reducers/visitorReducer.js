@@ -1,4 +1,4 @@
-import { SET_VISITOR_STATE, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, UPDATE_VISITOR_CARRIER_SUCCESS } from '../actions/types';
+import { SET_VISITOR_STATE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, UPDATE_VISITOR_CARRIER_SUCCESS } from '../actions/types';
 
 const initialState = {
 	uid: null,
@@ -10,7 +10,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case SET_VISITOR_STATE:
+		case SET_VISITOR_STATE_START:
 			return {
 				...state,
 				...action.payload

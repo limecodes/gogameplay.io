@@ -11,9 +11,12 @@ import Instructions from './Instructions';
 import Searching from './Searching';
 
 class RootComponent extends Component {
-	
+
 	constructor(props) {
 		super(props);
+
+		this.props.setVisitorData(this.props.device);
+
 		// TODO: Only the app needs to know the device, it doesn't need to be recorded in the databasee
 		// On android, I can get the connection right here via the navigator.connection
 		// Here, I can initiate to record the user and get the uid

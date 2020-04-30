@@ -1,5 +1,7 @@
 import {
-	SET_VISITOR_STATE,
+	SET_VISITOR_STATE_START,
+	SET_VISITOR_STATE_COMPLETE,
+	SET_VISITOR_STATE_FAIL,
 	CONNECTION_CHANGE_START,
 	CONNECTION_CHANGE_SUCCESS,
 	CONNECTION_CHANGE_FAILURE,
@@ -11,16 +13,34 @@ import {
 
 import axios from 'axios';
 
-export const setVisitorData = (uid, device, connection, carrier) => async dispatch => {
+export const setVisitorData = (device) => async dispatch => {
+	const connection = ( (navigator.connection) && (navigator.connection.type == 'cellular') ) ? true : false;
+
 	dispatch({
-		type: SET_VISITOR_STATE,
+		type: SET_VISITOR_STATE_START,
 		payload: {
-			uid: uid,
 			device: device,
-			connection: connection,
-			carrier: carrier
+			connection: connection
 		}
 	});
+
+	try {
+		const response = await axios.post('/api/visitor/set', {
+			device: device,
+			connection: connection
+		});
+
+		const payload = response.data;
+
+		dispatch({
+			type: SET_VISITOR_STATE_COMPLETE,
+			payload: payload
+		});
+	} catch (error) {
+		dispatch({
+			type: SET_VISITOR_STATE_FAIL
+		});
+	}
 }
 
 export const connectionChanged = (uid) => async dispatch => {

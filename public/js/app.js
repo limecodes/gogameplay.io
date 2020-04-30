@@ -54667,12 +54667,14 @@ var getCarrierList = function getCarrierList(uid) {
 /*!***************************************!*\
   !*** ./resources/js/actions/types.js ***!
   \***************************************/
-/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECIEVED_CARRIER_LIST_START, RECEIVED_CARRIER_LIST_SUCCESS, RECEIVED_CARRIER_LIST_FAIL, UPDATE_VISITOR_CARRIER_START, UPDATE_VISITOR_CARRIER_SUCCESS, UPDATE_VISITOR_CARRIER_FAIL */
+/*! exports provided: SET_VISITOR_STATE_START, SET_VISITOR_STATE_COMPLETE, SET_VISITOR_STATE_FAIL, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECIEVED_CARRIER_LIST_START, RECEIVED_CARRIER_LIST_SUCCESS, RECEIVED_CARRIER_LIST_FAIL, UPDATE_VISITOR_CARRIER_START, UPDATE_VISITOR_CARRIER_SUCCESS, UPDATE_VISITOR_CARRIER_FAIL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_VISITOR_STATE", function() { return SET_VISITOR_STATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_VISITOR_STATE_START", function() { return SET_VISITOR_STATE_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_VISITOR_STATE_COMPLETE", function() { return SET_VISITOR_STATE_COMPLETE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_VISITOR_STATE_FAIL", function() { return SET_VISITOR_STATE_FAIL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONNECTION_CHANGE_START", function() { return CONNECTION_CHANGE_START; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONNECTION_CHANGE_SUCCESS", function() { return CONNECTION_CHANGE_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONNECTION_CHANGE_FAILURE", function() { return CONNECTION_CHANGE_FAILURE; });
@@ -54684,7 +54686,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_START", function() { return UPDATE_VISITOR_CARRIER_START; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_SUCCESS", function() { return UPDATE_VISITOR_CARRIER_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_FAIL", function() { return UPDATE_VISITOR_CARRIER_FAIL; });
-var SET_VISITOR_STATE = 'SET_VISITOR_STATE';
+var SET_VISITOR_STATE_START = 'SET_VISITOR_STATE_START';
+var SET_VISITOR_STATE_COMPLETE = 'SET_VISITOR_STATE_COMPLETE';
+var SET_VISITOR_STATE_FAIL = 'SET_VISITOR_STATE_FAIL';
 var CONNECTION_CHANGE_START = 'CONNECTION_CHANGE_START';
 var CONNECTION_CHANGE_SUCCESS = 'CONNECTION_CHANGE_SUCCESS';
 var CONNECTION_CHANGE_FAILURE = 'CONNECTION_CHANGE_FAILURE';
@@ -54798,29 +54802,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var setVisitorData = function setVisitorData(uid, device, connection, carrier) {
+var setVisitorData = function setVisitorData(device) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
+      var connection, response, payload;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              connection = navigator.connection && navigator.connection.type == 'cellular' ? true : false;
               dispatch({
-                type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE"],
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE_START"],
                 payload: {
-                  uid: uid,
                   device: device,
-                  connection: connection,
-                  carrier: carrier
+                  connection: connection
                 }
               });
+              _context.prev = 2;
+              _context.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/visitor/set', {
+                device: device,
+                connection: connection
+              });
 
-            case 1:
+            case 5:
+              response = _context.sent;
+              payload = response.data;
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE_COMPLETE"],
+                payload: payload
+              });
+              _context.next = 13;
+              break;
+
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](2);
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE_FAIL"]
+              });
+
+            case 13:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[2, 10]]);
     }));
 
     return function (_x) {
@@ -54996,10 +55023,10 @@ var App = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(App);
 
-  function App() {
+  function App(props) {
     _classCallCheck(this, App);
 
-    return _super.apply(this, arguments);
+    return _super.call(this, props); //TODO: Maybe instead of the server doing device detection, do it here
   }
 
   _createClass(App, [{
@@ -55021,6 +55048,11 @@ var App = /*#__PURE__*/function (_Component) {
 
 
 if (document.getElementById('app')) {
+  // THIS IS FOR TESTING ONLY!!!
+  if (navigator.connection) {
+    NetworkInformation.prototype.type = 'cellular';
+  }
+
   var elem = document.getElementById('app');
   var device = elem.getAttribute('data-device');
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, {
@@ -55661,14 +55693,21 @@ var RootComponent = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(RootComponent);
 
   function RootComponent(props) {
+    var _this;
+
     _classCallCheck(this, RootComponent);
 
-    return _super.call(this, props); // TODO: Only the app needs to know the device, it doesn't need to be recorded in the databasee
+    _this = _super.call(this, props);
+
+    _this.props.setVisitorData(_this.props.device); // TODO: Only the app needs to know the device, it doesn't need to be recorded in the databasee
     // On android, I can get the connection right here via the navigator.connection
     // Here, I can initiate to record the user and get the uid
     // The uid can be used later
     // The objective is to make more efficient use of the API
     //this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true, (this.props.carrier !== 'unknown') ? this.props.carrier : '');
+
+
+    return _this;
   }
 
   _createClass(RootComponent, [{
@@ -56139,7 +56178,7 @@ var initialState = {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_VISITOR_STATE"]:
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_VISITOR_STATE_START"]:
       return _objectSpread({}, state, {}, action.payload);
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["CONNECTION_CHANGE_SUCCESS"]:
