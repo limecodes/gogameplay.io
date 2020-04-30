@@ -42,3 +42,9 @@ I can also have a flash for Android if the user is on wifi
         //      because it's not detecting their cellular IP, since I'm updating it.
         //      A fix would be to add another field or another record, instead of updating it.
         //      OR: I can add an ip_address-to-user_id table
+
+        Next Steps:
+
+        TODO: Cleanup the game controller
+        TODO: Fix up the front-end
+        TODO: Offers 😈 The fun part begins
