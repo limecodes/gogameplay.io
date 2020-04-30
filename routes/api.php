@@ -21,4 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/mock', 'MockApiController@index');
 Route::group(['prefix' => 'visitor'], function() {
 	Route::post('/set', 'VisitorController@set');
+	Route::patch('/connection', 'VisitorController@updateConnection');
+	Route::patch('/carrier', 'VisitorController@updateCarrier');
 });

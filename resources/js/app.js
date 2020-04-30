@@ -35,7 +35,7 @@ export default class App extends Component {
 if (document.getElementById('app')) {
 	// THIS IS FOR TESTING ONLY!!!
 	if (navigator.connection) {
-		NetworkInformation.prototype.type = 'cellular';
+		NetworkInformation.prototype.type = 'wifi';
 	}
 
 	var elem = document.getElementById('app');

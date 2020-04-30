@@ -54805,7 +54805,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var setVisitorData = function setVisitorData(device) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
-      var connection, response, payload;
+      var connection, response, visitorData;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -54827,10 +54827,20 @@ var setVisitorData = function setVisitorData(device) {
 
             case 5:
               response = _context.sent;
-              payload = response.data;
+
+              if (_typeof(response.data.carriers_by_country) == 'object') {
+                dispatch({
+                  type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST_SUCCESS"],
+                  payload: response.data.carriers_by_country
+                });
+                visitorData = response.data.visitor;
+              } else {
+                visitorData = response.data;
+              }
+
               dispatch({
                 type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE_COMPLETE"],
-                payload: payload
+                payload: visitorData
               });
               _context.next = 13;
               break;
@@ -54928,7 +54938,7 @@ var updateVisitorCarrier = function updateVisitorCarrier(uid, carrier) {
               });
               _context3.prev = 1;
               _context3.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/updatecarrier', {
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch('/api/updatecarrier', {
                 uid: uid,
                 carrier: carrier
               });
@@ -55050,7 +55060,7 @@ var App = /*#__PURE__*/function (_Component) {
 if (document.getElementById('app')) {
   // THIS IS FOR TESTING ONLY!!!
   if (navigator.connection) {
-    NetworkInformation.prototype.type = 'cellular';
+    NetworkInformation.prototype.type = 'wifi';
   }
 
   var elem = document.getElementById('app');
@@ -55120,13 +55130,6 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(CarrierCard, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (this.props.visitor.connection && !this.props.visitor.carrier) {
-        this.props.getCarrierList(this.props.visitor.uid);
-      }
-    }
-  }, {
     key: "handleCarrierValidate",
     value: function handleCarrierValidate() {
       this.props.validateCarrier();
@@ -55280,8 +55283,19 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
       if (navigator.connection) {
         if (_typeof(navigator.connection.ontypechange) == 'object') {
           navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+        } else if (_typeof(navigator.connection.onchange) == 'object') {
+          // TODO: (MERGE NOTE)
+          // TODO: Remove this after front-end is done
+          navigator.connection.onchange = this.connectionOnChange.bind(this);
         }
       }
+    } // TODO: (MERGE NOTE)
+    // TODO: Remove this after front-end is done
+
+  }, {
+    key: "connectionOnChange",
+    value: function connectionOnChange(e) {
+      this.props.connectionChanged(this.props.visitor.uid);
     }
   }, {
     key: "componentDidUpdate",
@@ -55289,12 +55303,7 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
       var self = this;
 
       if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
-        console.log('Attempting one more time');
         this.props.connectionChanged(this.props.visitor.uid);
-      }
-
-      if (this.props.visitor.error == prevProps.visitor.error) {
-        console.log('Failed even after re-try');
       }
     }
   }, {
@@ -56171,7 +56180,8 @@ var initialState = {
   device: null,
   connection: null,
   carrier: null,
-  error: false
+  error: false,
+  completed: false
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -56180,6 +56190,14 @@ var initialState = {
   switch (action.type) {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_VISITOR_STATE_START"]:
       return _objectSpread({}, state, {}, action.payload);
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_VISITOR_STATE_COMPLETE"]:
+      return _objectSpread({}, state, {
+        uid: action.payload.uid,
+        connection: action.payload.connection,
+        carrier: action.payload.carrier,
+        completed: true
+      });
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["CONNECTION_CHANGE_SUCCESS"]:
       return _objectSpread({}, state, {

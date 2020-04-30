@@ -245,4 +245,17 @@ class VisitorTest extends TestCase
                 'carrier' => null
             ]);
     }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldUpdateVisitorOnConnectionChangeAndroidCellular()
+    {
+        $this->withoutExceptionHandling();
+
+        // TODO: Do this on another test file
+        // Create another api controller class "ConnectionController"
+        // Do I handle iOS and Android differently?
+    }
 }

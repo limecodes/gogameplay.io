@@ -30,11 +30,22 @@ export const setVisitorData = (device) => async dispatch => {
 			connection: connection
 		});
 
-		const payload = response.data;
+		let visitorData;
+
+		if (typeof response.data.carriers_by_country == 'object') {
+			dispatch({
+				type: RECEIVED_CARRIER_LIST_SUCCESS,
+				payload: response.data.carriers_by_country
+			});
+
+			visitorData = response.data.visitor;
+		} else {
+			visitorData = response.data;
+		}
 
 		dispatch({
 			type: SET_VISITOR_STATE_COMPLETE,
-			payload: payload
+			payload: visitorData
 		});
 	} catch (error) {
 		dispatch({
@@ -84,7 +95,7 @@ export const updateVisitorCarrier = (uid, carrier) => async dispatch => {
 	});
 
 	try {
-		const response = await axios.post('/api/updatecarrier', {
+		const response = await axios.patch('/api/updatecarrier', {
 			uid: uid,
 			carrier: carrier
 		});
