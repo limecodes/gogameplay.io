@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Country;
+use App\Models\Visitor;
+use App\Models\MobileNetwork;
 
 class VisitorTest extends TestCase
 {
@@ -17,6 +19,7 @@ class VisitorTest extends TestCase
      */
     public function shouldFailIfDeviceNotSpecified()
     {
+
         $response = $this->json('POST', '/api/visitor/set', [], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
 
         $response->assertStatus(422);
@@ -37,7 +40,7 @@ class VisitorTest extends TestCase
      *
      * @test
      */
-    public function shouldRecordVisitorAndroid()
+    public function shouldRecordVisitorAndroidOnWifi()
     {
         $this->withoutExceptionHandling();
 
@@ -72,7 +75,7 @@ class VisitorTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $country = factory(Country::model)->create();
+        $country = factory(Country::class)->create();
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'android',
@@ -83,6 +86,7 @@ class VisitorTest extends TestCase
             'ip_address' => '1.1.1.5',
             'device' => 'android',
             'country_id' => $country->id,
+            'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
         ]);
 
@@ -105,7 +109,8 @@ class VisitorTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $country = factory(Country::model)->create();
+        $country = factory(Country::class)->create();
+        $mobileNetworks = factory(MobileNetwork::class, 3)->create(['country_id' => $country->id]);
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'android',
@@ -116,6 +121,7 @@ class VisitorTest extends TestCase
             'ip_address' => '1.1.1.9',
             'device' => 'android',
             'country_id' => $country->id,
+            'mobile_connection' => true,
             'carrier_from_data' => null
         ]);
 
@@ -124,9 +130,17 @@ class VisitorTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'uid' => $visitor->uid,
-                'connection' => true,
-                'carrier' => null
+                'visitor' => [
+                    'uid' => $visitor->uid,
+                    'connection' => true,
+                    'carrier' => null
+                ],
+                'carriers_by_country' => [
+                    ['name' => $mobileNetworks[0]->name],
+                    ['name' => $mobileNetworks[1]->name],
+                    ['name' => $mobileNetworks[2]->name]
+                ]
+                
             ]);
     }
 
@@ -134,11 +148,11 @@ class VisitorTest extends TestCase
      *
      * @test
      */
-    public function shouldRecordVisitorOnApple()
+    public function shouldRecordVisitorOnAppleOnWifi()
     {
         $this->withoutExceptionHandling();
 
-        $country = factory(Country::model)->create();
+        $country = factory(Country::class)->create();
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'ios',
@@ -149,6 +163,7 @@ class VisitorTest extends TestCase
             'ip_address' => '1.1.1.4',
             'device' => 'ios',
             'country_id' => $country->id,
+            'mobile_connection' => false,
             'carrier_from_data' => null
         ]);
 
@@ -171,7 +186,7 @@ class VisitorTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $country = factory(Country::model)->create();
+        $country = factory(Country::class)->create();
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'ios',
@@ -182,6 +197,7 @@ class VisitorTest extends TestCase
             'ip_address' => '1.1.1.5',
             'device' => 'ios',
             'country_id' => $country->id,
+            'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
         ]);
 
@@ -193,6 +209,40 @@ class VisitorTest extends TestCase
                 'uid' => $visitor->uid,
                 'connection' => true,
                 'carrier' => 'Vodafone'
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldRecordVisitorOnAppleWithConnectionInvalidCarrier()
+    {
+        $this->withoutExceptionHandling();
+
+        $country = factory(Country::class)->create();
+
+        $response = $this->json('POST', '/api/visitor/set', [
+            'device' => 'ios',
+            'connection' => false
+        ], ['HTTP_GGP_TEST_IP' => '1.1.1.9']);
+
+        $this->assertDatabaseHas('visitors', [
+            'ip_address' => '1.1.1.9',
+            'device' => 'ios',
+            'country_id' => $country->id,
+            'mobile_connection' => false,
+            'carrier_from_data' => null
+        ]);
+
+        $visitor = Visitor::where('ip_address', '1.1.1.9')->first();
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'uid' => $visitor->uid,
+                'connection' => false,
+                'carrier' => null
             ]);
     }
 }
