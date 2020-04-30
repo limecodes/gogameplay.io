@@ -19,6 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/mock', 'MockApiController@index');
-Route::post('/connectionchanged', 'GameController@connection');
-Route::post('/updatecarrier', 'GameController@carrier');
-Route::post('/carrierlist', 'GameController@carrierlist');
+Route::group(['prefix' => 'visitor'], function() {
+	Route::post('/set', 'VisitorController@set');
+});
