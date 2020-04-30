@@ -47,7 +47,7 @@ class CarrierCard extends Component {
 
 const mapStateToProps = state => ({
 	visitor: state.visitor,
-	carriers: state.carriers.carriers
+	carriers: state.carriers
 });
 
 export default connect(mapStateToProps, { validateCarrier, getCarrierList })(CarrierCard);

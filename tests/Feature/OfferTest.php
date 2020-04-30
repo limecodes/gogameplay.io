@@ -57,6 +57,39 @@ class OfferTest extends TestCase
             ]);
     }
 
+    /**
+     *
+     * @test
+     */
+    public function offerForCountryExistsButCarrierMismatchNoBackups()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'android',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'A-Mobile'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $country->id,
+            'carrier' => 'Vodafone',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'error' => 'no offers found'
+            ]);
+    }
+
     // TODO: Write case where no main offer exists but backup exists
     // TODO: Write case for non-mobile offers
     // TODO: Write case if offer for country exists in db but doesn't match carrier

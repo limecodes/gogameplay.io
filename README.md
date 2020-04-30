@@ -45,7 +45,12 @@ I can also have a flash for Android if the user is on wifi
 
         Next Steps:
 
-        TODO: Cleanup the game controller
+        [x] TODO: Cleanup the game controller
         TODO: Fix up the front-end
         TODO: Offers 😈 The fun part begins
         TODO: Don't forget non-mobile
+
+        TODO: Beef up offers tests and do backups offers, focus on the offer part from now on.
+        TODO: Back button redirect from offer
+
+        TODO: Gotta change vagrant name and stuff to `gogameplay.local` since I'm combining the front page and not using S3

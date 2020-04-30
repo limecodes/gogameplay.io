@@ -88,7 +88,7 @@ class ChangeConnection extends Component {
 
 const mapStateToProps = state => ({
 	visitor: state.visitor,
-	carriers: state.carriers.carriers
+	carriers: state.carriers
 });
 
 export default connect(mapStateToProps, { connectionChanged, updateVisitorCarrier })(ChangeConnection);

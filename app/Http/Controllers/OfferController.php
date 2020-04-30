@@ -17,8 +17,16 @@ class OfferController extends Controller
 
     	$offers = $visitor->country->offers;
 
-    	$matchedOffer = $offers->where('carrier', 'Vodafone')->where('type', 'main')->first();
+    	$matchedOffer = $offers->where('carrier', $visitor->carrier_from_data)->where('type', 'main')->first();
 
-    	return response()->json(new MobileOfferResource($matchedOffer), 200);
+    	if ($matchedOffer) {
+    		$ret = new MobileOfferResource($matchedOffer);
+    	} else {
+    		$ret = [
+    			'error' => 'no offers found'
+    		];
+    	}
+
+    	return response()->json($ret, 200);
     }
 }
