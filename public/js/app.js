@@ -54865,7 +54865,7 @@ var setVisitorData = function setVisitorData(device) {
     };
   }();
 };
-var connectionChanged = function connectionChanged(uid) {
+var connectionChanged = function connectionChanged(uid, device) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(dispatch) {
       var response, payload;
@@ -54878,15 +54878,15 @@ var connectionChanged = function connectionChanged(uid) {
               });
               _context2.prev = 1;
               _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/connectionchanged', {
-                uid: uid
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch('/api/connection/changed', {
+                uid: uid,
+                device: device
               });
 
             case 4:
               response = _context2.sent;
 
               if (_typeof(response.data.carriers_by_country) == 'object' && !response.data.visitor.carrier) {
-                console.log('got carrier list');
                 dispatch({
                   type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST_SUCCESS"],
                   payload: response.data.carriers_by_country
@@ -54938,7 +54938,7 @@ var updateVisitorCarrier = function updateVisitorCarrier(uid, carrier) {
               });
               _context3.prev = 1;
               _context3.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch('/api/updatecarrier', {
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch('/api/carrier/update', {
                 uid: uid,
                 carrier: carrier
               });
@@ -55060,7 +55060,7 @@ var App = /*#__PURE__*/function (_Component) {
 if (document.getElementById('app')) {
   // THIS IS FOR TESTING ONLY!!!
   if (navigator.connection) {
-    NetworkInformation.prototype.type = 'wifi';
+    NetworkInformation.prototype.type = 'cellular';
   }
 
   var elem = document.getElementById('app');
@@ -55295,7 +55295,7 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
   }, {
     key: "connectionOnChange",
     value: function connectionOnChange(e) {
-      this.props.connectionChanged(this.props.visitor.uid);
+      this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
     }
   }, {
     key: "componentDidUpdate",
@@ -55303,20 +55303,20 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
       var self = this;
 
       if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
-        this.props.connectionChanged(this.props.visitor.uid);
+        this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
       }
     }
   }, {
     key: "connectionDidChange",
     value: function connectionDidChange(e) {
       if (navigator.connection.type == 'cellular') {
-        this.props.connectionChanged(this.props.visitor.uid);
+        this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
       }
     }
   }, {
     key: "connectionHandleChange",
     value: function connectionHandleChange() {
-      this.props.connectionChanged(this.props.visitor.uid);
+      this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
     }
   }, {
     key: "carrierHandleChange",

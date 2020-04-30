@@ -54,18 +54,18 @@ export const setVisitorData = (device) => async dispatch => {
 	}
 }
 
-export const connectionChanged = (uid) => async dispatch => {
+export const connectionChanged = (uid, device) => async dispatch => {
 	dispatch({
 		type: CONNECTION_CHANGE_START
 	});
 
 	try {
-		const response = await axios.post('/api/connectionchanged', {
-			uid: uid
+		const response = await axios.patch('/api/connection/changed', {
+			uid: uid,
+			device: device
 		});
 
 		if ( (typeof response.data.carriers_by_country == 'object') && (!response.data.visitor.carrier) ) {
-			console.log('got carrier list');
 			dispatch({
 				type: RECEIVED_CARRIER_LIST_SUCCESS,
 				payload: response.data.carriers_by_country
@@ -95,7 +95,7 @@ export const updateVisitorCarrier = (uid, carrier) => async dispatch => {
 	});
 
 	try {
-		const response = await axios.patch('/api/updatecarrier', {
+		const response = await axios.patch('/api/carrier/update', {
 			uid: uid,
 			carrier: carrier
 		});

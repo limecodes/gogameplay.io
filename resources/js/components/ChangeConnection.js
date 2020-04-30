@@ -24,25 +24,25 @@ class ChangeConnection extends Component {
 	// TODO: (MERGE NOTE)
 	// TODO: Remove this after front-end is done
 	connectionOnChange(e) {
-		this.props.connectionChanged(this.props.visitor.uid);
+		this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 	}
 
 	componentDidUpdate(prevProps) {
 		var self = this;
 
 		if ( (this.props.visitor.error !== prevProps.visitor.error) && (this.props.visitor.error) ) {
-			this.props.connectionChanged(this.props.visitor.uid);
+			this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 		}
 	}
 
 	connectionDidChange(e) {
 		if (navigator.connection.type == 'cellular') {
-			this.props.connectionChanged(this.props.visitor.uid);
+			this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 		}
 	}
 
 	connectionHandleChange() {
-		this.props.connectionChanged(this.props.visitor.uid);
+		this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 	}
 
 	carrierHandleChange(e) {
