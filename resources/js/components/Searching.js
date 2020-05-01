@@ -137,7 +137,14 @@ class Searching extends Component {
 					</ul>
 				);
 			} else if ( (!this.state.searching) && (this.props.offer.url) ) {
-				return (<div><span className="badge badge-success"><FontAwesomeIcon icon='check' /></span>{' '}Valid Coupon Found!</div>);
+				return (
+					<div>
+						<div className="badge badge-success" style={{ marginBottom: '1rem' }}>
+							<FontAwesomeIcon icon='check' style={{ fontSize: '2rem' }} />
+						</div>
+						<h4>Valid Coupon Found!</h4>
+						<p>Tap the button below to redeem coupon</p>
+					</div>);
 			} else {
 				return null;
 			}
