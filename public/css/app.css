@@ -10921,6 +10921,10 @@ small ul li {
   margin-bottom: 0.5rem;
 }
 
+small ul.searching-progress-list li {
+  margin-botton: 1.2rem;
+}
+
 .col-6 {
   flex: 0 0 48%;
   max-width: 45%;
@@ -10936,5 +10940,9 @@ small ul li {
 
 .badge {
   font-size: 100%;
+}
+
+ul.searching-progress-list li {
+  margin-bottom: 0.5rem;
 }
 

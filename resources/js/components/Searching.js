@@ -126,18 +126,28 @@ class Searching extends Component {
 			}
 		}
 
-		return (
-			<div className="card" style={{ marginTop: '1rem' }}>
-				<div className="card-body"> 
-					{/* { (!this.state.searching) ? <div><span className="badge badge-success"><FontAwesomeIcon icon='check' /></span>{' '}Coupon Found</div> : <div>Searching</div> } */}
-					<ul style={{ textAlign: 'left', listStyleType: 'none' }}>
+		const CardBody = () => {
+			if (this.state.searching) {
+				return (
+					<ul className='searching-progress-list' style={{ textAlign: 'left', listStyleType: 'none' }}>
 						<li><StepOne /></li>
 						{ (this.state.stepOne) ? <li><StepTwo /></li> : null }
 						{ ( (this.state.stepOne) && (this.state.stepTwo) ) ? <li><StepThree /></li> : null }
 						{ ( (this.state.stepOne) && (this.state.stepTwo) && (this.state.stepThree) ) ? <li><StepFour /></li> : null }
 					</ul>
+				);
+			} else if ( (!this.state.searching) && (this.props.offer.url) ) {
+				return (<div><span className="badge badge-success"><FontAwesomeIcon icon='check' /></span>{' '}Valid Coupon Found!</div>);
+			} else {
+				return null;
+			}
+		}
+
+		return (
+			<div className="card" style={{ marginTop: '1rem' }}>
+				<div className="card-body">
+					<CardBody />
 					<Progress />
-					{/* { ( (this.props.offer.url) && (!this.state.searching) ) ? <a href={ this.props.offer.url } class="btn btn-success">Redeem Coupon</a> : <div></div> } */}
 				</div>
 				<div className="card-footer">
 					{ 

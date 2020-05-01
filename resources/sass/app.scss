@@ -44,6 +44,12 @@ small {
 		li {
 			margin-bottom: 0.5rem;
 		}
+
+		&.searching-progress-list {
+			li {
+				margin-botton: 1.2rem;
+			}
+		}
 	}
 }
 
@@ -62,4 +68,12 @@ small {
 
 .badge {
 	font-size: 100%;
+}
+
+ul {
+	&.searching-progress-list {
+		li {
+			margin-bottom: 0.5rem;
+		}
+	}
 }
