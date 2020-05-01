@@ -55165,9 +55165,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_validation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/validation */ "./resources/js/actions/validation.js");
-/* harmony import */ var _actions_carrier__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/carrier */ "./resources/js/actions/carrier.js");
-/* harmony import */ var _ChangeConnection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ChangeConnection */ "./resources/js/components/ChangeConnection.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _actions_validation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/validation */ "./resources/js/actions/validation.js");
+/* harmony import */ var _actions_carrier__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/carrier */ "./resources/js/actions/carrier.js");
+/* harmony import */ var _ChangeConnection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ChangeConnection */ "./resources/js/components/ChangeConnection.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55189,6 +55190,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -55228,7 +55230,13 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
               width: '100%'
             },
             onClick: _this.handleCarrierValidate.bind(_this)
-          }, "Next >"));
+          }, "Next ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            style: {
+              verticalAlign: 'middle'
+            }
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "angle-right"
+          }))));
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "card-footer"
@@ -55253,7 +55261,7 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Step 2. Verify Your Cellular Carrier"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_5__["default"], null), !this.props.visitor.connection && !this.props.visitor.carrier && this.props.visitor.device == 'android' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_6__["default"], null), !this.props.visitor.connection && !this.props.visitor.carrier && this.props.visitor.device == 'android' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
     }
   }]);
 
@@ -55268,9 +55276,36 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  validateCarrier: _actions_validation__WEBPACK_IMPORTED_MODULE_3__["validateCarrier"],
-  getCarrierList: _actions_carrier__WEBPACK_IMPORTED_MODULE_4__["getCarrierList"]
+  validateCarrier: _actions_validation__WEBPACK_IMPORTED_MODULE_4__["validateCarrier"],
+  getCarrierList: _actions_carrier__WEBPACK_IMPORTED_MODULE_5__["getCarrierList"]
 })(CarrierCard));
+
+/***/ }),
+
+/***/ "./resources/js/components/CarrierList.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/CarrierList.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var CarrierList = function CarrierList(_ref) {
+  var carriers = _ref.carriers;
+  return carriers.map(function (carrier, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: i,
+      name: carrier.name
+    }, carrier.name);
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CarrierList);
 
 /***/ }),
 
@@ -55279,9 +55314,178 @@ var mapStateToProps = function mapStateToProps(state) {
   !*** ./resources/js/components/ChangeConnection.js ***!
   \*****************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/resources/js/components/ChangeConnection.js: Unexpected token (85:6)\n\n\u001b[0m \u001b[90m 83 | \u001b[39m\t\t\t\t\t\t\u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m'col-6'\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 84 | \u001b[39m\t\t\t\t\t\t\t\u001b[33m<\u001b[39m\u001b[33mimg\u001b[39m src\u001b[33m=\u001b[39m\u001b[32m'https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions2.gif'\u001b[39m \u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 85 | \u001b[39m\t\t\t\t\t\t\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m\t\t\t\t\t\t\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 86 | \u001b[39m\t\t\t\t\t\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 87 | \u001b[39m\t\t\t\t\t\u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"btn btn-success\"\u001b[39m onClick\u001b[33m=\u001b[39m{ \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mconnectionHandleChange\u001b[33m.\u001b[39mbind(\u001b[36mthis\u001b[39m) }\u001b[33m>\u001b[39m\u001b[33mNext\u001b[39m \u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mbutton\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 88 | \u001b[39m\t\t\t\t\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n    at Object._raise (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:742:17)\n    at Object.raiseWithData (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:735:17)\n    at Object.raise (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:729:17)\n    at Object.unexpected (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:8757:16)\n    at Object.jsxParseIdentifier (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4388:12)\n    at Object.jsxParseNamespacedName (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4398:23)\n    at Object.jsxParseAttribute (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4482:22)\n    at Object.jsxParseOpeningElementAfterName (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4503:28)\n    at Object.jsxParseOpeningElementAt (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4496:17)\n    at Object.jsxParseElementAt (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4528:33)\n    at Object.jsxParseElementAt (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4544:32)\n    at Object.jsxParseElementAt (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4544:32)\n    at Object.jsxParseElementAt (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4544:32)\n    at Object.jsxParseElement (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4602:17)\n    at Object.parseExprAtom (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4609:19)\n    at Object.parseExprSubscripts (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9602:23)\n    at Object.parseMaybeUnary (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9582:21)\n    at Object.parseExprOps (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9452:23)\n    at Object.parseMaybeConditional (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9425:23)\n    at Object.parseMaybeAssign (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9380:21)\n    at Object.parseParenAndDistinguishExpression (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:10193:28)\n    at Object.parseExprAtom (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9947:21)\n    at Object.parseExprAtom (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:4614:20)\n    at Object.parseExprSubscripts (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9602:23)\n    at Object.parseMaybeUnary (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9582:21)\n    at Object.parseExprOps (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9452:23)\n    at Object.parseMaybeConditional (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9425:23)\n    at Object.parseMaybeAssign (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9380:21)\n    at Object.parseExpression (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:9332:23)\n    at Object.parseReturnStatement (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11448:28)\n    at Object.parseStatementContent (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11129:21)\n    at Object.parseStatement (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11081:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11656:25)\n    at Object.parseBlockBody (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11642:10)\n    at Object.parseBlock (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11626:10)\n    at Object.parseStatementContent (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11157:21)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _actions_visitor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/visitor */ "./resources/js/actions/visitor.js");
+/* harmony import */ var _CarrierList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CarrierList */ "./resources/js/components/CarrierList.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+
+var ChangeConnection = /*#__PURE__*/function (_Component) {
+  _inherits(ChangeConnection, _Component);
+
+  var _super = _createSuper(ChangeConnection);
+
+  function ChangeConnection() {
+    _classCallCheck(this, ChangeConnection);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(ChangeConnection, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (navigator.connection) {
+        if (_typeof(navigator.connection.ontypechange) == 'object') {
+          navigator.connection.ontypechange = this.connectionDidChange.bind(this);
+        } else if (_typeof(navigator.connection.onchange) == 'object') {
+          // TODO: (MERGE NOTE)
+          // TODO: Remove this after front-end is done
+          navigator.connection.onchange = this.connectionOnChange.bind(this);
+        }
+      }
+    } // TODO: (MERGE NOTE)
+    // TODO: Remove this after front-end is done
+
+  }, {
+    key: "connectionOnChange",
+    value: function connectionOnChange(e) {
+      this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var self = this;
+
+      if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
+        this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
+      }
+    }
+  }, {
+    key: "connectionDidChange",
+    value: function connectionDidChange(e) {
+      if (navigator.connection.type == 'cellular') {
+        this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
+      }
+    }
+  }, {
+    key: "connectionHandleChange",
+    value: function connectionHandleChange() {
+      this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
+    }
+  }, {
+    key: "carrierHandleChange",
+    value: function carrierHandleChange(e) {
+      // TODO: Should show loading thing if it's updating the backend
+      var selectedCarrier = e.target.value;
+      this.props.updateVisitorCarrier(this.props.visitor.uid, selectedCarrier);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.props.carriers instanceof Array && this.props.carriers.length > 0 && !this.props.visitor.carrier) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "alert alert-primary"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+          onChange: this.carrierHandleChange.bind(this)
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Select your mobile carrier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CarrierList__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          carriers: this.props.carriers
+        })));
+      } else if (this.props.visitor.carrier) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "alert alert-success"
+        }, this.props.visitor.carrier);
+      } else if (this.props.visitor.device == 'android' && !this.props.visitor.connection) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "alert alert-danger"
+        }, "Please switch to cellular connection");
+      } else if (this.props.visitor.device == 'ios' && !this.props.visitor.connection) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "alert alert-warning"
+        }, "You need to be on a cellular connection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", {
+          style: {
+            textAlign: 'left'
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "If you're on wifi, please switch off wifi and connect to cellular"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "If you're already on cellular or you've switched off wifi, click next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "row"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-12"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: "https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions.gif",
+          style: {
+            marginBottom: '0.5rem',
+            width: '35%'
+          }
+        }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn btn-success",
+          onClick: this.connectionHandleChange.bind(this),
+          style: {
+            width: '80%',
+            verticalAlign: 'middle'
+          }
+        }, "Next ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          style: {
+            verticalAlign: 'middle'
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+          icon: "angle-right"
+        }))));
+      } else if (this.props.visitor.connection) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "alert alert-success"
+        }, this.props.visitor.carrier);
+      }
+    }
+  }]);
+
+  return ChangeConnection;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    visitor: state.visitor,
+    carriers: state.carriers
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
+  connectionChanged: _actions_visitor__WEBPACK_IMPORTED_MODULE_4__["connectionChanged"],
+  updateVisitorCarrier: _actions_visitor__WEBPACK_IMPORTED_MODULE_4__["updateVisitorCarrier"]
+})(ChangeConnection));
 
 /***/ }),
 

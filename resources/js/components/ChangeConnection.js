@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { connectionChanged, updateVisitorCarrier } from '../actions/visitor';
 
 import CarrierList from './CarrierList';
@@ -77,14 +79,14 @@ class ChangeConnection extends Component {
 						<li>If you're already on cellular or you've switched off wifi, click next</li>
 					</ol>
 					<div className='row'>
-						<div className='col-6'>
-							<img src="https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions.gif" style={{ marginBottom: '0.5rem', width: '35%' }}/>
+						<div className='col-12'>
+							<img src="https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions.gif" style={{ marginBottom: '0.5rem', width: '35%' }} />
 						</div>
-						<div className='col-6'>
-							<img src='https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions2.gif' 
-						</div>
+						{/*<div className='col-6'>
+							<img src='https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions2.gif' />
+						</div>*/}
 					</div>
-					<button className="btn btn-success" onClick={ this.connectionHandleChange.bind(this) }>Next ></button>
+					<button className="btn btn-success" onClick={ this.connectionHandleChange.bind(this) } style={{ width: '80%', verticalAlign: 'middle' }}>Next <span style={{ verticalAlign: 'middle' }}><FontAwesomeIcon icon='angle-right' /></span></button>
 				</div>
 			);
 		} else if (this.props.visitor.connection) {

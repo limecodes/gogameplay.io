@@ -3,6 +3,8 @@ import ReactDom from 'react-dom';
 
 import { connect } from 'react-redux';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { validateCarrier } from '../actions/validation';
 import { getCarrierList } from '../actions/carrier';
 
@@ -19,7 +21,7 @@ class CarrierCard extends Component {
 			if (this.props.visitor.carrier) {
 				return (
 					<div className="card-footer">
-						<button className="btn btn-success" style={{ width: '100%' }} onClick={ this.handleCarrierValidate.bind(this) }>Next ></button>
+						<button className="btn btn-success" style={{ width: '100%' }} onClick={ this.handleCarrierValidate.bind(this) }>Next <span style={{ verticalAlign: 'middle' }}><FontAwesomeIcon icon='angle-right' /></span></button>
 					</div>
 				);
 			} else {
