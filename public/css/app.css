@@ -10930,6 +10930,10 @@ small ul li {
   border-radius: 2.25rem;
 }
 
+.btn.border-right-flat {
+  border-radius: 2.25rem 0 0 2.25rem;
+}
+
 .badge {
   font-size: 100%;
 }

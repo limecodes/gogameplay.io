@@ -53,7 +53,11 @@ small {
 }
 
 .btn {
-	border-radius: 2.25rem
+	border-radius: 2.25rem;
+
+	&.border-right-flat {
+		border-radius: 2.25rem 0 0 2.25rem;
+	}
 }
 
 .badge {
