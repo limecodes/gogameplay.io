@@ -55892,6 +55892,7 @@ var Searching = /*#__PURE__*/function (_Component) {
       stepTwo: false,
       stepThree: false,
       stepFour: false,
+      stepFive: false,
       progressWidth: '25%'
     };
     return _this;
@@ -55938,6 +55939,13 @@ var Searching = /*#__PURE__*/function (_Component) {
         this.setState({
           searching: false
         });
+      } else if (this.props.offer.success !== prevProps.offer.success && this.props.offer.success == false) {
+        setTimeout(function (self) {
+          self.setState({
+            stepFive: true,
+            searching: false
+          });
+        }, 2000, this);
       }
     }
   }, {
@@ -56039,7 +56047,7 @@ var Searching = /*#__PURE__*/function (_Component) {
               verticalAlign: 'middle'
             }
           }, "\uD83E\uDD1E"), "Checking if coupon hasn't been claimed");
-        } else if (!_this3.props.offer.success) {
+        } else if (!_this3.props.offer.loading && !_this3.props.offer.success) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
             icon: "times",
             color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_DANGER"]
@@ -56059,6 +56067,24 @@ var Searching = /*#__PURE__*/function (_Component) {
         }
       };
 
+      var StepFive = function StepFive() {
+        if (!_this3.state.stepFive) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
+            }
+          }, "\uD83E\uDD1E"), "Searching for other coupons");
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Coupon Valid!");
+        }
+      };
+
       var CardBody = function CardBody() {
         if (_this3.state.searching) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -56067,7 +56093,7 @@ var Searching = /*#__PURE__*/function (_Component) {
               textAlign: 'left',
               listStyleType: 'none'
             }
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepOne, null)), _this3.state.stepOne ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepTwo, null)) : null, _this3.state.stepOne && _this3.state.stepTwo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepThree, null)) : null, _this3.state.stepOne && _this3.state.stepTwo && _this3.state.stepThree ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepFour, null)) : null);
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepOne, null)), _this3.state.stepOne ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepTwo, null)) : null, _this3.state.stepOne && _this3.state.stepTwo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepThree, null)) : null, _this3.state.stepOne && _this3.state.stepTwo && _this3.state.stepThree ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepFour, null)) : null, _this3.state.stepOne && _this3.state.stepTwo && _this3.state.stepThree && _this3.state.stepFour ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepFive, null)) : null);
         } else if (!_this3.state.searching && _this3.props.offer.success) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
             icon: "check",
@@ -56079,6 +56105,10 @@ var Searching = /*#__PURE__*/function (_Component) {
           }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
             className: "alert alert-success"
           }, "Valid Coupon Found!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Tap the button below to redeem coupon"));
+        } else if (_this3.props.offer.success == false) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "alert alert-warning"
+          }, "Unfortunately coupon expired"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "However, you may be interested in the coupons below"));
         } else {
           return null;
         }
@@ -56093,7 +56123,7 @@ var Searching = /*#__PURE__*/function (_Component) {
         className: "card-body"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardBody, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Progress, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer"
-      }, this.props.offer.url && !this.state.searching ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.offer.success && !this.state.searching ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.handleOfferClick.bind(this),
         className: "input-group",
         style: {
@@ -56426,7 +56456,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var initialState = {
-  loading: false
+  loading: false,
+  success: null
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -56439,11 +56470,10 @@ var initialState = {
       });
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_SUCCESS"]:
+      console.log('action.payload', action.payload.success);
       return _objectSpread({}, state, {
-        loading: false,
-        url: action.payload.url,
-        success: action.payload.success
-      });
+        loading: false
+      }, action.payload);
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_FAIL"]:
       return _objectSpread({}, state, {

@@ -1,7 +1,8 @@
 import { FETCH_OFFER_START, FETCH_OFFER_SUCCESS, FETCH_OFFER_FAIL } from '../actions/types';
 
 const initialState = {
-	loading: false
+	loading: false,
+	success: null
 };
 
 export default (state = initialState, action) => {
@@ -12,11 +13,11 @@ export default (state = initialState, action) => {
 				loading: true
 			}
 		case FETCH_OFFER_SUCCESS:
+			console.log('action.payload', action.payload.success);
 			return {
 				...state,
 				loading: false,
-				url: action.payload.url,
-				success: action.payload.success
+				...action.payload
 			}
 		case FETCH_OFFER_FAIL:
 			return {

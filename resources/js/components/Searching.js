@@ -20,6 +20,7 @@ class Searching extends Component {
       		stepTwo: false,
       		stepThree: false,
       		stepFour: false,
+      		stepFive: false,
       		progressWidth: '25%'
 		}
 	}
@@ -62,6 +63,13 @@ class Searching extends Component {
 			this.setState({
 				searching: false
 			});
+		} else if ( (this.props.offer.success !== prevProps.offer.success) && (this.props.offer.success == false) ) {
+			setTimeout((self) => {
+				self.setState({
+					stepFive: true,
+					searching: false
+				});
+			}, 2000, this);
 		}
 	}
 
@@ -116,8 +124,16 @@ class Searching extends Component {
 		const StepFour = () => {
 			if (!this.state.stepFour) {
 				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem', verticalAlign: 'middle' }}>🤞</span>Checking if coupon hasn't been claimed</span>);
-			} else if (!this.props.offer.success) {
+			} else if ( (!this.props.offer.loading) && (!this.props.offer.success) ) {
 				return (<span><FontAwesomeIcon icon='times' color={ COLOUR_DANGER } />{' '}Coupon expired <span role='img' aria-label='disappointed' style={{ fontSize: '1rem', verticalAlign: 'middle' }}>😞</span></span>);
+			} else {
+				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Coupon Valid!</span>);
+			}
+		}
+
+		const StepFive = () => {
+			if (!this.state.stepFive) {
+				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem', verticalAlign: 'middle' }}>🤞</span>Searching for other coupons</span>);
 			} else {
 				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Coupon Valid!</span>);
 			}
@@ -131,6 +147,7 @@ class Searching extends Component {
 						{ (this.state.stepOne) ? <li><StepTwo /></li> : null }
 						{ ( (this.state.stepOne) && (this.state.stepTwo) ) ? <li><StepThree /></li> : null }
 						{ ( (this.state.stepOne) && (this.state.stepTwo) && (this.state.stepThree) ) ? <li><StepFour /></li> : null }
+						{ ( (this.state.stepOne) && (this.state.stepTwo) && (this.state.stepThree) && (this.state.stepFour) ) ? <li><StepFive /></li> : null }
 					</ul>
 				);
 			} else if ( (!this.state.searching) && (this.props.offer.success) ) {
@@ -139,7 +156,15 @@ class Searching extends Component {
 						<FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } style={{ marginBottom: '1rem', fontSize: '2rem' }} />
 						<h4 className="alert alert-success">Valid Coupon Found!</h4>
 						<p>Tap the button below to redeem coupon</p>
-					</div>);
+					</div>
+				);
+			} else if (this.props.offer.success == false) {
+				return (
+					<div>
+						<p className="alert alert-warning">Unfortunately coupon expired</p>
+						<p>However, you may be interested in the coupons below</p>
+					</div>
+				);
 			} else {
 				return null;
 			}
@@ -153,7 +178,7 @@ class Searching extends Component {
 				</div>
 				<div className="card-footer">
 					{ 
-						( (this.props.offer.url) && (!this.state.searching) )
+						( (this.props.offer.success) && (!this.state.searching) )
 						?
 						<button onClick={ this.handleOfferClick.bind(this) } className='input-group' style={{ width: '100%', padding: 0, 'border': 0, background: 'transparent' }}>
 							<div className='btn btn-outline-success border-right-flat' style={{ width: '80%', background: 'white' }}>Redeem Coupon</div>

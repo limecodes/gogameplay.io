@@ -53,7 +53,10 @@ class OfferTest extends TestCase
         $response
             ->assertOk()
             ->assertJson([
-                'url' => $offer->url
+                'success' => true,
+                'offer' => [
+                    'url' => $offer->url
+                ]
             ]);
     }
 
@@ -86,7 +89,7 @@ class OfferTest extends TestCase
         $response
             ->assertOk()
             ->assertJson([
-                'error' => 'no offers found'
+                'success' => false
             ]);
     }
 

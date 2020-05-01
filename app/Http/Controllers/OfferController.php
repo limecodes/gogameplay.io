@@ -20,10 +20,13 @@ class OfferController extends Controller
     	$matchedOffer = $offers->where('carrier', $visitor->carrier_from_data)->where('type', 'main')->first();
 
     	if ($matchedOffer) {
-    		$ret = new MobileOfferResource($matchedOffer);
+    		$ret = [
+                'success' => true,
+                'offer' => new MobileOfferResource($matchedOffer)
+            ];
     	} else {
     		$ret = [
-    			'error' => 'no offers found'
+    			'success' => false
     		];
     	}
 
