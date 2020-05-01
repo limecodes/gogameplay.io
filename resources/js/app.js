@@ -15,12 +15,6 @@ library.add(faCheck, faAngleRight, faTimes);
 
 export default class App extends Component {
 
-	constructor(props) {
-		super(props);
-
-		//TODO: Maybe instead of the server doing device detection, do it here
-	}
-
 	render() {
 		return (
 			<Provider store={ store }>
@@ -35,11 +29,6 @@ export default class App extends Component {
 if (document.getElementById('app')) {
 	var elem = document.getElementById('app');
 	var device = elem.getAttribute('data-device');
-
-	// THIS IS FOR TESTING ONLY!!!
-	if ( (device == 'android') && (navigator.connection) ) {
-		NetworkInformation.prototype.type = 'wifi';
-	}
 
     ReactDOM.render(<App device={ device } />, elem);
 }

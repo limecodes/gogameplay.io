@@ -8,45 +8,46 @@
 
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
+        <!-- All of this should be in the stylesheet in SASS -->
         <style>
             img {
-    width: 100%;
-}
+                width: 100%;
+            }
 
-.download, p {
-    text-align: center;
-}
+            .download, p {
+                text-align: center;
+            }           
 
-.tyl {
-    width: 100%;
-}
+            .tyl {
+                width: 100%;
+            }           
 
-.strike {
-    text-decoration: line-through;
-}
+            .strike {
+                text-decoration: line-through;
+            }           
 
-header {
-    height: 60px;
-    background-color: black;
-    text-align: center;
-    color: white;
-}
+            header {
+                height: 60px;
+                background-color: black;
+                text-align: center;
+                color: white;
+            }           
 
-main {
-    margin-top: 1rem;
-}
+            main {
+                margin-top: 1rem;
+            }           
 
-.screenshot {
-    margin-bottom: 0.5rem;
-}
+            .screenshot {
+                margin-bottom: 0.5rem;
+            }           
 
-.download p, .download .badge {
-    margin-bottom: 0.5rem;
-}
+            .download p, .download .badge {
+                margin-bottom: 0.5rem;
+            }           
 
-.getitpiad {
-    margin-bottom: 0.5rem;
-}
+            .getitpiad {
+                margin-bottom: 0.5rem;
+            }
         </style>
         
     </head>

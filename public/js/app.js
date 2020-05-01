@@ -55112,10 +55112,10 @@ var App = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(App);
 
-  function App(props) {
+  function App() {
     _classCallCheck(this, App);
 
-    return _super.call(this, props); //TODO: Maybe instead of the server doing device detection, do it here
+    return _super.apply(this, arguments);
   }
 
   _createClass(App, [{
@@ -55138,12 +55138,7 @@ var App = /*#__PURE__*/function (_Component) {
 
 if (document.getElementById('app')) {
   var elem = document.getElementById('app');
-  var device = elem.getAttribute('data-device'); // THIS IS FOR TESTING ONLY!!!
-
-  if (device == 'android' && navigator.connection) {
-    NetworkInformation.prototype.type = 'wifi';
-  }
-
+  var device = elem.getAttribute('data-device');
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, {
     device: device
   }), elem);
@@ -55372,25 +55367,12 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
       if (navigator.connection) {
         if (_typeof(navigator.connection.ontypechange) == 'object') {
           navigator.connection.ontypechange = this.connectionDidChange.bind(this);
-        } else if (_typeof(navigator.connection.onchange) == 'object') {
-          // TODO: (MERGE NOTE)
-          // TODO: Remove this after front-end is done
-          navigator.connection.onchange = this.connectionOnChange.bind(this);
         }
       }
-    } // TODO: (MERGE NOTE)
-    // TODO: Remove this after front-end is done
-
-  }, {
-    key: "connectionOnChange",
-    value: function connectionOnChange(e) {
-      this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      var self = this;
-
       if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
         this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
       }
@@ -55817,13 +55799,7 @@ var RootComponent = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
 
-    _this.props.setVisitorData(_this.props.device); // TODO: Only the app needs to know the device, it doesn't need to be recorded in the databasee
-    // On android, I can get the connection right here via the navigator.connection
-    // Here, I can initiate to record the user and get the uid
-    // The uid can be used later
-    // The objective is to make more efficient use of the API
-    //this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true, (this.props.carrier !== 'unknown') ? this.props.carrier : '');
-
+    _this.props.setVisitorData(_this.props.device);
 
     return _this;
   }
