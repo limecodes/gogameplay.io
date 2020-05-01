@@ -11,6 +11,8 @@
         
         <link rel="preload" href="http://static.offers.gogameplay.io/images/android.png" as="image">
         <link rel="preload" href="http://static.offers.gogameplay.io/images/ios.png" as="image">
+        <link rel="preload" href="https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions.gif" as="image">
+        <link rel="preload" href="https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions2.gif" as="image">
         <link rel="preload" href="{{ $image }}" as="image">
         
     </head>

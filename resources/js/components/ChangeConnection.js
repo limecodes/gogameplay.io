@@ -53,7 +53,7 @@ class ChangeConnection extends Component {
 	}
 
 	render() {
-		if ( (this.props.carriers instanceof Array) && (!this.props.visitor.carrier) ) {
+		if ( (this.props.carriers instanceof Array) && (this.props.carriers.length > 0) && (!this.props.visitor.carrier) ) {
 			return (
 				<div className="alert alert-primary">
 					<select onChange={ this.carrierHandleChange.bind(this) }>
@@ -76,6 +76,14 @@ class ChangeConnection extends Component {
 						<li>If you're on wifi, please switch off wifi and connect to cellular</li>
 						<li>If you're already on cellular or you've switched off wifi, click next</li>
 					</ol>
+					<div className='row'>
+						<div className='col-6'>
+							<img src="https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions.gif" style={{ marginBottom: '0.5rem', width: '35%' }}/>
+						</div>
+						<div className='col-6'>
+							<img src='https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions2.gif' 
+						</div>
+					</div>
 					<button className="btn btn-success" onClick={ this.connectionHandleChange.bind(this) }>Next ></button>
 				</div>
 			);

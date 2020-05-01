@@ -38,7 +38,7 @@ if (document.getElementById('app')) {
 
 	// THIS IS FOR TESTING ONLY!!!
 	if ( (device == 'android') && (navigator.connection) ) {
-		NetworkInformation.prototype.type = 'cellular';
+		NetworkInformation.prototype.type = 'wifi';
 	}
 
     ReactDOM.render(<App device={ device } />, elem);

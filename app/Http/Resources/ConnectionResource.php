@@ -15,7 +15,7 @@ class ConnectionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'connection' => $this->mobile_connection,
+            'connection' => boolval($this->mobile_connection),
             'carrier' => $this->carrier_from_data
         ];
     }
