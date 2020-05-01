@@ -1,0 +1,1 @@
+export const COLOUR_SUCCESS = '#38c172';

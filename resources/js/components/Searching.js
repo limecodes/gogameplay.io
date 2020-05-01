@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { COLOUR_SUCCESS } from '../constants/colours'; 
+
 import { fetchOffer } from '../actions/offer';
 
 class Searching extends Component {
@@ -36,42 +38,33 @@ class Searching extends Component {
 				progressWidth: '50%'
 			});
 		}, 2000, this);
+
+		setTimeout((self) => {
+			self.setState({
+				stepTwo: true,
+				progressWidth: '75%'
+			});
+		}, 4000, this);
+
+		setTimeout((self) => {
+			self.setState({
+				stepThree: true,
+				progressWidth: '90%'
+			});
+		}, 6000, this);
+
+		setTimeout((self) => {
+			self.setState({
+				stepFour: true,
+				progressWidth: '100%'
+			});
+		}, 8000, this);
 	}
 
 	componentDidUpdate(prevProps) {
 		if (this.props.visitor.uid !== prevProps.visitor.uid) {
 			this.props.fetchOffer(this.props.visitor.uid);
 		}
-
-		// if ( (this.state.stepOne !== prevProps.stepOne) && (this.state.stepOne) ) {
-		// 	console.log('stepOneUpdated');
-	 //        setTimeout((self) => {
-	 //          self.setState({
-	 //            stepTwo: true,
-	 //            progressWidth: '75%'
-	 //          });
-	 //        }, 2000, this);
-  //     	}
-
-  //     	if ( (this.state.stepTwo !== prevProps.stepTwo) && (this.state.stepTwo) ) {
-  //     		console.log('stepTwoUpdated');
-	 //        setTimeout((self) => {
-	 //          self.setState({
-	 //            stepThree: true,
-	 //            progressWidth: '80%'
-	 //          });
-	 //        }, 2000, this);
-  //     	}
-
-  //     	if ( (this.state.stepThree !== prevProps.stepThree) && (this.state.stepThree) ) {
-  //     		console.log('stepThreeUpdated');
-	 //        setTimeout((self) => {
-	 //          self.setState({
-	 //            stepFour: true,
-	 //            progressWidth: '90%'
-	 //          });
-	 //        }, 2000, this);
-      	}
 	}
 
 	handleOfferClick() {
@@ -93,9 +86,9 @@ class Searching extends Component {
 
 		const StepOne = () => {
 			if (!this.state.stepOne) {
-				return (<span>Searching Step One...</span>);
+				return (<span><span role='img' aria-label='fingers-crossed'>🤞</span>{' '}Searching available coupons...</span>);
 			} else {
-				return (<span><FontAwesomeIcon icon='check' />{' '}Done Step One</span>);
+				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Found available coupons</span>);
 			}
 		}
 
@@ -103,7 +96,7 @@ class Searching extends Component {
 			if (!this.state.stepTwo) {
 				return (<span>Searching Step Two...</span>);
 			} else {
-				return (<span><FontAwesomeIcon icon='check' />{' '}Done Step Two</span>);
+				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Done Step Two</span>);
 			}
 		}
 
@@ -111,7 +104,7 @@ class Searching extends Component {
 			if (!this.state.stepThree) {
 				return (<span>Searching Step Three...</span>);
 			} else {
-				return (<span><FontAwesomeIcon icon='check' />{' '}Done Step Three</span>);
+				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Done Step Three</span>);
 			}
 		}
 
@@ -119,7 +112,7 @@ class Searching extends Component {
 			if (!this.state.stepFour) {
 				return (<span>Searching Step Four...</span>);
 			} else {
-				return (<span><FontAwesomeIcon icon='check' />{' '}Done Step Four</span>);
+				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Done Step Four</span>);
 			}
 		}
 
@@ -128,13 +121,14 @@ class Searching extends Component {
 				<div className="card-body"> 
 					{/* { (!this.state.searching) ? <div><span className="badge badge-success"><FontAwesomeIcon icon='check' /></span>{' '}Coupon Found</div> : <div>Searching</div> } */}
 					<ul style={{ textAlign: 'left', listStyleType: 'none' }}>
+						<li><span role='img' aria-label='fingers-crossed'>🤞</span></li>
 						<li><StepOne /></li>
 						{ (this.state.stepOne) ? <li><StepTwo /></li> : null }
 						{ ( (this.state.stepOne) && (this.state.stepTwo) ) ? <li><StepThree /></li> : null }
 						{ ( (this.state.stepOne) && (this.state.stepTwo) && (this.state.stepThree) ) ? <li><StepFour /></li> : null }
 					</ul>
 					<Progress />
-					{ ( (this.props.offer.url) && (!this.state.searching) ) ? <a href={ this.props.offer.url } class="btn btn-success">Redeem Coupon</a> : <div></div> }
+					{/* { ( (this.props.offer.url) && (!this.state.searching) ) ? <a href={ this.props.offer.url } class="btn btn-success">Redeem Coupon</a> : <div></div> } */}
 				</div>
 				<div className="card-footer">
 					{ 

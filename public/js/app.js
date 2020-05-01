@@ -54663,6 +54663,79 @@ var getCarrierList = function getCarrierList(uid) {
 
 /***/ }),
 
+/***/ "./resources/js/actions/offer.js":
+/*!***************************************!*\
+  !*** ./resources/js/actions/offer.js ***!
+  \***************************************/
+/*! exports provided: fetchOffer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchOffer", function() { return fetchOffer; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/actions/types.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var fetchOffer = function fetchOffer(uid) {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
+      var response, payload;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_OFFER_START"]
+              });
+              _context.prev = 1;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/offers/fetch', {
+                'uid': uid
+              });
+
+            case 4:
+              response = _context.sent;
+              payload = response.data;
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_OFFER_SUCCESS"],
+                payload: payload
+              });
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_OFFER_FAIL"]
+              });
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 9]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+/***/ }),
+
 /***/ "./resources/js/actions/types.js":
 /*!***************************************!*\
   !*** ./resources/js/actions/types.js ***!
@@ -55761,9 +55834,266 @@ var mapStateToProps = function mapStateToProps(state) {
   !*** ./resources/js/components/Searching.js ***!
   \**********************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/resources/js/components/Searching.js: Unexpected token, expected \";\" (77:20)\n\n\u001b[0m \u001b[90m 75 | \u001b[39m\t}\u001b[0m\n\u001b[0m \u001b[90m 76 | \u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 77 | \u001b[39m\thandleOfferClick() {\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m\t                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 78 | \u001b[39m\t\tdocument\u001b[33m.\u001b[39mlocation\u001b[33m.\u001b[39mhref \u001b[33m=\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mprops\u001b[33m.\u001b[39moffer\u001b[33m.\u001b[39murl\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 79 | \u001b[39m\t}\u001b[0m\n\u001b[0m \u001b[90m 80 | \u001b[39m\u001b[0m\n    at Object._raise (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:742:17)\n    at Object.raiseWithData (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:735:17)\n    at Object.raise (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:729:17)\n    at Object.unexpected (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:8757:16)\n    at Object.semicolon (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:8739:40)\n    at Object.parseExpressionStatement (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11614:10)\n    at Object.parseStatementContent (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11215:19)\n    at Object.parseStatement (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11081:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11656:25)\n    at Object.parseBlockBody (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11642:10)\n    at Object.parseTopLevel (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:11012:10)\n    at Object.parse (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:12637:10)\n    at parse (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/parser/lib/index.js:12688:38)\n    at parser (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/core/lib/parser/index.js:54:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/core/lib/transformation/normalize-file.js:93:38)\n    at normalizeFile.next (<anonymous>)\n    at run (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/core/lib/transformation/index.js:31:50)\n    at run.next (<anonymous>)\n    at Function.transform (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/@babel/core/lib/transform.js:27:41)\n    at transform.next (<anonymous>)\n    at step (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/gensync/index.js:254:32)\n    at /Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/gensync/index.js:266:13\n    at async.call.result.err.err (/Users/yanshcherbakov/Documents/Clients/GoGamePlay.io/offer.gogameplay.io/node_modules/gensync/index.js:216:11)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _constants_colours__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../constants/colours */ "./resources/js/constants/colours.js");
+/* harmony import */ var _actions_offer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/offer */ "./resources/js/actions/offer.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+
+var Searching = /*#__PURE__*/function (_Component) {
+  _inherits(Searching, _Component);
+
+  var _super = _createSuper(Searching);
+
+  function Searching(props) {
+    var _this;
+
+    _classCallCheck(this, Searching);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      searching: true,
+      stepOne: false,
+      stepTwo: false,
+      stepThree: false,
+      stepFour: false,
+      progressWidth: '25%'
+    };
+    return _this;
+  }
+
+  _createClass(Searching, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var self = this; //This will actually run after the fake set timeouts
+
+      if (this.props.visitor.uid) {
+        this.props.fetchOffer(this.props.visitor.uid);
+      }
+
+      setTimeout(function (self) {
+        self.setState({
+          stepOne: true,
+          progressWidth: '50%'
+        });
+      }, 2000, this);
+      setTimeout(function (self) {
+        self.setState({
+          stepTwo: true,
+          progressWidth: '75%'
+        });
+      }, 4000, this);
+      setTimeout(function (self) {
+        self.setState({
+          stepThree: true,
+          progressWidth: '90%'
+        });
+      }, 6000, this);
+      setTimeout(function (self) {
+        self.setState({
+          stepFour: true,
+          progressWidth: '100%'
+        });
+      }, 8000, this);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.visitor.uid !== prevProps.visitor.uid) {
+        this.props.fetchOffer(this.props.visitor.uid);
+      }
+    }
+  }, {
+    key: "handleOfferClick",
+    value: function handleOfferClick() {
+      document.location.href = this.props.offer.url;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var Progress = function Progress() {
+        if (_this2.state.searching) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress-bar progress-bar-striped progress-bar-animated bg-success",
+            role: "progressbar",
+            "aria-valuenow": "75",
+            "aria-valuemin": "0",
+            "aria-valuemax": "100",
+            style: {
+              width: _this2.state.progressWidth
+            }
+          }));
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+        }
+      };
+
+      var StepOne = function StepOne() {
+        if (!_this2.state.stepOne) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed"
+          }, "\uD83E\uDD1E"), ' ', "Searching available coupons...");
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Found available coupons");
+        }
+      };
+
+      var StepTwo = function StepTwo() {
+        if (!_this2.state.stepTwo) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Searching Step Two...");
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Done Step Two");
+        }
+      };
+
+      var StepThree = function StepThree() {
+        if (!_this2.state.stepThree) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Searching Step Three...");
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Done Step Three");
+        }
+      };
+
+      var StepFour = function StepFour() {
+        if (!_this2.state.stepFour) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Searching Step Four...");
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Done Step Four");
+        }
+      };
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card",
+        style: {
+          marginTop: '1rem'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        style: {
+          textAlign: 'left',
+          listStyleType: 'none'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        role: "img",
+        "aria-label": "fingers-crossed"
+      }, "\uD83E\uDD1E")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepOne, null)), this.state.stepOne ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepTwo, null)) : null, this.state.stepOne && this.state.stepTwo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepThree, null)) : null, this.state.stepOne && this.state.stepTwo && this.state.stepThree ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepFour, null)) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Progress, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-footer"
+      }, this.props.offer.url && !this.state.searching ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleOfferClick.bind(this),
+        className: "input-group",
+        style: {
+          width: '100%',
+          padding: 0,
+          'border': 0,
+          background: 'transparent'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "btn btn-outline-success border-right-flat",
+        style: {
+          width: '80%',
+          background: 'white'
+        }
+      }, "Redeem Coupon"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-group-append",
+        style: {
+          width: '20%'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-group-text",
+        style: {
+          width: '100%',
+          paddingLeft: '40%',
+          borderRadius: '0 2.25rem 2.25rem 0',
+          background: '#38C192',
+          border: '1px solid #38C192',
+          color: 'white'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: "angle-right"
+      })))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null)));
+    }
+  }]);
+
+  return Searching;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    visitor: state.visitor,
+    offer: state.offer
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
+  fetchOffer: _actions_offer__WEBPACK_IMPORTED_MODULE_5__["fetchOffer"]
+})(Searching));
+
+/***/ }),
+
+/***/ "./resources/js/constants/colours.js":
+/*!*******************************************!*\
+  !*** ./resources/js/constants/colours.js ***!
+  \*******************************************/
+/*! exports provided: COLOUR_SUCCESS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLOUR_SUCCESS", function() { return COLOUR_SUCCESS; });
+var COLOUR_SUCCESS = '#38c172';
 
 /***/ }),
 
