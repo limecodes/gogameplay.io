@@ -55105,7 +55105,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faCheck"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faAngleRight"]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faCheck"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faAngleRight"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faTimes"]);
 
 var App = /*#__PURE__*/function (_Component) {
   _inherits(App, _Component);
@@ -55902,8 +55902,6 @@ var Searching = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var self = this; //This will actually run after the fake set timeouts
-
       setTimeout(function (self) {
         self.setState({
           stepOne: true,
@@ -55936,7 +55934,7 @@ var Searching = /*#__PURE__*/function (_Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      if (this.props.offer !== prevProps.offer) {
+      if (this.props.offer.success !== prevProps.offer.success && this.props.offer.success == true) {
         this.setState({
           searching: false
         });
@@ -55983,7 +55981,8 @@ var Searching = /*#__PURE__*/function (_Component) {
             role: "img",
             "aria-label": "fingers-crossed",
             style: {
-              fontSize: '1.2rem'
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
             }
           }, "\uD83E\uDD1E"), "Searching database for coupons...");
         } else {
@@ -56000,7 +55999,8 @@ var Searching = /*#__PURE__*/function (_Component) {
             role: "img",
             "aria-label": "fingers-crossed",
             style: {
-              fontSize: '1.2rem'
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
             }
           }, "\uD83E\uDD1E"), "Verifying coupon on ", platform);
         } else {
@@ -56017,7 +56017,8 @@ var Searching = /*#__PURE__*/function (_Component) {
             role: "img",
             "aria-label": "fingers-crossed",
             style: {
-              fontSize: '1.2rem'
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
             }
           }, "\uD83E\uDD1E"), "Verifying coupon with ", _this3.props.visitor.carrier);
         } else {
@@ -56034,9 +56035,22 @@ var Searching = /*#__PURE__*/function (_Component) {
             role: "img",
             "aria-label": "fingers-crossed",
             style: {
-              fontSize: '1.2rem'
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
             }
           }, "\uD83E\uDD1E"), "Checking if coupon hasn't been claimed");
+        } else if (!_this3.props.offer.success) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "times",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_DANGER"]
+          }), ' ', "Coupon expired ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "disappointed",
+            style: {
+              fontSize: '1rem',
+              verticalAlign: 'middle'
+            }
+          }, "\uD83D\uDE1E"));
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
             icon: "check",
@@ -56054,14 +56068,17 @@ var Searching = /*#__PURE__*/function (_Component) {
               listStyleType: 'none'
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepOne, null)), _this3.state.stepOne ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepTwo, null)) : null, _this3.state.stepOne && _this3.state.stepTwo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepThree, null)) : null, _this3.state.stepOne && _this3.state.stepTwo && _this3.state.stepThree ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepFour, null)) : null);
-        } else if (!_this3.state.searching && _this3.props.offer.url) {
+        } else if (!_this3.state.searching && _this3.props.offer.success) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
             icon: "check",
             color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"],
             style: {
+              marginBottom: '1rem',
               fontSize: '2rem'
             }
-          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Valid Coupon Found!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Tap the button below to redeem coupon"));
+          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+            className: "alert alert-success"
+          }, "Valid Coupon Found!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Tap the button below to redeem coupon"));
         } else {
           return null;
         }
@@ -56132,13 +56149,15 @@ var mapStateToProps = function mapStateToProps(state) {
 /*!*******************************************!*\
   !*** ./resources/js/constants/colours.js ***!
   \*******************************************/
-/*! exports provided: COLOUR_SUCCESS */
+/*! exports provided: COLOUR_SUCCESS, COLOUR_DANGER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLOUR_SUCCESS", function() { return COLOUR_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLOUR_DANGER", function() { return COLOUR_DANGER; });
 var COLOUR_SUCCESS = '#38c172';
+var COLOUR_DANGER = '#dc3545';
 
 /***/ }),
 
@@ -56422,7 +56441,8 @@ var initialState = {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_SUCCESS"]:
       return _objectSpread({}, state, {
         loading: false,
-        url: action.payload.url
+        url: action.payload.url,
+        success: action.payload.success
       });
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_FAIL"]:

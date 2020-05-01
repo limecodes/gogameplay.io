@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { COLOUR_SUCCESS } from '../constants/colours'; 
+import { COLOUR_SUCCESS, COLOUR_DANGER } from '../constants/colours'; 
 
 import { fetchOffer } from '../actions/offer';
 
@@ -25,11 +25,6 @@ class Searching extends Component {
 	}
 
 	componentDidMount() {
-		var self = this;
-
-		//This will actually run after the fake set timeouts
-		
-
 		setTimeout((self) => {
 			self.setState({
 				stepOne: true,
@@ -63,7 +58,7 @@ class Searching extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.offer !== prevProps.offer) {
+		if ( (this.props.offer.success !== prevProps.offer.success) && (this.props.offer.success == true) ) {
 			this.setState({
 				searching: false
 			});
@@ -96,7 +91,7 @@ class Searching extends Component {
 
 		const StepOne = () => {
 			if (!this.state.stepOne) {
-				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem' }}>🤞</span>Searching database for coupons...</span>);
+				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem', verticalAlign: 'middle' }}>🤞</span>Searching database for coupons...</span>);
 			} else {
 				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Found available coupon</span>);
 			}
@@ -104,7 +99,7 @@ class Searching extends Component {
 
 		const StepTwo = () => {
 			if (!this.state.stepTwo) {
-				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem' }}>🤞</span>Verifying coupon on { platform }</span>);
+				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem', verticalAlign: 'middle' }}>🤞</span>Verifying coupon on { platform }</span>);
 			} else {
 				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Coupon verified with { platform }</span>);
 			}
@@ -112,7 +107,7 @@ class Searching extends Component {
 
 		const StepThree = () => {
 			if (!this.state.stepThree) {
-				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem' }}>🤞</span>Verifying coupon with { this.props.visitor.carrier }</span>);
+				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem', verticalAlign: 'middle' }}>🤞</span>Verifying coupon with { this.props.visitor.carrier }</span>);
 			} else {
 				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Coupon available for { this.props.visitor.carrier }</span>);
 			}
@@ -120,7 +115,9 @@ class Searching extends Component {
 
 		const StepFour = () => {
 			if (!this.state.stepFour) {
-				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem' }}>🤞</span>Checking if coupon hasn't been claimed</span>);
+				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem', verticalAlign: 'middle' }}>🤞</span>Checking if coupon hasn't been claimed</span>);
+			} else if (!this.props.offer.success) {
+				return (<span><FontAwesomeIcon icon='times' color={ COLOUR_DANGER } />{' '}Coupon expired <span role='img' aria-label='disappointed' style={{ fontSize: '1rem', verticalAlign: 'middle' }}>😞</span></span>);
 			} else {
 				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Coupon Valid!</span>);
 			}
@@ -136,11 +133,11 @@ class Searching extends Component {
 						{ ( (this.state.stepOne) && (this.state.stepTwo) && (this.state.stepThree) ) ? <li><StepFour /></li> : null }
 					</ul>
 				);
-			} else if ( (!this.state.searching) && (this.props.offer.url) ) {
+			} else if ( (!this.state.searching) && (this.props.offer.success) ) {
 				return (
 					<div>
-						<FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } style={{ fontSize: '2rem' }} />
-						<h4>Valid Coupon Found!</h4>
+						<FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } style={{ marginBottom: '1rem', fontSize: '2rem' }} />
+						<h4 className="alert alert-success">Valid Coupon Found!</h4>
 						<p>Tap the button below to redeem coupon</p>
 					</div>);
 			} else {
