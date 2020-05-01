@@ -139,9 +139,7 @@ class Searching extends Component {
 			} else if ( (!this.state.searching) && (this.props.offer.url) ) {
 				return (
 					<div>
-						<div className="badge badge-success" style={{ marginBottom: '1rem' }}>
-							<FontAwesomeIcon icon='check' style={{ fontSize: '2rem' }} />
-						</div>
+						<FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } style={{ fontSize: '2rem' }} />
 						<h4>Valid Coupon Found!</h4>
 						<p>Tap the button below to redeem coupon</p>
 					</div>);
