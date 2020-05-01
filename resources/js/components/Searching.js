@@ -28,9 +28,7 @@ class Searching extends Component {
 		var self = this;
 
 		//This will actually run after the fake set timeouts
-		if (this.props.visitor.uid) {
-			this.props.fetchOffer(this.props.visitor.uid);
-		}
+		
 
 		setTimeout((self) => {
 			self.setState({
@@ -58,12 +56,17 @@ class Searching extends Component {
 				stepFour: true,
 				progressWidth: '100%'
 			});
+			if (this.props.visitor.uid) {
+				this.props.fetchOffer(this.props.visitor.uid);
+			}
 		}, 8000, this);
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.visitor.uid !== prevProps.visitor.uid) {
-			this.props.fetchOffer(this.props.visitor.uid);
+		if (this.props.offer !== prevProps.offer) {
+			this.setState({
+				searching: false
+			});
 		}
 	}
 
@@ -72,6 +75,13 @@ class Searching extends Component {
 	}
 
 	render() {
+		const platforms = {
+			'ios': 'iTunes',
+			'android': 'Google Play'
+		};
+
+		const platform = platforms[this.props.visitor.device];
+
 		const Progress = () => {
 			if (this.state.searching) {
 				return (
@@ -86,33 +96,33 @@ class Searching extends Component {
 
 		const StepOne = () => {
 			if (!this.state.stepOne) {
-				return (<span><span role='img' aria-label='fingers-crossed'>🤞</span>{' '}Searching available coupons...</span>);
+				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem' }}>🤞</span>Searching database for coupons...</span>);
 			} else {
-				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Found available coupons</span>);
+				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Found available coupon</span>);
 			}
 		}
 
 		const StepTwo = () => {
 			if (!this.state.stepTwo) {
-				return (<span>Searching Step Two...</span>);
+				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem' }}>🤞</span>Verifying coupon on { platform }</span>);
 			} else {
-				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Done Step Two</span>);
+				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Coupon verified with { platform }</span>);
 			}
 		}
 
 		const StepThree = () => {
 			if (!this.state.stepThree) {
-				return (<span>Searching Step Three...</span>);
+				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem' }}>🤞</span>Verifying coupon with { this.props.visitor.carrier }</span>);
 			} else {
-				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Done Step Three</span>);
+				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Coupon available for { this.props.visitor.carrier }</span>);
 			}
 		}
 
 		const StepFour = () => {
 			if (!this.state.stepFour) {
-				return (<span>Searching Step Four...</span>);
+				return (<span><span role='img' aria-label='fingers-crossed' style={{ fontSize: '1.2rem' }}>🤞</span>Checking if coupon hasn't been claimed</span>);
 			} else {
-				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Done Step Four</span>);
+				return (<span><FontAwesomeIcon icon='check' color={ COLOUR_SUCCESS } />{' '}Coupon Valid!</span>);
 			}
 		}
 
@@ -121,7 +131,6 @@ class Searching extends Component {
 				<div className="card-body"> 
 					{/* { (!this.state.searching) ? <div><span className="badge badge-success"><FontAwesomeIcon icon='check' /></span>{' '}Coupon Found</div> : <div>Searching</div> } */}
 					<ul style={{ textAlign: 'left', listStyleType: 'none' }}>
-						<li><span role='img' aria-label='fingers-crossed'>🤞</span></li>
 						<li><StepOne /></li>
 						{ (this.state.stepOne) ? <li><StepTwo /></li> : null }
 						{ ( (this.state.stepOne) && (this.state.stepTwo) ) ? <li><StepThree /></li> : null }

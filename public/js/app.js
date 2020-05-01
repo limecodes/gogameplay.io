@@ -55900,11 +55900,9 @@ var Searching = /*#__PURE__*/function (_Component) {
   _createClass(Searching, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var self = this; //This will actually run after the fake set timeouts
+      var _this2 = this;
 
-      if (this.props.visitor.uid) {
-        this.props.fetchOffer(this.props.visitor.uid);
-      }
+      var self = this; //This will actually run after the fake set timeouts
 
       setTimeout(function (self) {
         self.setState({
@@ -55929,13 +55927,19 @@ var Searching = /*#__PURE__*/function (_Component) {
           stepFour: true,
           progressWidth: '100%'
         });
+
+        if (_this2.props.visitor.uid) {
+          _this2.props.fetchOffer(_this2.props.visitor.uid);
+        }
       }, 8000, this);
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      if (this.props.visitor.uid !== prevProps.visitor.uid) {
-        this.props.fetchOffer(this.props.visitor.uid);
+      if (this.props.offer !== prevProps.offer) {
+        this.setState({
+          searching: false
+        });
       }
     }
   }, {
@@ -55946,10 +55950,16 @@ var Searching = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
+
+      var platforms = {
+        'ios': 'iTunes',
+        'android': 'Google Play'
+      };
+      var platform = platforms[this.props.visitor.device];
 
       var Progress = function Progress() {
-        if (_this2.state.searching) {
+        if (_this3.state.searching) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "progress"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -55959,7 +55969,7 @@ var Searching = /*#__PURE__*/function (_Component) {
             "aria-valuemin": "0",
             "aria-valuemax": "100",
             style: {
-              width: _this2.state.progressWidth
+              width: _this3.state.progressWidth
             }
           }));
         } else {
@@ -55968,49 +55978,70 @@ var Searching = /*#__PURE__*/function (_Component) {
       };
 
       var StepOne = function StepOne() {
-        if (!_this2.state.stepOne) {
+        if (!_this3.state.stepOne) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             role: "img",
-            "aria-label": "fingers-crossed"
-          }, "\uD83E\uDD1E"), ' ', "Searching available coupons...");
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem'
+            }
+          }, "\uD83E\uDD1E"), "Searching database for coupons...");
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
             icon: "check",
             color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
-          }), ' ', "Found available coupons");
+          }), ' ', "Found available coupon");
         }
       };
 
       var StepTwo = function StepTwo() {
-        if (!_this2.state.stepTwo) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Searching Step Two...");
+        if (!_this3.state.stepTwo) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem'
+            }
+          }, "\uD83E\uDD1E"), "Verifying coupon on ", platform);
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
             icon: "check",
             color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
-          }), ' ', "Done Step Two");
+          }), ' ', "Coupon verified with ", platform);
         }
       };
 
       var StepThree = function StepThree() {
-        if (!_this2.state.stepThree) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Searching Step Three...");
+        if (!_this3.state.stepThree) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem'
+            }
+          }, "\uD83E\uDD1E"), "Verifying coupon with ", _this3.props.visitor.carrier);
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
             icon: "check",
             color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
-          }), ' ', "Done Step Three");
+          }), ' ', "Coupon available for ", _this3.props.visitor.carrier);
         }
       };
 
       var StepFour = function StepFour() {
-        if (!_this2.state.stepFour) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Searching Step Four...");
+        if (!_this3.state.stepFour) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem'
+            }
+          }, "\uD83E\uDD1E"), "Checking if coupon hasn't been claimed");
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
             icon: "check",
             color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
-          }), ' ', "Done Step Four");
+          }), ' ', "Coupon Valid!");
         }
       };
 
@@ -56026,10 +56057,7 @@ var Searching = /*#__PURE__*/function (_Component) {
           textAlign: 'left',
           listStyleType: 'none'
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        role: "img",
-        "aria-label": "fingers-crossed"
-      }, "\uD83E\uDD1E")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepOne, null)), this.state.stepOne ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepTwo, null)) : null, this.state.stepOne && this.state.stepTwo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepThree, null)) : null, this.state.stepOne && this.state.stepTwo && this.state.stepThree ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepFour, null)) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Progress, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepOne, null)), this.state.stepOne ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepTwo, null)) : null, this.state.stepOne && this.state.stepTwo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepThree, null)) : null, this.state.stepOne && this.state.stepTwo && this.state.stepThree ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepFour, null)) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Progress, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer"
       }, this.props.offer.url && !this.state.searching ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.handleOfferClick.bind(this),
