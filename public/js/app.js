@@ -56476,7 +56476,6 @@ var initialState = {
       });
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_SUCCESS"]:
-      console.log('action.payload', action.payload.success);
       return _objectSpread({}, state, {
         loading: false
       }, action.payload);

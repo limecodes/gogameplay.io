@@ -13,7 +13,6 @@ export default (state = initialState, action) => {
 				loading: true
 			}
 		case FETCH_OFFER_SUCCESS:
-			console.log('action.payload', action.payload.success);
 			return {
 				...state,
 				loading: false,
