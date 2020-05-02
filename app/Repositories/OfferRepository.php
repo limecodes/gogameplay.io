@@ -18,15 +18,16 @@ class OfferRepository implements OfferInterface {
 			->where('type', 'main')
 			->first();
 
-		$matchedOfferSecond = $visitor->offers()
-			->where('device', $visitor->device)
-			->where('carrier', '*')
-			->where('type', 'main')
-			->first();
+		// $matchedOfferSecond = $visitor->offers()
+		// 	->where('device', $visitor->device)
+		// 	->where('carrier', '*')
+		// 	->where('type', 'main')
+		// 	->first();
 
-		$matchedOfferThird = $visitor->offers()
-			->where('device', '*')
-			->where('carrier', '*')
+		// $matchedOfferThird = $visitor->offers()
+		// 	->where('device', '*')
+		// 	->where('carrier', '*')
+		// 	->first();
 
 		// if ($matchedOfferAttempt->count() > 0) {
 		// 	$matchedOffer = $matchedOfferAttempt->first();
@@ -41,10 +42,10 @@ class OfferRepository implements OfferInterface {
 		// 	$matchedOffer = $matchedOfferAttempt->first();
 		// }
 
-		if ($matchedOffer) {
+		if ($matchedOfferPreferred) {
 			$ret = [
 				'success' => true,
-				'offer' => new MobileOfferResource($matchedOffer)
+				'offer' => new MobileOfferResource($matchedOfferPreferred)
 			];
 		} else {
 			$ret = [
