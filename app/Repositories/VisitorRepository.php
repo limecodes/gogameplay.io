@@ -13,7 +13,9 @@ class VisitorRepository implements VisitorInterface
 
 	private function setAndroid():void
 	{
-		dd($this->visitor);
+		if ( ($this->visitor->connection) && (!$this->visitor->country_id) ) {
+			
+		}
 	}
 
 	private function setApple():void
