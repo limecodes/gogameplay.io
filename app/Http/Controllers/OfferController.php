@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\OfferRequest;
 use App\Http\Resources\MobileOfferResource;
 use App\Models\Visitor;
