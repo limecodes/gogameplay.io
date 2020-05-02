@@ -16,12 +16,12 @@ class ConnectionResourceWrapper extends JsonResource
      */
     public function toArray($request)
     {
-        if ( ($this->mobile_connection == true) && ($this->carrier_from_data == null) ) {
+        if ( ($this->device == 'android') && ($this->mobile_connection == true) && ($this->carrier_from_data == null) ) {
             return [
                 'visitor' => new ConnectionResource($this),
                 'carriers_by_country' => CarrierResource::collection($this->country->mobileNetwork)
             ];
-        } else if ( ($this->mobile_connection == false) && ($this->carrier_from_data == null) ) {
+        } else if ( ($this->device == 'ios') && ($this->mobile_connection == false) ) {
             return [
                 'visitor' => new ConnectionResource($this),
                 'carriers_by_country' => CarrierResource::collection($this->country->mobileNetwork)
