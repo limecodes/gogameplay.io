@@ -105,9 +105,9 @@ class VisitorRepository implements VisitorInterface
 			? new ConnectionCarrierListResource($this->visitor) : new ConnectionResource($this->visitor);
 	}
 
-	public function connectionChanged($uid, $device, $ipAddress)
+	public function connectionChanged($uid, $ipAddress)
 	{
-		$this->visitor = Visitor::findByUidAndDevice($uid, $device);
+		$this->visitor = Visitor::findByUid($uid);
 
 		if ($this->visitor->device == 'android') {
 			$ret = $this->connectionChangedAndroid($ipAddress);
@@ -116,5 +116,16 @@ class VisitorRepository implements VisitorInterface
 		}
 
 		return $ret;
+	}
+
+	public function updateCarrier($uid, $carrier):ConnectionResource
+	{
+		$this->visitor = Visitor::findByUid($uid);
+
+		$this->visitor->carrier_from_data = $carrier;
+
+		$this->visitor->save();
+
+		return new ConnectionResource($this->visitor);
 	}
 }

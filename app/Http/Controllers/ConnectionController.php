@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\ConnectionRequest;
 use App\Contracts\VisitorInterface;
 
@@ -22,9 +21,10 @@ class ConnectionController extends Controller
 
     	$ipAddress = $request->server('GGP_REMOTE_ADDR');
     	$uid = $connectionRequestValidated['uid'];
-    	$device = $connectionRequestValidated['device'];
 
-    	$response = $this->visitorRepository->connectionChanged($uid, $device, $ipAddress);
+        // TODO, In tests I'm passing the device and also in the front end
+        // Is there every going to be a case when device differs by uid from the one that's already recorded? I don't think so
+    	$response = $this->visitorRepository->connectionChanged($uid, $ipAddress);
 
  		return response()->json($response, 200);
     }
