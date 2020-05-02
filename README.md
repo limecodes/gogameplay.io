@@ -59,3 +59,5 @@ I can also have a flash for Android if the user is on wifi
     // For Everything else, I'm going to have a redirect
     // Later, I'm going to have backup offers
     // Also, if user hits "back button" I need offers for an offer wall
+
+    TODO: Complete test cases for offers
