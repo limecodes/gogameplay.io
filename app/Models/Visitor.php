@@ -17,4 +17,9 @@ class Visitor extends Model
     {
     	return static::where('uid', $uid)->first();
     }
+
+    public function offers()
+    {
+    	return $this->country->offers;
+    }
 }
