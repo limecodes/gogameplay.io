@@ -18,11 +18,11 @@ class CreateOffersTable extends Migration
             $table->string('name');
             $table->string('text')->nullable();
             $table->string('img')->nullable();
-            $table->foreignId('country_id');
+            $table->foreignId('country_id')->nullable();
             $table->enum('device', ['non-mobile', 'android', 'ios', '*']);
             $table->string('carrier')->nullable();
             $table->string('url');
-            $table->enum('type', ['main', 'backup', 'non-mobile', 'onback']);
+            $table->enum('type', ['main', 'backup']);
             $table->timestamps();
         });
     }

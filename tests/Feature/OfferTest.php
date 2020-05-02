@@ -24,18 +24,11 @@ class OfferTest extends TestCase
         $response->assertStatus(422);
     }
 
-    // First I'm going to have offers that target a specific country and specific carrier
-    // For Everything else, I'm going to have a redirect
-    // Later, I'm going to have backup offers
-    // Also, if user hits "back button" I need offers for an offer wall
-
-
-
     /**
      *
      * @test
      */
-    public function shouldReturnSingleOfferMatchCountryMatchDeviceMatchCarrier()
+    public function shouldReturnSingleOfferMatchCountryMatchDeviceAndroidMatchCarrier()
     {
         $country = factory(Country::class)->create();
 
@@ -72,7 +65,44 @@ class OfferTest extends TestCase
      *
      * @test
      */
-    public function shouldReturnSingleOfferMatchCountryNonMatchDeviceMatchCarrier()
+    public function shouldReturnSingleOfferMatchCountryMatchDeviceAppleMatchCarrier()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'ios',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'Vodafone'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $country->id,
+            'device' => 'android',
+            'carrier' => 'ios',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'success' => true,
+                'offer' => [
+                    'url' => $offer->url
+                ]
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnNullOfferMatchCountryNonMatchDeviceAndroidMatchCarrier()
     {
         $country = factory(Country::class)->create();
 
@@ -107,7 +137,42 @@ class OfferTest extends TestCase
      *
      * @test
      */
-    public function shouldReturnSingleOfferMatchCountryMatchDeviceMatchAnyCarrier()
+    public function shouldReturnNullOfferMatchCountryNonMatchDeviceAppleMatchCarrier()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'ios',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'Vodafone'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $country->id,
+            'device' => 'android',
+            'carrier' => 'Vodafone',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'success' => false,
+                'offer' => null
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnSingleOfferMatchCountryMatchDeviceAndroidMatchAnyCarrier()
     {
         $country = factory(Country::class)->create();
 
@@ -123,13 +188,350 @@ class OfferTest extends TestCase
             'country_id' => $country->id,
             'device' => 'android',
             'carrier' => '*',
-            'type' => 2
+            'type' => 1
         ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'success' => true,
+                'offer' => [
+                    'url' => $offer->url
+                ]
+            ]);
     }
 
-    // shouldReturnSingleOfferMatchCountryMatchDeviceMatchAnyCarrier
-    // shouldReturnSingleOfferMatchCountryAnyDeviceAnyCarrier
-    // shouldReturnSingleOfferAnyCountryAnyDeviceAnyCarrier
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnSingleOfferMatchCountryMatchDeviceAppleMatchAnyCarrier()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'ios',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'Vodafone'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $country->id,
+            'device' => 'ios',
+            'carrier' => '*',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'success' => true,
+                'offer' => [
+                    'url' => $offer->url
+                ]
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnNullOfferMatchCountryNonMatchDeviceAndroidAnyCarrier()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'android',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'Vodafone'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $country->id,
+            'device' => 'ios',
+            'carrier' => '*',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'successs' => false,
+                'offer' => null
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnNullOfferMatchCountryNonMatchDeviceAppleAnyCarrier()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'ios',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'Vodafone'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $country->id,
+            'device' => 'android',
+            'carrier' => '*',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'successs' => false,
+                'offer' => null
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnSingleOfferMatchCountryAnyDeviceAndroidAnyCarrier()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'android',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'Vodafone'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $country->id,
+            'device' => '*',
+            'carrier' => '*',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'success' => true,
+                'offer' => [
+                    'url' => $offer->url
+                ]
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnSingleOfferMatchCountryAnyDeviceAppleAnyCarrier()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'ios',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'Vodafone'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $country->id,
+            'device' => '*',
+            'carrier' => '*',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'success' => true,
+                'offer' => [
+                    'url' => $offer->url
+                ]
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnNullMismatchCountryAnyDeviceAndroidAnyCarrier()
+    {
+        $visitorCountry = factory(Country::class)->create();
+        $offerCountry = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'android',
+            'country_id' => $visitorCountry->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'A-Mobile'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $offerCountry->id,
+            'device' => '*',
+            'carrier' =>  '*',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'success' => false,
+                'offer' => null
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnNullMismatchCountryAnyDeviceAppleAnyCarrier()
+    {
+        $visitorCountry = factory(Country::class)->create();
+        $offerCountry = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'ios',
+            'country_id' => $visitorCountry->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'A-Mobile'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => $offerCountry->id,
+            'device' => '*',
+            'carrier' =>  '*',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'success' => false,
+                'offer' => null
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnSingleOfferAnyCountryAnyDeviceAndroidAnyCarrier()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'android',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'Vodafone'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => null,
+            'device' => '*',
+            'carrier' => '*',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'successs' => true,
+                'offer' => [
+                    'url' => $offer->url
+                ]
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldReturnSingleOfferAnyCountryAnyDeviceAppleAnyCarrier()
+    {
+        $country = factory(Country::class)->create();
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => '1.1.1.5',
+            'device' => 'ios',
+            'country_id' => $country->id,
+            'mobile_connection' => true,
+            'carrier_from_data' => 'Vodafone'
+        ]);
+
+        $offer = factory(Offer::class)->create([
+            'country_id' => null,
+            'device' => '*',
+            'carrier' => '*',
+            'type' => 1
+        ]);
+
+        $response = $this->json('POST', '/api/offers/fetch', [
+            'uid' => $visitor->uid
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'success' => true,
+                'offer' => [
+                    'url' => $offer->url
+                ]
+            ]);
+    }
+
     // shouldReturnMultipleOffersMatchCountryMatchDeviceMatchCarrier
     // shouldReturnMultipleOffersMatchCountryMatchDeviceAnyCarrier
     // shouldReturnMultipleOffersMatchCountryAnyDeviceMatchCarrier

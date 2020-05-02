@@ -54,3 +54,8 @@ I can also have a flash for Android if the user is on wifi
         TODO: Back button redirect from offer
 
         TODO: Gotta change vagrant name and stuff to `gogameplay.local` since I'm combining the front page and not using S3
+
+        // First I'm going to have offers that target a specific country and specific carrier
+    // For Everything else, I'm going to have a redirect
+    // Later, I'm going to have backup offers
+    // Also, if user hits "back button" I need offers for an offer wall
