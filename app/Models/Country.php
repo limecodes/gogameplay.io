@@ -17,4 +17,9 @@ class Country extends Model
     {
     	return $this->hasMany('App\Models\Offer');
     }
+
+    public static function getCountryId($isoCode)
+    {
+        return static::where('iso_code', $isoCode)->first()->id;
+    }
 }

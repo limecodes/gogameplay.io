@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\External\LocationApi;
 
 class LocationApiProvider extends ServiceProvider
 {
@@ -13,6 +14,11 @@ class LocationApiProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Contracts\LocationApiInterface', 'App\External\LocationApi');
+    	$baseUrl = env('IP2LOCATION_BASE_URL');
+    	$apiKey = env('IP2LOCATION_API_KEY');
+
+        $this->app->singleton(LocationApi::class, function($app) use ($baseUrl, $apiKey) {
+        	return new LocationApi($baseUrl, $apiKey);
+        });
     }
 }
