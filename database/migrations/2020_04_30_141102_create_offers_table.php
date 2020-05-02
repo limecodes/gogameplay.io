@@ -17,7 +17,9 @@ class CreateOffersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('text')->nullable();
+            $table->string('img')->nullable();
             $table->foreignId('country_id');
+            $table->enum('device', ['non-mobile', 'android', 'ios', '*']);
             $table->string('carrier')->nullable();
             $table->string('url');
             $table->enum('type', ['main', 'backup', 'non-mobile', 'onback']);

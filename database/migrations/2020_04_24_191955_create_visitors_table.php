@@ -17,7 +17,7 @@ class CreateVisitorsTable extends Migration
             $table->id();
             $table->uuid('uid');
             $table->ipAddress('ip_address');
-            $table->string('device', 255)->nullable();
+            $table->enum('device', ['non-mobile', 'android', 'ios']);
             $table->foreignId('country_id')->nullable();
             $table->boolean('mobile_connection')->nullable();
             $table->string('carrier_from_data')->nullable();

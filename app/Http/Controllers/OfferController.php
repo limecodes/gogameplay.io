@@ -17,7 +17,11 @@ class OfferController extends Controller
 
     	$offers = $visitor->country->offers;
 
-    	$matchedOffer = $offers->where('carrier', $visitor->carrier_from_data)->where('type', 'main')->first();
+    	$matchedOffer = $offers
+            ->where('device', $visitor->device)
+            ->where('carrier', $visitor->carrier_from_data)
+            ->where('type', 'main')
+            ->first();
 
     	if ($matchedOffer) {
     		$ret = [
@@ -26,7 +30,8 @@ class OfferController extends Controller
             ];
     	} else {
     		$ret = [
-    			'success' => false
+    			'success' => false,
+                'offer' => null
     		];
     	}
 
