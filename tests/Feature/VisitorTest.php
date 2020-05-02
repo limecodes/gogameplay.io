@@ -19,7 +19,6 @@ class VisitorTest extends TestCase
      */
     public function shouldFailIfDeviceNotSpecified()
     {
-
         $response = $this->json('POST', '/api/visitor/set', [], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
 
         $response->assertStatus(422);
@@ -34,6 +33,22 @@ class VisitorTest extends TestCase
         $response = $this->json('POST', '/api/visitor/set', ['device' => 'android'], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
 
         $response->assertStatus(422);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function shouldRecordVisitor()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->json('POST', '/api/visitor/set', [
+            'device' => 'android',
+            'connection' => false
+        ], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
+
+        $this->assertDatabasehas('visitors', ['ip_address' => '1.1.1.1', 'device' => 'android', 'mobile_connection' => false]);
     }
 
     /**

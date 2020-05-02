@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Contracts\VisitorInterface;
+namespace App\Contracts;
+
+use App\Http\Resources\VisitorResource;
 
 interface VisitorInterface
 {
-	public function recordOrFetch($ipAddress, $device);
+	public function set($ipAddress, $device, $connection):VisitorResource;
 }
