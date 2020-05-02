@@ -4,15 +4,24 @@ namespace App\Repositories;
 
 use Illuminate\Support\Str;
 use App\Contracts\VisitorInterface;
+use App\Contracts\LocationApiInterface;
 use App\Http\Resources\VisitorResource;
 use App\Models\Visitor;
 
 class VisitorRepository implements VisitorInterface
 {
 	protected $visitor;
+	protected $locationApi;
+
+	public function __construct(LocationApiInterface $locationApi)
+	{
+		$this->locationApi = $locationApi;
+	}
 
 	private function setAndroid():void
 	{
+		$this->locationApi->fetchLocation();
+
 		if ( ($this->visitor->connection) && (!$this->visitor->country_id) ) {
 			
 		}

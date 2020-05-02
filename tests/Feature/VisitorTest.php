@@ -29,7 +29,7 @@ class VisitorTest extends TestCase
      * @test
      */
     public function shouldFailIfConnectionNotSpecified()
-    {
+    {   
         $response = $this->json('POST', '/api/visitor/set', ['device' => 'android'], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
 
         $response->assertStatus(422);
