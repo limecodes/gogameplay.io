@@ -5,10 +5,11 @@ namespace App\Repositories;
 use Illuminate\Support\Str;
 use App\Contracts\VisitorInterface;
 use App\External\LocationApi;
-use App\Http\Resources\VisitorResource;
-use App\Http\Resources\ConnectionResource;
+use App\Http\Resources\VisitorResourceWrapper;
+use App\Http\Resources\ConnectionResourceWrapper;
 use App\Http\Resources\VisitorCarrierListResource;
 use App\Http\Resources\ConnectionCarrierListResource;
+use App\Http\Resources\ConnectionResource;
 use App\Models\Visitor;
 use App\Models\Country;
 
@@ -22,7 +23,7 @@ class VisitorRepository implements VisitorInterface
 		$this->locationApi = $locationApi;
 	}
 
-	private function setAndroid()
+	private function setAndroid():void
 	{
 		if ( ($this->visitor->mobile_connection) && (!$this->visitor->country_id) ) {
 			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
@@ -32,12 +33,9 @@ class VisitorRepository implements VisitorInterface
 
 			$this->visitor->save();
 		}
-
-		return ( ($this->visitor->mobile_connection) && ($this->visitor->carrier_from_data == null) )
-			? new VisitorCarrierListResource($this->visitor) : new VisitorResource($this->visitor);
 	}
 
-	private function setApple()
+	private function setApple():void
 	{
 		if (!$this->visitor->country_id) {
 			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
@@ -50,27 +48,9 @@ class VisitorRepository implements VisitorInterface
 
 			$this->visitor->save();
 		}
-
-		return new VisitorResource($this->visitor);
 	}
 
-	public function set($ipAddress, $device, $connection)
-	{
-		$this->visitor = Visitor::firstOrCreate(
-			['ip_address' => $ipAddress, 'device' => $device],
-			['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
-		);
-
-		if ($this->visitor->device == 'android') {
-			$ret = $this->setAndroid();
-		} else if ($this->visitor->device == 'ios') {
-			$ret = $this->setApple();
-		}
-
-		return $ret;
-	}
-
-	private function connectionChangedAndroid($ipAddress)
+	private function connectionChangedAndroid($ipAddress):void
 	{
 		$this->visitor->ip_address = $ipAddress;
 		$this->visitor->mobile_connection = true;
@@ -83,12 +63,9 @@ class VisitorRepository implements VisitorInterface
 		}
 
 		$this->visitor->save();
-
-		return ( ($this->visitor->mobile_connection == true) && ($this->visitor->carrier_from_data == null) )
-			? new ConnectionCarrierListResource($this->visitor) : new ConnectionResource($this->visitor);
 	}
 
-	private function connectionChangedApple($ipAddress)
+	private function connectionChangedApple($ipAddress):void
 	{
 		if ($this->visitor->ip_address !== $ipAddress) {
 			$this->visitor->ip_address = $ipAddress;
@@ -100,22 +77,35 @@ class VisitorRepository implements VisitorInterface
 		}
 
 		$this->visitor->save();
-
-		return (!$this->visitor->mobile_connection)
-			? new ConnectionCarrierListResource($this->visitor) : new ConnectionResource($this->visitor);
 	}
 
-	public function connectionChanged($uid, $ipAddress)
+	public function set($ipAddress, $device, $connection):VisitorResourceWrapper
+	{
+		$this->visitor = Visitor::firstOrCreate(
+			['ip_address' => $ipAddress, 'device' => $device],
+			['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
+		);
+
+		if ($this->visitor->device == 'android') {
+			$this->setAndroid();
+		} else if ($this->visitor->device == 'ios') {
+			$this->setApple();
+		}
+
+		return new VisitorResourceWrapper($this->visitor);
+	}
+
+	public function connectionChanged($uid, $ipAddress):ConnectionResourceWrapper
 	{
 		$this->visitor = Visitor::findByUid($uid);
 
 		if ($this->visitor->device == 'android') {
-			$ret = $this->connectionChangedAndroid($ipAddress);
+			$this->connectionChangedAndroid($ipAddress);
 		} else if ($this->visitor->device == 'ios') {
-			$ret = $this->connectionChangedApple($ipAddress);
+			$this->connectionChangedApple($ipAddress);
 		}
 
-		return $ret;
+		return new ConnectionResourceWrapper($this->visitor);
 	}
 
 	public function updateCarrier($uid, $carrier):ConnectionResource

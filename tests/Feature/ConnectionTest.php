@@ -30,6 +30,8 @@ class ConnectionTest extends TestCase
      */
     public function connectionChangeAndroidWifiToCellular()
     {
+        $this->withoutExceptionHandling();
+
         $country = factory(Country::class)->create();
 
         $visitor = factory(Visitor::class)->create([
