@@ -12,4 +12,9 @@ class Visitor extends Model
     {
     	return $this->belongsTo('App\Models\Country');
     }
+
+    public static function findByUidAndDevice($uid, $device)
+    {
+    	return static::where('uid', $uid)->where('device', $device)->first();
+    }
 }

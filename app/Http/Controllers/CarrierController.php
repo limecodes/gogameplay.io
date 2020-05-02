@@ -12,13 +12,5 @@ class CarrierController extends Controller
     public function updateCarrier(CarrierRequest $request)
     {
     	$carrierRequestValidated = $request->validated();
-
-    	$visitor = Visitor::where('uid', $carrierRequestValidated['uid'])->first();
-
-    	$visitor->carrier_from_data = $carrierRequestValidated['carrier'];
-
-    	$visitor->save();
-
-    	return response()->json(new ConnectionResource($visitor), 200);
     }
 }
