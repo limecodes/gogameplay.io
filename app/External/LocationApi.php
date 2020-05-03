@@ -3,12 +3,8 @@
 namespace App\External;
 
 use Illuminate\Support\Facades\Http;
+use App\External\LocationApiInterface;
 use App\Models\Country;
-
-interface LocationApiInterface {
-	public function getCountryAndDetectCarrier($ipAddress):array;
-	public function getCountryOnly($ipAddress):array;
-}
 
 class LocationApi implements LocationApiInterface {
 

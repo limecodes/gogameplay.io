@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Support\Str;
 use App\Contracts\VisitorInterface;
-use App\External\LocationApi;
+use App\External\LocationApiInterface;
 use App\Http\Resources\VisitorResourceWrapper;
 use App\Http\Resources\ConnectionResourceWrapper;
 use App\Http\Resources\VisitorCarrierListResource;
@@ -18,7 +18,7 @@ class VisitorRepository implements VisitorInterface
 	protected $visitor;
 	protected $locationApi;
 
-	public function __construct(LocationApi $locationApi)
+	public function __construct(LocationApiInterface $locationApi)
 	{
 		$this->locationApi = $locationApi;
 	}
