@@ -8,10 +8,19 @@ use Tests\TestCase;
 use App\Models\Country;
 use App\Models\Visitor;
 use App\Models\MobileNetwork;
+use App\External\LocationApi;
+use Mockery;
 
 class VisitorTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
+
+    public function setUp():void
+    {
+        parent::setUp();
+
+        $this->ipAddress = $this->faker->ipv4;
+    }
 
     /**
      *
@@ -19,7 +28,7 @@ class VisitorTest extends TestCase
      */
     public function shouldFailIfDeviceNotSpecified()
     {
-        $response = $this->json('POST', '/api/visitor/set', [], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
+        $response = $this->json('POST', '/api/visitor/set', []);
 
         $response->assertStatus(422);
     }
@@ -30,7 +39,7 @@ class VisitorTest extends TestCase
      */
     public function shouldFailIfConnectionNotSpecified()
     {   
-        $response = $this->json('POST', '/api/visitor/set', ['device' => 'android'], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
+        $response = $this->json('POST', '/api/visitor/set', ['device' => 'android']);
 
         $response->assertStatus(422);
     }
@@ -46,9 +55,9 @@ class VisitorTest extends TestCase
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'android',
             'connection' => false
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
+        ], ['REMOTE_ADDR' => $this->ipAddress]);
 
-        $this->assertDatabasehas('visitors', ['ip_address' => '1.1.1.1', 'device' => 'android', 'mobile_connection' => false]);
+        $this->assertDatabasehas('visitors', ['ip_address' => $this->ipAddress, 'device' => 'android', 'mobile_connection' => false]);
     }
 
     /**
@@ -62,17 +71,17 @@ class VisitorTest extends TestCase
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'android',
             'connection' => false
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.4']);
+        ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
-            'ip_address' => '1.1.1.4',
+            'ip_address' => $this->ipAddress,
             'device' => 'android',
             'country_id' => null,
             'mobile_connection' => false,
             'carrier_from_data' => null
         ]);
 
-        $visitor = Visitor::where('ip_address', '1.1.1.4')->first();
+        $visitor = Visitor::where('ip_address', $this->ipAddress)->first();
 
         $response
             ->assertStatus(200)
@@ -93,20 +102,27 @@ class VisitorTest extends TestCase
 
         $country = factory(Country::class)->create();
 
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'country_id' => $country->id,
+                'carrier' => 'Vodafone'
+            ]);
+        }));
+
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'android',
             'connection' => true
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.5']);
+        ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
-            'ip_address' => '1.1.1.5',
+            'ip_address' => $this->ipAddress,
             'device' => 'android',
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
         ]);
 
-        $visitor = Visitor::where('ip_address', '1.1.1.5')->first();
+        $visitor = Visitor::where('ip_address', $this->ipAddress)->first();
 
         $response
             ->assertStatus(200)
@@ -128,20 +144,27 @@ class VisitorTest extends TestCase
         $country = factory(Country::class)->create();
         $mobileNetworks = factory(MobileNetwork::class, 3)->create(['country_id' => $country->id]);
 
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'country_id' => $country->id,
+                'carrier' => null
+            ]);
+        }));
+
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'android',
             'connection' => true
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.9']);
+        ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
-            'ip_address' => '1.1.1.9',
+            'ip_address' => $this->ipAddress,
             'device' => 'android',
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => null
         ]);
 
-        $visitor = Visitor::where('ip_address', '1.1.1.9')->first();
+        $visitor = Visitor::where('ip_address', $this->ipAddress)->first();
 
         $response
             ->assertStatus(200)
@@ -170,20 +193,27 @@ class VisitorTest extends TestCase
 
         $country = factory(Country::class)->create();
 
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'country_id' => $country->id,
+                'carrier' => null
+            ]);
+        }));
+
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'ios',
             'connection' => false
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.4']);
+        ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
-            'ip_address' => '1.1.1.4',
+            'ip_address' => $this->ipAddress,
             'device' => 'ios',
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
         ]);
 
-        $visitor = Visitor::where('ip_address', '1.1.1.4')->first();
+        $visitor = Visitor::where('ip_address', $this->ipAddress)->first();
 
         $response
             ->assertStatus(200)
@@ -204,20 +234,27 @@ class VisitorTest extends TestCase
 
         $country = factory(Country::class)->create();
 
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'country_id' => $country->id,
+                'carrier' => 'Vodafone'
+            ]);
+        }));
+
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'ios',
             'connection' => false
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.5']);
+        ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
-            'ip_address' => '1.1.1.5',
+            'ip_address' => $this->ipAddress,
             'device' => 'ios',
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
         ]);
 
-        $visitor = Visitor::where('ip_address', '1.1.1.5')->first();
+        $visitor = Visitor::where('ip_address', $this->ipAddress)->first();
 
         $response
             ->assertStatus(200)
@@ -238,20 +275,27 @@ class VisitorTest extends TestCase
 
         $country = factory(Country::class)->create();
 
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'country_id' => $country->id,
+                'carrier' => null
+            ]);
+        }));
+
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'ios',
             'connection' => false
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.9']);
+        ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
-            'ip_address' => '1.1.1.9',
+            'ip_address' => $this->ipAddress,
             'device' => 'ios',
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
         ]);
 
-        $visitor = Visitor::where('ip_address', '1.1.1.9')->first();
+        $visitor = Visitor::where('ip_address', $this->ipAddress)->first();
 
         $response
             ->assertStatus(200)

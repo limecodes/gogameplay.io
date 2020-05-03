@@ -3,11 +3,8 @@
 namespace App\External;
 
 use Illuminate\Support\Facades\Http;
-
-interface LocationApiInterface {
-	public function getCountryAndDetectCarrier($ipAddress):array;
-	public function getCountryOnly($ipAddress):array;
-}
+use App\External\LocationApiInterface;
+use App\Models\Country;
 
 class LocationApi implements LocationApiInterface {
 
@@ -36,7 +33,7 @@ class LocationApi implements LocationApiInterface {
 		$data = $this->sendRequest($ipAddress, 'WS19');
 
 		return [
-			'iso_code' => $data['country_code'],
+			'country_id' => Country::getCountryId($data['country_code']),
 			'carrier' => ($data['mobile_brand'] !== '-') ? $data['mobile_brand'] : null
 		];
 	}
@@ -46,7 +43,7 @@ class LocationApi implements LocationApiInterface {
 		$data = $this->sendRequest($ipAddress, 'WS1');
 
 		return [
-			'iso_code' => $data['country_code']
+			'country_id' => Country::getCountryId($data['country_code'])
 		];
 	}
 

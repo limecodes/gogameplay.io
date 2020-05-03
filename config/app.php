@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\VisitorServiceProvider::class,
         App\Providers\LocationApiProvider::class,
+        App\Providers\OfferServiceProvider::class,
 
     ],
 

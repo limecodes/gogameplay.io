@@ -30,6 +30,8 @@ class OfferTest extends TestCase
      */
     public function shouldReturnSingleOfferMatchCountryMatchDeviceAndroidMatchCarrier()
     {
+        $this->withoutExceptionHandling();
+
         $country = factory(Country::class)->create();
 
         $visitor = factory(Visitor::class)->create([
@@ -79,8 +81,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => 'android',
-            'carrier' => 'ios',
+            'device' => 'ios',
+            'carrier' => 'Vodafone',
             'type' => 1
         ]);
 
@@ -311,6 +313,8 @@ class OfferTest extends TestCase
                 'offer' => null
             ]);
     }
+
+    // TODO: AnyDeviceSpecificCarrier
 
     /**
      *
