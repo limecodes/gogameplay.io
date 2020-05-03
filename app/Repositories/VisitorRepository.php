@@ -28,7 +28,7 @@ class VisitorRepository implements VisitorInterface
 		if ( ($this->visitor->mobile_connection) && (!$this->visitor->country_id) ) {
 			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
 
-			$this->visitor->country_id = Country::getCountryId($locationData['iso_code']);
+			$this->visitor->country_id = $locationData['country_id'];
 			$this->visitor->carrier_from_data = $locationData['carrier'];
 
 			$this->visitor->save();
@@ -40,11 +40,22 @@ class VisitorRepository implements VisitorInterface
 		if (!$this->visitor->country_id) {
 			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
 
-			$this->visitor->country_id = Country::getCountryId($locationData['iso_code']);
+			$this->visitor->country_id = $locationData['country_id'];
 
 			$this->visitor->mobile_connection = ($locationData['carrier']) ? true : false;
 
 			$this->visitor->carrier_from_data = ($locationData['carrier']) ? $locationData['carrier'] : null;
+
+			$this->visitor->save();
+		}
+	}
+
+	private function setNonMobile():void
+	{
+		if (!$this->visitor->country_id) {
+			$locationData = $this->locationApi->getCountryOnly($this->visitor->ip_address);
+
+			$this->visitor->country_id = $locationData['country_id'];
 
 			$this->visitor->save();
 		}
@@ -58,7 +69,7 @@ class VisitorRepository implements VisitorInterface
 		if ( (!$this->visitor->country_id) && (!$this->visitor->carrier_from_data) ) {
 			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
 
-			$this->visitor->country_id = Country::getCountryId($locationData['iso_code']);
+			$this->visitor->country_id = $locationData['country_id'];
 			$this->visitor->carrier_from_data = ($locationData['carrier']) ? $locationData['carrier'] : null;
 		}
 
@@ -90,6 +101,8 @@ class VisitorRepository implements VisitorInterface
 			$this->setAndroid();
 		} else if ($this->visitor->device == 'ios') {
 			$this->setApple();
+		} else if ($this->visitor->device == 'non-mobile') {
+			$this->setNonMobile();
 		}
 
 		return new VisitorResourceWrapper($this->visitor);
