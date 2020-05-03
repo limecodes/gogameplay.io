@@ -18,8 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/mock', 'MockApiController@index');
-
 Route::group(['prefix' => 'visitor'], function() {
 	Route::post('/set', 'VisitorController@set');
 });
