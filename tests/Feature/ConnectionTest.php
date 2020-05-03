@@ -8,10 +8,19 @@ use Tests\TestCase;
 use App\Models\Visitor;
 use App\Models\Country;
 use App\Models\MobileNetwork;
+use App\External\LocationApi;
+use Mockery;
 
 class ConnectionTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
+
+    public function setUp():void
+    {
+        parent::setUp();
+
+        $this->ipAddress = $this->faker->ipv4;
+    }
 
     /**
      *
@@ -34,8 +43,18 @@ class ConnectionTest extends TestCase
 
         $country = factory(Country::class)->create();
 
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'country_id' => $country->id,
+                'carrier' => 'Vodafone'
+            ]);
+        }));
+
+        $oldIpAddress = $this->faker->ipv4;
+        $newIpAddress = $this->ipAddress;
+
         $visitor = factory(Visitor::class)->create([
-            'ip_address' => '1.1.1.4',
+            'ip_address' => $oldIpAddress,
             'device' => 'android',
             'country_id' => null,
             'mobile_connection' => false,
@@ -45,11 +64,11 @@ class ConnectionTest extends TestCase
         $response = $this->json('PATCH', '/api/connection/changed', [
             'uid' => $visitor->uid,
             'device' => $visitor->device,
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.5']);
+        ], ['REMOTE_ADDR' => $newIpAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
-            'ip_address' => '1.1.1.5',
+            'ip_address' => $newIpAddress,
             'device' => 'android',
             'country_id' => $country->id,
             'mobile_connection' => true,
@@ -73,8 +92,18 @@ class ConnectionTest extends TestCase
         $country = factory(Country::class)->create();
         $mobileNetworks = factory(MobileNetwork::class, 3)->create(['country_id' => $country->id]);
 
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'country_id' => $country->id,
+                'carrier' => null
+            ]);
+        }));
+
+        $oldIpAddress = $this->faker->ipv4;
+        $newIpAddress = $this->ipAddress;
+
         $visitor = factory(Visitor::class)->create([
-            'ip_address' => '1.1.1.4',
+            'ip_address' => $oldIpAddress,
             'device' => 'android',
             'country_id' => null,
             'mobile_connection' => false,
@@ -84,11 +113,11 @@ class ConnectionTest extends TestCase
         $response = $this->json('PATCH', '/api/connection/changed', [
             'uid' => $visitor->uid,
             'device' => $visitor->device,
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.9']);
+        ], ['REMOTE_ADDR' => $newIpAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
-            'ip_address' => '1.1.1.9',
+            'ip_address' => $newIpAddress,
             'device' => 'android',
             'country_id' => $country->id,
             'mobile_connection' => true,
@@ -118,8 +147,18 @@ class ConnectionTest extends TestCase
     {
         $country = factory(Country::class)->create();
 
+        $oldIpAddress = $this->faker->ipv4;
+        $newIpAddress = $this->ipAddress;
+
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'country_id' => $country->id,
+                'carrier' => 'Vodafone'
+            ]);
+        }));
+
         $visitor = factory(Visitor::class)->create([
-            'ip_address' => '1.1.1.4',
+            'ip_address' => $oldIpAddress,
             'device' => 'ios',
             'country_id' => $country->id,
             'mobile_connection' => false,
@@ -129,11 +168,11 @@ class ConnectionTest extends TestCase
         $response = $this->json('PATCH', '/api/connection/changed', [
             'uid' => $visitor->uid,
             'device' => $visitor->device
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.5']);
+        ], ['REMOTE_ADDR' => $newIpAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
-            'ip_address' => '1.1.1.5',
+            'ip_address' => $newIpAddress,
             'device' => 'ios',
             'country_id' => $country->id,
             'mobile_connection' => true,
@@ -157,8 +196,18 @@ class ConnectionTest extends TestCase
         $country = factory(Country::class)->create();
         $mobileNetworks = factory(MobileNetwork::class, 3)->create(['country_id' => $country->id]);
 
+        $oldIpAddress = $this->faker->ipv4;
+        $newIpAddress = $this->ipAddress;
+
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'country_id' => $country->id,
+                'carrier' => null
+            ]);
+        }));
+
         $visitor = factory(Visitor::class)->create([
-            'ip_address' => '1.1.1.4',
+            'ip_address' => $oldIpAddress,
             'device' => 'ios',
             'country_id' => $country->id,
             'mobile_connection' => false,
@@ -168,11 +217,59 @@ class ConnectionTest extends TestCase
         $response = $this->json('PATCH', '/api/connection/changed', [
             'uid' => $visitor->uid,
             'device' => $visitor->device
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.9']);
+        ], ['REMOTE_ADDR' => $newIpAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
-            'ip_address' => '1.1.1.9',
+            'ip_address' => $newIpAddress,
+            'device' => 'ios',
+            'country_id' => $country->id,
+            'mobile_connection' => false,
+            'carrier_from_data' => null
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'visitor' => [
+                    'connection' => false,
+                    'carrier' => null
+                ],
+                'carriers_by_country' => [
+                    ['name' => $mobileNetworks[0]->name],
+                    ['name' => $mobileNetworks[1]->name],
+                    ['name' => $mobileNetworks[2]->name]
+                ]
+            ]);
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function appleUserSaidConnectionChangedToCellularButIpDidNot()
+    {
+        $country = factory(Country::class)->create();
+        $mobileNetworks = factory(MobileNetwork::class, 3)->create(['country_id' => $country->id]);
+
+        $oldIpAddress = $this->faker->ipv4;
+
+        $visitor = factory(Visitor::class)->create([
+            'ip_address' => $oldIpAddress,
+            'device' => 'ios',
+            'country_id' => $country->id,
+            'mobile_connection' => false,
+            'carrier_from_data' => null
+        ]);
+
+        $response = $this->json('PATCH', '/api/connection/changed', [
+            'uid' => $visitor->uid,
+            'device' => $visitor->device
+        ], ['REMOTE_ADDR' => $oldIpAddress]);
+
+        $this->assertDatabaseHas('visitors', [
+            'uid' => $visitor->uid,
+            'ip_address' => $oldIpAddress,
             'device' => 'ios',
             'country_id' => $country->id,
             'mobile_connection' => false,

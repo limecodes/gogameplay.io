@@ -61,3 +61,7 @@ I can also have a flash for Android if the user is on wifi
     // Also, if user hits "back button" I need offers for an offer wall
 
     TODO: Complete test cases for offers
+
+    1) It would be great if, instead of returning the name of the carrier as a string, return the database reference. I would have to record the carriers by country that IP2Location returns
+
+    2) It would be great if, when a new carrier is found from IP2Location, it can automatically store it in the database.
