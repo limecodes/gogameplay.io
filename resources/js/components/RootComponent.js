@@ -18,6 +18,13 @@ class RootComponent extends Component {
 		this.props.setVisitorData(this.props.device);
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props.visitor.connection !== prevProps.visitor.connection) {
+			console.log('fetch offers', this.props.visitor.connection);
+			console.log('fetch offers', this.props.visitor.completed);
+		}
+	}
+
 	render() {
 
 		if ( (this.props.validation.platform) && (this.props.validation.carrier) && (this.props.validation.search) ) {

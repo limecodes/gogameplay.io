@@ -55805,6 +55805,14 @@ var RootComponent = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(RootComponent, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.visitor.connection !== prevProps.visitor.connection) {
+        console.log('fetch offers', this.props.visitor.connection);
+        console.log('fetch offers', this.props.visitor.completed);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       if (this.props.validation.platform && this.props.validation.carrier && this.props.validation.search) {
