@@ -8,6 +8,8 @@ use Tests\TestCase;
 use App\Models\Country;
 use App\Models\Visitor;
 use App\Models\MobileNetwork;
+use App\External\LocationApi;
+use Mockery;
 
 class VisitorTest extends TestCase
 {
@@ -46,9 +48,9 @@ class VisitorTest extends TestCase
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'android',
             'connection' => false
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.1']);
+        ]);
 
-        $this->assertDatabasehas('visitors', ['ip_address' => '1.1.1.1', 'device' => 'android', 'mobile_connection' => false]);
+        $this->assertDatabasehas('visitors', ['device' => 'android', 'mobile_connection' => false]);
     }
 
     /**
@@ -62,17 +64,18 @@ class VisitorTest extends TestCase
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => 'android',
             'connection' => false
-        ], ['HTTP_GGP_TEST_IP' => '1.1.1.4']);
+        ]);
 
         $this->assertDatabaseHas('visitors', [
-            'ip_address' => '1.1.1.4',
             'device' => 'android',
             'country_id' => null,
             'mobile_connection' => false,
             'carrier_from_data' => null
         ]);
 
-        $visitor = Visitor::where('ip_address', '1.1.1.4')->first();
+        $visitor = Visitor::where('device', 'android')->first();
+
+        dd(Visitor::count());
 
         $response
             ->assertStatus(200)
@@ -90,6 +93,13 @@ class VisitorTest extends TestCase
     public function shouldRecordVisitorAndroidWithConnection()
     {
         $this->withoutExceptionHandling();
+
+        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) {
+            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
+                'iso_code' => 'GE',
+                'carrier' => 'Vodafone'
+            ]);
+        }));
 
         $country = factory(Country::class)->create();
 
