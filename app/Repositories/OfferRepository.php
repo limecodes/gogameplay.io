@@ -4,48 +4,90 @@ namespace App\Repositories;
 
 use App\Contracts\OfferInterface;
 use App\Http\Resources\MobileOfferResource;
+use App\Http\Resources\BackupOfferResource;
 use App\Models\Visitor;
+use App\Models\Offer;
 
 class OfferRepository implements OfferInterface {
 
-	public function fetchOffers($uid)
-	{
-		$visitor = Visitor::findByUid($uid);
+	protected $visitor;
 
-		$matchedOfferPreferred = $visitor->offers()
-			->where('device', $visitor->device)
-			->where('carrier', $visitor->carrier_from_data)
+	// Don't forget match country any device match carrier
+	private function fetchSingleOfferByCountry()
+	{
+		return $this->visitor->offers()
+			->whereIn('device', [$this->visitor->device, '*'])
+			->whereIn('carrier', [$this->visitor->carrier_from_data, '*'])
 			->where('type', 'main')
 			->first();
+	}
 
-		// $matchedOfferSecond = $visitor->offers()
-		// 	->where('device', $visitor->device)
-		// 	->where('carrier', '*')
-		// 	->where('type', 'main')
-		// 	->first();
+	private function fetchSingleOfferAnyCountry()
+	{
+		return Offer::where('country_id', null)
+			->whereIn('device', [$this->visitor->device, '*'])
+			->whereIn('carrier', [$this->visitor->carrier_from_data, '*'])
+			->where('type', 'main')
+			->first();
+	}
 
-		// $matchedOfferThird = $visitor->offers()
-		// 	->where('device', '*')
-		// 	->where('carrier', '*')
-		// 	->first();
+	private function fetchSingleOffer()
+	{
+		if ($this->visitor->offers()->count() > 0) {
+			$singleOffer = $this->fetchSingleOfferByCountry();
+		} else {
+			$singleOffer = $this->fetchSingleOfferAnyCountry();
+		}
 
-		// if ($matchedOfferAttempt->count() > 0) {
-		// 	$matchedOffer = $matchedOfferAttempt->first();
-		// }
+		return $singleOffer;
+	}
 
-		// $matchedOfferAttempt = $visitor->offers()
-		// 	->where('device', $visitor->device)
-		// 	->where('carrier', '*')
-		// 	->where('type', 'main');
+	private function fetchMultipleOffersByCountry()
+	{
+		return $this->visitor->offers()
+			->whereIn('device', [$this->visitor->device, '*'])
+			->whereIn('carrier', [$this->visitor->carrier_from_data, '*'])
+			->where('type', 'backup')
+			->all();
+	}
 
-		// if ($matchedOfferAttempt->count() > 0) {
-		// 	$matchedOffer = $matchedOfferAttempt->first();
-		// }
+	private function fetchMultipleOffersAnyCountry()
+	{
+		return Offer::where('country_id', null)
+			->whereIn('device', [$this->visitor->device, '*'])
+			->whereIn('carrier', [$this->visitor->carrier_from_data, '*'])
+			->where('type', 'backup')
+			->get();
+	}
 
-		if ($matchedOfferPreferred) {
+	private function fetchMultipleOffers()
+	{
+		// TODO: ! CODE DUPLICATION !
+		if ($this->visitor->offers()->count() > 0) {
+			$multipleOffers = $this->fetchMultipleOffersByCountry();
+		} else {
+			$multipleOffers = $this->fetchMultipleOffersAnyCountry();
+		}
+
+		return $multipleOffers;
+	}
+
+	public function fetchOffers($uid)
+	{
+		$this->visitor = Visitor::findByUid($uid);
+
+		$matchedOffer = $this->fetchSingleOffer();
+		$backupOffers = $this->fetchMultipleOffers(); 
+
+		if ($matchedOffer) {
 			$ret = [
 				'success' => true,
-				'offer' => new MobileOfferResource($matchedOfferPreferred)
+				'offer' => new MobileOfferResource($matchedOffer)
+			];
+		} else if ($backupOffers) {
+			$ret = [
+				'success' => false,
+				'offer' => BackupOfferResource::collection($backupOffers)
 			];
 		} else {
 			$ret = [

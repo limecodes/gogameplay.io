@@ -40,27 +40,27 @@ class MockLocationApi implements LocationApiInterface {
     	];
 
     	$this->nonMobileResponse = [
-		    "country_code" => "GE",
+    		"country_code" => "GE",
 		    "country_name" => "Abkhazia",
 		    "region_name" => "Abkhazia",
 		    "city_name" => "Abkhazia",
 		    "latitude" => "00.00000",
-		    "longitude" => "00.00000",
+		    "longitude" => "00.0000",
 		    "zip_code" => "00000",
 		    "time_zone" => "+00:00",
 		    "isp" => "localhost",
-		    "domain" => "mobile.gogameplay.local",
+		    "domain" => "offer.gogameplay.local",
 		    "net_speed" => "DSL",
 		    "idd_code" => "000",
-		    "area_code" => "00000",
+		    "area_code" => "000",
 		    "weather_station_code" => "UPXX0000",
 		    "weather_station_name" => "Abkhazia",
-		    "mcc" => "255",
-		    "mnc" => "01",
-		    "mobile_brand" => "Vodafone",
-		    "elevation" => "213",
-		    "usage_type" => "MOB",
-		    "credits_consumed" => 18
+		    "mcc" => "-",
+		    "mnc" => "-",
+		    "mobile_brand" => "-",
+		    "elevation" => "181",
+		    "usage_type" => "COM",
+    		"credits_consumed" =>18
     	];
 
     	$this->responseUnknownCarrier = [

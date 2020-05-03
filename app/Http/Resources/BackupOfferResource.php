@@ -14,6 +14,10 @@ class BackupOfferResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'text' => $this->text,
+            'img' => $this->img,
+            'url' => $this->url
+        ];
     }
 }
