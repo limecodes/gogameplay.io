@@ -26,4 +26,22 @@ class Visitor extends Model
     {
     	return $this->country->offers;
     }
+
+    public function fetchSingleOfferByCountry()
+    {
+        return $this->offers()
+            ->whereIn('device', [$this->device, '*'])
+            ->whereIn('carrier', [$this->carrier_from_data, '*'])
+            ->where('type', 'main')
+            ->first();
+    }
+
+    public function fetchMultipleOffersByCountry()
+    {
+        return $this->offers()
+            ->whereIn('device', [$this->device, '*'])
+            ->whereIn('carrier', [$this->carrier_from_data, '*'])
+            ->where('type', 'backup')
+            ->all();
+    }
 }

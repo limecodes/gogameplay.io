@@ -13,63 +13,22 @@ class OfferRepository implements OfferInterface {
 	protected $visitor;
 
 	// Don't forget match country any device match carrier
-	private function fetchSingleOfferByCountry()
-	{
-		return $this->visitor->offers()
-			->whereIn('device', [$this->visitor->device, '*'])
-			->whereIn('carrier', [$this->visitor->carrier_from_data, '*'])
-			->where('type', 'main')
-			->first();
-	}
-
-	private function fetchSingleOfferAnyCountry()
-	{
-		return Offer::where('country_id', null)
-			->whereIn('device', [$this->visitor->device, '*'])
-			->whereIn('carrier', [$this->visitor->carrier_from_data, '*'])
-			->where('type', 'main')
-			->first();
-	}
-
 	private function fetchSingleOffer()
 	{
-		if ($this->visitor->offers()->count() > 0) {
-			$singleOffer = $this->fetchSingleOfferByCountry();
-		} else {
-			$singleOffer = $this->fetchSingleOfferAnyCountry();
-		}
+		$singleOfferByCountry = $this->visitor->fetchSingleOfferByCountry();
 
-		return $singleOffer;
-	}
-
-	private function fetchMultipleOffersByCountry()
-	{
-		return $this->visitor->offers()
-			->whereIn('device', [$this->visitor->device, '*'])
-			->whereIn('carrier', [$this->visitor->carrier_from_data, '*'])
-			->where('type', 'backup')
-			->all();
-	}
-
-	private function fetchMultipleOffersAnyCountry()
-	{
-		return Offer::where('country_id', null)
-			->whereIn('device', [$this->visitor->device, '*'])
-			->whereIn('carrier', [$this->visitor->carrier_from_data, '*'])
-			->where('type', 'backup')
-			->get();
+		return ($singleOfferByCountry)
+			? $singleOfferByCountry
+			: Offer::fetchSingleOfferAnyCountry($this->visitor->device, $this->visitor->carrier_from_data);
 	}
 
 	private function fetchMultipleOffers()
 	{
-		// TODO: ! CODE DUPLICATION !
-		if ($this->visitor->offers()->count() > 0) {
-			$multipleOffers = $this->fetchMultipleOffersByCountry();
-		} else {
-			$multipleOffers = $this->fetchMultipleOffersAnyCountry();
-		}
+		$multipleOffersByCountry = $this->visitor->fetchMultipleOffersByCountry();
 
-		return $multipleOffers;
+		return ($multipleOffersByCountry)
+			? $multipleOffersByCountry
+			: Offer::fetchMultipleOffersAnyCountry($this->visitor->device, $this->visitor->carrier_from_data);
 	}
 
 	public function fetchOffers($uid)
