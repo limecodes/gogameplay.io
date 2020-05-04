@@ -15,8 +15,8 @@ class LocationApiProvider extends ServiceProvider
      */
     public function register()
     {
-    	$baseUrl = env('IP2LOCATION_BASE_URL');
-    	$apiKey = env('IP2LOCATION_API_KEY');
+        $baseUrl = env('IP2LOCATION_BASE_URL');
+        $apiKey = env('IP2LOCATION_API_KEY');
         $appEnv = env('APP_ENV');
 
         if ($appEnv !== 'local') {
