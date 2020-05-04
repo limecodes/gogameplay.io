@@ -12,7 +12,6 @@ class OfferRepository implements OfferInterface {
 
 	protected $visitor;
 
-	// Don't forget match country any device match carrier
 	private function fetchSingleOffer()
 	{
 		$singleOfferByCountry = $this->visitor->fetchSingleOfferByCountry();
