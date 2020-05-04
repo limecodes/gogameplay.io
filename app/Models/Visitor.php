@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 class Visitor extends Model
 {
@@ -30,8 +31,8 @@ class Visitor extends Model
     public function fetchSingleOfferByCountry()
     {
         return $this->offers()
-            ->whereIn('device', [$this->device, '*'])
-            ->whereIn('carrier', [$this->carrier_from_data, '*'])
+            ->whereIn('device', [$this->device, Config::get('constants.devices.any')])
+            ->whereIn('carrier', [$this->carrier_from_data, Config::get('constants.carriers.any')])
             ->where('type', 'main')
             ->first();
     }
@@ -39,8 +40,8 @@ class Visitor extends Model
     public function fetchMultipleOffersByCountry()
     {
         return $this->offers()
-            ->whereIn('device', [$this->device, '*'])
-            ->whereIn('carrier', [$this->carrier_from_data, '*'])
+            ->whereIn('device', [$this->device, Config::get('constants.devices.any')])
+            ->whereIn('carrier', [$this->carrier_from_data, Config::get('constants.carriers.any')])
             ->where('type', 'backup')
             ->all();
     }

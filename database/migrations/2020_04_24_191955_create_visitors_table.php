@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Config;
 
 class CreateVisitorsTable extends Migration
 {
@@ -17,7 +18,11 @@ class CreateVisitorsTable extends Migration
             $table->id();
             $table->uuid('uid');
             $table->ipAddress('ip_address');
-            $table->enum('device', ['non-mobile', 'android', 'ios']);
+            $table->enum('device',[
+                Config::get('constants.devices.non_mobile'),
+                Config::get('constants.devices.android'),
+                Config::get('constants.devices.ios')
+            ]);
             $table->foreignId('country_id')->nullable();
             $table->boolean('mobile_connection')->nullable();
             $table->string('carrier_from_data')->nullable();

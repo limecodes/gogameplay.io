@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contracts\VisitorInterface;
+use Illuminate\Support\Facades\Config;
 
 class NonmobileController extends Controller
 {
@@ -18,7 +19,7 @@ class NonmobileController extends Controller
     {
     	$ipAddress = $request->server('GGP_REMOTE_ADDR');
 
-    	$this->visitoryRepository->set($ipAddress, 'non-mobile', false);
+    	$this->visitoryRepository->set($ipAddress, Config::get('constants.devices.non_mobile'), false);
 
     	return response('non mobile', 200);
     }

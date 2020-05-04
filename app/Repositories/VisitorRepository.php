@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
 use App\Contracts\VisitorInterface;
 use App\External\LocationApiInterface;
 use App\Http\Resources\VisitorResourceWrapper;
@@ -93,11 +94,11 @@ class VisitorRepository implements VisitorInterface
 			['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
 		);
 
-		if ($this->visitor->device == 'android') {
+		if ($this->visitor->device == Config::get('constants.devices.android')) {
 			$this->setAndroid();
-		} else if ($this->visitor->device == 'ios') {
+		} else if ($this->visitor->device == Config::get('constants.devices.ios')) {
 			$this->setApple();
-		} else if ($this->visitor->device == 'non-mobile') {
+		} else if ($this->visitor->device == Config::get('constants.devices.non_mobile')) {
 			$this->setNonMobile();
 		}
 
@@ -108,9 +109,9 @@ class VisitorRepository implements VisitorInterface
 	{
 		$this->visitor = Visitor::findByUid($uid);
 
-		if ($this->visitor->device == 'android') {
+		if ($this->visitor->device == Config::get('constants.devices.android')) {
 			$this->connectionChangedAndroid($ipAddress);
-		} else if ($this->visitor->device == 'ios') {
+		} else if ($this->visitor->device == Config::get('constants.devices.ios')) {
 			$this->connectionChangedApple($ipAddress);
 		}
 

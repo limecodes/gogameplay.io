@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Config;
 
 class OfferSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class OfferSeeder extends Seeder
     		'name' => 'Test Game Offer',
 	        'text' => null,
 	        'country_id' => 1,
-            'device' => '*',
+            'device' => Config::get('constants.devices.any'),
 	        'carrier' => 'Vodafone',
 	        'url' => 'http://www.example.com',
 	        'type' => 1
