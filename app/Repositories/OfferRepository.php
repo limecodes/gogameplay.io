@@ -36,22 +36,18 @@ class OfferRepository implements OfferInterface {
 		$this->visitor = Visitor::findByUid($uid);
 
 		$matchedOffer = $this->fetchSingleOffer();
-		$backupOffers = $this->fetchMultipleOffers(); 
 
 		if ($matchedOffer) {
 			$ret = [
 				'success' => true,
 				'offer' => new MobileOfferResource($matchedOffer)
 			];
-		} else if ($backupOffers) {
-			$ret = [
-				'success' => false,
-				'offer' => BackupOfferResource::collection($backupOffers)
-			];
 		} else {
+			$backupOffers = $this->fetchMultipleOffers(); 
+
 			$ret = [
 				'success' => false,
-				'offer' => null
+				'offer' => ($backupOffers) ? BackupOfferResource::collection($backupOffers) : null
 			];
 		}
 
