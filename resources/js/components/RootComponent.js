@@ -11,10 +11,11 @@ import Instructions from './Instructions';
 import Searching from './Searching';
 
 class RootComponent extends Component {
-	
+
 	constructor(props) {
 		super(props);
-		this.props.setVisitorData(this.props.uid, this.props.device, (this.props.connection == "") ? false : true, (this.props.carrier !== 'unknown') ? this.props.carrier : '');
+
+		this.props.setVisitorData(this.props.device);
 	}
 
 	render() {

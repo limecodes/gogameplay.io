@@ -44,6 +44,12 @@ small {
 		li {
 			margin-bottom: 0.5rem;
 		}
+
+		&.searching-progress-list {
+			li {
+				margin-botton: 1.2rem;
+			}
+		}
 	}
 }
 
@@ -53,9 +59,21 @@ small {
 }
 
 .btn {
-	border-radius: 2.25rem
+	border-radius: 2.25rem;
+
+	&.border-right-flat {
+		border-radius: 2.25rem 0 0 2.25rem;
+	}
 }
 
 .badge {
 	font-size: 100%;
+}
+
+ul {
+	&.searching-progress-list {
+		li {
+			margin-bottom: 0.5rem;
+		}
+	}
 }

@@ -13,12 +13,12 @@ Vagrant.configure("2") do |config|
     v.name = "gogameplay"
   end
 
-  config.vm.hostname = "offer.gogameplay.local"
-  config.hostsupdater.aliases = ["offer.gogameplay.local"]
+  config.vm.hostname = "gogameplay.local"
+  config.hostsupdater.aliases = ["gogameplay.local"]
   config.vm.network "private_network", ip: "192.168.11.12"
 
   # config.vm.synced_folder ".", "/vagrant", disabled: true
-  config.vm.synced_folder ".", "/var/www/html/offer.gogameplay.local", owner: 'www-data', group: 'www-data'
+  config.vm.synced_folder ".", "/var/www/html/gogameplay.local", owner: 'www-data', group: 'www-data'
 
   config.vm.define :gogameplay do |gogameplay|
   end

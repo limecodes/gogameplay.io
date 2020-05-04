@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { connectionChanged, updateVisitorCarrier } from '../actions/visitor';
 
 import CarrierList from './CarrierList';
@@ -18,26 +20,19 @@ class ChangeConnection extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		var self = this;
-
 		if ( (this.props.visitor.error !== prevProps.visitor.error) && (this.props.visitor.error) ) {
-			console.log('Attempting one more time');
-			this.props.connectionChanged(this.props.visitor.uid);
-		}
-
-		if (this.props.visitor.error == prevProps.visitor.error) {
-			console.log('Failed even after re-try');
+			this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 		}
 	}
 
 	connectionDidChange(e) {
 		if (navigator.connection.type == 'cellular') {
-			this.props.connectionChanged(this.props.visitor.uid);
+			this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 		}
 	}
 
 	connectionHandleChange() {
-		this.props.connectionChanged(this.props.visitor.uid);
+		this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 	}
 
 	carrierHandleChange(e) {
@@ -48,7 +43,7 @@ class ChangeConnection extends Component {
 	}
 
 	render() {
-		if ( (this.props.carriers instanceof Array) && (!this.props.visitor.carrier) ) {
+		if ( (this.props.carriers instanceof Array) && (this.props.carriers.length > 0) && (!this.props.visitor.carrier) ) {
 			return (
 				<div className="alert alert-primary">
 					<select onChange={ this.carrierHandleChange.bind(this) }>
@@ -71,7 +66,12 @@ class ChangeConnection extends Component {
 						<li>If you're on wifi, please switch off wifi and connect to cellular</li>
 						<li>If you're already on cellular or you've switched off wifi, click next</li>
 					</ol>
-					<button className="btn btn-success" onClick={ this.connectionHandleChange.bind(this) }>Next ></button>
+					<div className='row'>
+						<div className='col-12'>
+							<img src="https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions.gif" style={{ marginBottom: '0.5rem', width: '35%' }} />
+						</div>
+					</div>
+					<button className="btn btn-success" onClick={ this.connectionHandleChange.bind(this) } style={{ width: '80%', verticalAlign: 'middle' }}>Next <span style={{ verticalAlign: 'middle' }}><FontAwesomeIcon icon='angle-right' /></span></button>
 				</div>
 			);
 		} else if (this.props.visitor.connection) {
@@ -83,7 +83,7 @@ class ChangeConnection extends Component {
 
 const mapStateToProps = state => ({
 	visitor: state.visitor,
-	carriers: state.carriers.carriers
+	carriers: state.carriers
 });
 
 export default connect(mapStateToProps, { connectionChanged, updateVisitorCarrier })(ChangeConnection);

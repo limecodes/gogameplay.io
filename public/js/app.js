@@ -54663,16 +54663,91 @@ var getCarrierList = function getCarrierList(uid) {
 
 /***/ }),
 
-/***/ "./resources/js/actions/types.js":
+/***/ "./resources/js/actions/offer.js":
 /*!***************************************!*\
-  !*** ./resources/js/actions/types.js ***!
+  !*** ./resources/js/actions/offer.js ***!
   \***************************************/
-/*! exports provided: SET_VISITOR_STATE, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECIEVED_CARRIER_LIST_START, RECEIVED_CARRIER_LIST_SUCCESS, RECEIVED_CARRIER_LIST_FAIL, UPDATE_VISITOR_CARRIER_START, UPDATE_VISITOR_CARRIER_SUCCESS, UPDATE_VISITOR_CARRIER_FAIL */
+/*! exports provided: fetchOffer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_VISITOR_STATE", function() { return SET_VISITOR_STATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchOffer", function() { return fetchOffer; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/actions/types.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var fetchOffer = function fetchOffer(uid) {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
+      var response, payload;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_OFFER_START"]
+              });
+              _context.prev = 1;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/offers/fetch', {
+                'uid': uid
+              });
+
+            case 4:
+              response = _context.sent;
+              payload = response.data;
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_OFFER_SUCCESS"],
+                payload: payload
+              });
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["FETCH_OFFER_FAIL"]
+              });
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 9]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+/***/ }),
+
+/***/ "./resources/js/actions/types.js":
+/*!***************************************!*\
+  !*** ./resources/js/actions/types.js ***!
+  \***************************************/
+/*! exports provided: SET_VISITOR_STATE_START, SET_VISITOR_STATE_COMPLETE, SET_VISITOR_STATE_FAIL, CONNECTION_CHANGE_START, CONNECTION_CHANGE_SUCCESS, CONNECTION_CHANGE_FAILURE, VALIDATE_PLATFORM, VALIDATE_CARRIER, RECIEVED_CARRIER_LIST_START, RECEIVED_CARRIER_LIST_SUCCESS, RECEIVED_CARRIER_LIST_FAIL, UPDATE_VISITOR_CARRIER_START, UPDATE_VISITOR_CARRIER_SUCCESS, UPDATE_VISITOR_CARRIER_FAIL, FETCH_OFFER_START, FETCH_OFFER_SUCCESS, FETCH_OFFER_FAIL */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_VISITOR_STATE_START", function() { return SET_VISITOR_STATE_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_VISITOR_STATE_COMPLETE", function() { return SET_VISITOR_STATE_COMPLETE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_VISITOR_STATE_FAIL", function() { return SET_VISITOR_STATE_FAIL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONNECTION_CHANGE_START", function() { return CONNECTION_CHANGE_START; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONNECTION_CHANGE_SUCCESS", function() { return CONNECTION_CHANGE_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONNECTION_CHANGE_FAILURE", function() { return CONNECTION_CHANGE_FAILURE; });
@@ -54684,7 +54759,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_START", function() { return UPDATE_VISITOR_CARRIER_START; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_SUCCESS", function() { return UPDATE_VISITOR_CARRIER_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_VISITOR_CARRIER_FAIL", function() { return UPDATE_VISITOR_CARRIER_FAIL; });
-var SET_VISITOR_STATE = 'SET_VISITOR_STATE';
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_OFFER_START", function() { return FETCH_OFFER_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_OFFER_SUCCESS", function() { return FETCH_OFFER_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_OFFER_FAIL", function() { return FETCH_OFFER_FAIL; });
+var SET_VISITOR_STATE_START = 'SET_VISITOR_STATE_START';
+var SET_VISITOR_STATE_COMPLETE = 'SET_VISITOR_STATE_COMPLETE';
+var SET_VISITOR_STATE_FAIL = 'SET_VISITOR_STATE_FAIL';
 var CONNECTION_CHANGE_START = 'CONNECTION_CHANGE_START';
 var CONNECTION_CHANGE_SUCCESS = 'CONNECTION_CHANGE_SUCCESS';
 var CONNECTION_CHANGE_FAILURE = 'CONNECTION_CHANGE_FAILURE';
@@ -54696,6 +54776,9 @@ var RECEIVED_CARRIER_LIST_FAIL = 'RECEIVED_CARRIER_LIST_FAIL';
 var UPDATE_VISITOR_CARRIER_START = 'UPDATE_VISITOR_CARRIER_START';
 var UPDATE_VISITOR_CARRIER_SUCCESS = 'UPDATE_VISITOR_CARRIER_SUCCESS';
 var UPDATE_VISITOR_CARRIER_FAIL = 'UPDATE_VISITOR_CARRIER_FAIL';
+var FETCH_OFFER_START = 'FETCH_OFFER_START';
+var FETCH_OFFER_SUCCESS = 'FETCH_OFFER_SUCCESS';
+var FETCH_OFFER_FAIL = 'FETCH_OFFER_FAIL';
 
 /***/ }),
 
@@ -54798,29 +54881,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var setVisitorData = function setVisitorData(uid, device, connection, carrier) {
+var setVisitorData = function setVisitorData(device) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
+      var connection, response, visitorData;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              connection = navigator.connection && navigator.connection.type == 'cellular' ? true : false;
               dispatch({
-                type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE"],
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE_START"],
                 payload: {
-                  uid: uid,
                   device: device,
-                  connection: connection,
-                  carrier: carrier
+                  connection: connection
                 }
               });
+              _context.prev = 2;
+              _context.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/visitor/set', {
+                device: device,
+                connection: connection
+              });
 
-            case 1:
+            case 5:
+              response = _context.sent;
+
+              if (_typeof(response.data.carriers_by_country) == 'object') {
+                dispatch({
+                  type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST_SUCCESS"],
+                  payload: response.data.carriers_by_country
+                });
+                visitorData = response.data.visitor;
+              } else {
+                visitorData = response.data;
+              }
+
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE_COMPLETE"],
+                payload: visitorData
+              });
+              _context.next = 13;
+              break;
+
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](2);
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE_FAIL"]
+              });
+
+            case 13:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[2, 10]]);
     }));
 
     return function (_x) {
@@ -54828,7 +54944,7 @@ var setVisitorData = function setVisitorData(uid, device, connection, carrier) {
     };
   }();
 };
-var connectionChanged = function connectionChanged(uid) {
+var connectionChanged = function connectionChanged(uid, device) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(dispatch) {
       var response, payload;
@@ -54841,15 +54957,15 @@ var connectionChanged = function connectionChanged(uid) {
               });
               _context2.prev = 1;
               _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/connectionchanged', {
-                uid: uid
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch('/api/connection/changed', {
+                uid: uid,
+                device: device
               });
 
             case 4:
               response = _context2.sent;
 
               if (_typeof(response.data.carriers_by_country) == 'object' && !response.data.visitor.carrier) {
-                console.log('got carrier list');
                 dispatch({
                   type: _types__WEBPACK_IMPORTED_MODULE_1__["RECEIVED_CARRIER_LIST_SUCCESS"],
                   payload: response.data.carriers_by_country
@@ -54901,7 +55017,7 @@ var updateVisitorCarrier = function updateVisitorCarrier(uid, carrier) {
               });
               _context3.prev = 1;
               _context3.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/updatecarrier', {
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch('/api/carrier/update', {
                 uid: uid,
                 carrier: carrier
               });
@@ -54989,7 +55105,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faCheck"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faAngleRight"]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faCheck"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faAngleRight"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faTimes"]);
 
 var App = /*#__PURE__*/function (_Component) {
   _inherits(App, _Component);
@@ -55010,10 +55126,7 @@ var App = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(redux_persist_integration_react__WEBPACK_IMPORTED_MODULE_3__["PersistGate"], {
         persistor: _store__WEBPACK_IMPORTED_MODULE_4__["persistor"]
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_RootComponent__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        uid: this.props.uid,
-        device: this.props.device,
-        connection: this.props.connection,
-        carrier: this.props.carrier
+        device: this.props.device
       })));
     }
   }]);
@@ -55025,15 +55138,9 @@ var App = /*#__PURE__*/function (_Component) {
 
 if (document.getElementById('app')) {
   var elem = document.getElementById('app');
-  var uid = elem.getAttribute('data-uid');
   var device = elem.getAttribute('data-device');
-  var connection = elem.getAttribute('data-connection');
-  var carrier = elem.getAttribute('data-carrier');
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, {
-    uid: uid,
-    device: device,
-    connection: connection,
-    carrier: carrier
+    device: device
   }), elem);
 }
 
@@ -55053,9 +55160,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_validation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/validation */ "./resources/js/actions/validation.js");
-/* harmony import */ var _actions_carrier__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/carrier */ "./resources/js/actions/carrier.js");
-/* harmony import */ var _ChangeConnection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ChangeConnection */ "./resources/js/components/ChangeConnection.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _actions_validation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/validation */ "./resources/js/actions/validation.js");
+/* harmony import */ var _actions_carrier__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/carrier */ "./resources/js/actions/carrier.js");
+/* harmony import */ var _ChangeConnection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ChangeConnection */ "./resources/js/components/ChangeConnection.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55085,6 +55193,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var CarrierCard = /*#__PURE__*/function (_Component) {
   _inherits(CarrierCard, _Component);
 
@@ -55097,13 +55206,6 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(CarrierCard, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (this.props.visitor.connection && !this.props.visitor.carrier) {
-        this.props.getCarrierList(this.props.visitor.uid);
-      }
-    }
-  }, {
     key: "handleCarrierValidate",
     value: function handleCarrierValidate() {
       this.props.validateCarrier();
@@ -55123,7 +55225,13 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
               width: '100%'
             },
             onClick: _this.handleCarrierValidate.bind(_this)
-          }, "Next >"));
+          }, "Next ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            style: {
+              verticalAlign: 'middle'
+            }
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "angle-right"
+          }))));
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "card-footer"
@@ -55148,7 +55256,7 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Step 2. Verify Your Cellular Carrier"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_5__["default"], null), !this.props.visitor.connection && !this.props.visitor.carrier && this.props.visitor.device == 'android' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_6__["default"], null), !this.props.visitor.connection && !this.props.visitor.carrier && this.props.visitor.device == 'android' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
     }
   }]);
 
@@ -55158,13 +55266,13 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     visitor: state.visitor,
-    carriers: state.carriers.carriers
+    carriers: state.carriers
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  validateCarrier: _actions_validation__WEBPACK_IMPORTED_MODULE_3__["validateCarrier"],
-  getCarrierList: _actions_carrier__WEBPACK_IMPORTED_MODULE_4__["getCarrierList"]
+  validateCarrier: _actions_validation__WEBPACK_IMPORTED_MODULE_4__["validateCarrier"],
+  getCarrierList: _actions_carrier__WEBPACK_IMPORTED_MODULE_5__["getCarrierList"]
 })(CarrierCard));
 
 /***/ }),
@@ -55210,8 +55318,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_visitor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/visitor */ "./resources/js/actions/visitor.js");
-/* harmony import */ var _CarrierList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CarrierList */ "./resources/js/components/CarrierList.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _actions_visitor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/visitor */ "./resources/js/actions/visitor.js");
+/* harmony import */ var _CarrierList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CarrierList */ "./resources/js/components/CarrierList.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55233,6 +55342,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -55263,28 +55373,21 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      var self = this;
-
       if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
-        console.log('Attempting one more time');
-        this.props.connectionChanged(this.props.visitor.uid);
-      }
-
-      if (this.props.visitor.error == prevProps.visitor.error) {
-        console.log('Failed even after re-try');
+        this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
       }
     }
   }, {
     key: "connectionDidChange",
     value: function connectionDidChange(e) {
       if (navigator.connection.type == 'cellular') {
-        this.props.connectionChanged(this.props.visitor.uid);
+        this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
       }
     }
   }, {
     key: "connectionHandleChange",
     value: function connectionHandleChange() {
-      this.props.connectionChanged(this.props.visitor.uid);
+      this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
     }
   }, {
     key: "carrierHandleChange",
@@ -55296,12 +55399,12 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.props.carriers instanceof Array && !this.props.visitor.carrier) {
+      if (this.props.carriers instanceof Array && this.props.carriers.length > 0 && !this.props.visitor.carrier) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-primary"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
           onChange: this.carrierHandleChange.bind(this)
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Select your mobile carrier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CarrierList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Select your mobile carrier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CarrierList__WEBPACK_IMPORTED_MODULE_5__["default"], {
           carriers: this.props.carriers
         })));
       } else if (this.props.visitor.carrier) {
@@ -55319,10 +55422,30 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
           style: {
             textAlign: 'left'
           }
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "If you're on wifi, please switch off wifi and connect to cellular"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "If you're already on cellular or you've switched off wifi, click next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "If you're on wifi, please switch off wifi and connect to cellular"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "If you're already on cellular or you've switched off wifi, click next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "row"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-12"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: "https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions.gif",
+          style: {
+            marginBottom: '0.5rem',
+            width: '35%'
+          }
+        }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "btn btn-success",
-          onClick: this.connectionHandleChange.bind(this)
-        }, "Next >"));
+          onClick: this.connectionHandleChange.bind(this),
+          style: {
+            width: '80%',
+            verticalAlign: 'middle'
+          }
+        }, "Next ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          style: {
+            verticalAlign: 'middle'
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+          icon: "angle-right"
+        }))));
       } else if (this.props.visitor.connection) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-success"
@@ -55337,13 +55460,13 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     visitor: state.visitor,
-    carriers: state.carriers.carriers
+    carriers: state.carriers
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  connectionChanged: _actions_visitor__WEBPACK_IMPORTED_MODULE_3__["connectionChanged"],
-  updateVisitorCarrier: _actions_visitor__WEBPACK_IMPORTED_MODULE_3__["updateVisitorCarrier"]
+  connectionChanged: _actions_visitor__WEBPACK_IMPORTED_MODULE_4__["connectionChanged"],
+  updateVisitorCarrier: _actions_visitor__WEBPACK_IMPORTED_MODULE_4__["updateVisitorCarrier"]
 })(ChangeConnection));
 
 /***/ }),
@@ -55676,12 +55799,20 @@ var RootComponent = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
 
-    _this.props.setVisitorData(_this.props.uid, _this.props.device, _this.props.connection == "" ? false : true, _this.props.carrier !== 'unknown' ? _this.props.carrier : '');
+    _this.props.setVisitorData(_this.props.device);
 
     return _this;
   }
 
   _createClass(RootComponent, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.visitor.connection !== prevProps.visitor.connection) {
+        console.log('fetch offers', this.props.visitor.connection);
+        console.log('fetch offers', this.props.visitor.completed);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       if (this.props.validation.platform && this.props.validation.carrier && this.props.validation.search) {
@@ -55725,7 +55856,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _constants_colours__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../constants/colours */ "./resources/js/constants/colours.js");
+/* harmony import */ var _actions_offer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/offer */ "./resources/js/actions/offer.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55752,6 +55886,9 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
+
 var Searching = /*#__PURE__*/function (_Component) {
   _inherits(Searching, _Component);
 
@@ -55764,7 +55901,13 @@ var Searching = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      searching: false
+      searching: true,
+      stepOne: false,
+      stepTwo: false,
+      stepThree: false,
+      stepFour: false,
+      stepFive: false,
+      progressWidth: '25%'
     };
     return _this;
   }
@@ -55772,20 +55915,71 @@ var Searching = /*#__PURE__*/function (_Component) {
   _createClass(Searching, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var self = this;
-      setTimeout(function () {
+      var _this2 = this;
+
+      setTimeout(function (self) {
         self.setState({
-          searching: true
+          stepOne: true,
+          progressWidth: '50%'
         });
-      }, 1000);
+      }, 2000, this);
+      setTimeout(function (self) {
+        self.setState({
+          stepTwo: true,
+          progressWidth: '75%'
+        });
+      }, 4000, this);
+      setTimeout(function (self) {
+        self.setState({
+          stepThree: true,
+          progressWidth: '90%'
+        });
+      }, 6000, this);
+      setTimeout(function (self) {
+        self.setState({
+          stepFour: true,
+          progressWidth: '100%'
+        });
+
+        if (_this2.props.visitor.uid) {
+          _this2.props.fetchOffer(_this2.props.visitor.uid);
+        }
+      }, 8000, this);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.offer.success !== prevProps.offer.success && this.props.offer.success == true) {
+        this.setState({
+          searching: false
+        });
+      } else if (this.props.offer.success !== prevProps.offer.success && this.props.offer.success == false) {
+        setTimeout(function (self) {
+          self.setState({
+            stepFive: true,
+            searching: false
+          });
+        }, 2000, this);
+      }
+    }
+  }, {
+    key: "handleOfferClick",
+    value: function handleOfferClick() {
+      document.location.href = this.props.offer.url;
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
+
+      var platforms = {
+        'ios': 'iTunes',
+        'android': 'Google Play'
+      };
+      var platform = platforms[this.props.visitor.device];
 
       var Progress = function Progress() {
-        if (!_this2.state.searching) {
+        if (_this3.state.searching) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "progress"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -55795,11 +55989,142 @@ var Searching = /*#__PURE__*/function (_Component) {
             "aria-valuemin": "0",
             "aria-valuemax": "100",
             style: {
-              width: '100%'
+              width: _this3.state.progressWidth
             }
           }));
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+        }
+      };
+
+      var StepOne = function StepOne() {
+        if (!_this3.state.stepOne) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
+            }
+          }, "\uD83E\uDD1E"), "Searching database for coupons...");
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Found available coupon");
+        }
+      };
+
+      var StepTwo = function StepTwo() {
+        if (!_this3.state.stepTwo) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
+            }
+          }, "\uD83E\uDD1E"), "Verifying coupon on ", platform);
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Coupon verified with ", platform);
+        }
+      };
+
+      var StepThree = function StepThree() {
+        if (!_this3.state.stepThree) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
+            }
+          }, "\uD83E\uDD1E"), "Verifying coupon with ", _this3.props.visitor.carrier);
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Coupon available for ", _this3.props.visitor.carrier);
+        }
+      };
+
+      var StepFour = function StepFour() {
+        if (!_this3.state.stepFour) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
+            }
+          }, "\uD83E\uDD1E"), "Checking if coupon hasn't been claimed");
+        } else if (!_this3.props.offer.loading && !_this3.props.offer.success) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "times",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_DANGER"]
+          }), ' ', "Coupon expired ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "disappointed",
+            style: {
+              fontSize: '1rem',
+              verticalAlign: 'middle'
+            }
+          }, "\uD83D\uDE1E"));
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Coupon Valid!");
+        }
+      };
+
+      var StepFive = function StepFive() {
+        if (!_this3.state.stepFive) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            role: "img",
+            "aria-label": "fingers-crossed",
+            style: {
+              fontSize: '1.2rem',
+              verticalAlign: 'middle'
+            }
+          }, "\uD83E\uDD1E"), "Searching for other coupons");
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"]
+          }), ' ', "Coupon Valid!");
+        }
+      };
+
+      var CardBody = function CardBody() {
+        if (_this3.state.searching) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+            className: "searching-progress-list",
+            style: {
+              textAlign: 'left',
+              listStyleType: 'none'
+            }
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepOne, null)), _this3.state.stepOne ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepTwo, null)) : null, _this3.state.stepOne && _this3.state.stepTwo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepThree, null)) : null, _this3.state.stepOne && _this3.state.stepTwo && _this3.state.stepThree ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepFour, null)) : null, _this3.state.stepOne && _this3.state.stepTwo && _this3.state.stepThree && _this3.state.stepFour ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StepFive, null)) : null);
+        } else if (!_this3.state.searching && _this3.props.offer.success) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+            icon: "check",
+            color: _constants_colours__WEBPACK_IMPORTED_MODULE_4__["COLOUR_SUCCESS"],
+            style: {
+              marginBottom: '1rem',
+              fontSize: '2rem'
+            }
+          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+            className: "alert alert-success"
+          }, "Valid Coupon Found!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Tap the button below to redeem coupon"));
+        } else if (_this3.props.offer.success == false) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "alert alert-warning"
+          }, "Unfortunately coupon expired"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "However, you may be interested in the coupons below"));
+        } else {
+          return null;
         }
       };
 
@@ -55810,18 +56135,73 @@ var Searching = /*#__PURE__*/function (_Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, this.state.searching ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "badge badge-success"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
-        icon: "check"
-      })), ' ', "Coupon Found") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Searching"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Progress, null)));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardBody, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Progress, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-footer"
+      }, this.props.offer.success && !this.state.searching ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleOfferClick.bind(this),
+        className: "input-group",
+        style: {
+          width: '100%',
+          padding: 0,
+          'border': 0,
+          background: 'transparent'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "btn btn-outline-success border-right-flat",
+        style: {
+          width: '80%',
+          background: 'white'
+        }
+      }, "Redeem Coupon"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-group-append",
+        style: {
+          width: '20%'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-group-text",
+        style: {
+          width: '100%',
+          paddingLeft: '40%',
+          borderRadius: '0 2.25rem 2.25rem 0',
+          background: '#38C192',
+          border: '1px solid #38C192',
+          color: 'white'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: "angle-right"
+      })))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null)));
     }
   }]);
 
   return Searching;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Searching);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    visitor: state.visitor,
+    offer: state.offer
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
+  fetchOffer: _actions_offer__WEBPACK_IMPORTED_MODULE_5__["fetchOffer"]
+})(Searching));
+
+/***/ }),
+
+/***/ "./resources/js/constants/colours.js":
+/*!*******************************************!*\
+  !*** ./resources/js/constants/colours.js ***!
+  \*******************************************/
+/*! exports provided: COLOUR_SUCCESS, COLOUR_DANGER */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLOUR_SUCCESS", function() { return COLOUR_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLOUR_DANGER", function() { return COLOUR_DANGER; });
+var COLOUR_SUCCESS = '#38c172';
+var COLOUR_DANGER = '#dc3545';
 
 /***/ }),
 
@@ -56027,23 +56407,15 @@ var mapStateToProps = function mapStateToProps(state) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./resources/js/actions/types.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-var initialState = {};
+var initialState = [];
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["RECEIVED_CARRIER_LIST_SUCCESS"]:
-      return _objectSpread({}, state, {
-        carriers: action.payload
-      });
+      return action.payload;
 
     default:
       return state;
@@ -56065,6 +56437,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _visitorReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./visitorReducer */ "./resources/js/reducers/visitorReducer.js");
 /* harmony import */ var _validationReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validationReducer */ "./resources/js/reducers/validationReducer.js");
 /* harmony import */ var _carriersReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./carriersReducer */ "./resources/js/reducers/carriersReducer.js");
+/* harmony import */ var _offerReducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./offerReducer */ "./resources/js/reducers/offerReducer.js");
+
 
 
 
@@ -56072,8 +56446,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   visitor: _visitorReducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   validation: _validationReducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  carriers: _carriersReducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  carriers: _carriersReducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  offer: _offerReducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
+
+/***/ }),
+
+/***/ "./resources/js/reducers/offerReducer.js":
+/*!***********************************************!*\
+  !*** ./resources/js/reducers/offerReducer.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./resources/js/actions/types.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  loading: false,
+  success: null
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_START"]:
+      return _objectSpread({}, state, {
+        loading: true
+      });
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_SUCCESS"]:
+      return _objectSpread({}, state, {
+        loading: false
+      }, action.payload);
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_FAIL"]:
+      return _objectSpread({}, state, {
+        loading: false
+      });
+
+    default:
+      return state;
+  }
+});
 
 /***/ }),
 
@@ -56142,15 +56565,24 @@ var initialState = {
   device: null,
   connection: null,
   carrier: null,
-  error: false
+  error: false,
+  completed: false
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_VISITOR_STATE"]:
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_VISITOR_STATE_START"]:
       return _objectSpread({}, state, {}, action.payload);
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["SET_VISITOR_STATE_COMPLETE"]:
+      return _objectSpread({}, state, {
+        uid: action.payload.uid,
+        connection: action.payload.connection,
+        carrier: action.payload.carrier,
+        completed: true
+      });
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["CONNECTION_CHANGE_SUCCESS"]:
       return _objectSpread({}, state, {

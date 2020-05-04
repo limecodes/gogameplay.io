@@ -42,3 +42,29 @@ I can also have a flash for Android if the user is on wifi
         //      because it's not detecting their cellular IP, since I'm updating it.
         //      A fix would be to add another field or another record, instead of updating it.
         //      OR: I can add an ip_address-to-user_id table
+
+        Next Steps:
+
+        [x] TODO: Cleanup the game controller
+        TODO: Fix up the front-end
+        TODO: Offers 😈 The fun part begins
+        TODO: Don't forget non-mobile
+
+        TODO: Beef up offers tests and do backups offers, focus on the offer part from now on.
+        TODO: Back button redirect from offer
+
+        TODO: Gotta change vagrant name and stuff to `gogameplay.local` since I'm combining the front page and not using S3
+
+        // First I'm going to have offers that target a specific country and specific carrier
+    // For Everything else, I'm going to have a redirect
+    // Later, I'm going to have backup offers
+    // Also, if user hits "back button" I need offers for an offer wall
+
+    TODO: Complete test cases for offers
+
+    1) It would be great if, instead of returning the name of the carrier as a string, return the database reference. I would have to record the carriers by country that IP2Location returns
+
+    2) It would be great if, when a new carrier is found from IP2Location, it can automatically store it in the database.
+
+    3) Serve the offers if a connection is detected where upon 'set' or on connection change
+     

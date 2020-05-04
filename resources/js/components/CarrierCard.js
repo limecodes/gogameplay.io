@@ -3,18 +3,14 @@ import ReactDom from 'react-dom';
 
 import { connect } from 'react-redux';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { validateCarrier } from '../actions/validation';
 import { getCarrierList } from '../actions/carrier';
 
 import ChangeConnection from './ChangeConnection';
 
 class CarrierCard extends Component {
-
-	componentDidMount() {
-		if ( (this.props.visitor.connection) && (!this.props.visitor.carrier) ) {
-			this.props.getCarrierList(this.props.visitor.uid);
-		}
-	}
 
 	handleCarrierValidate() {
 		this.props.validateCarrier();
@@ -25,7 +21,7 @@ class CarrierCard extends Component {
 			if (this.props.visitor.carrier) {
 				return (
 					<div className="card-footer">
-						<button className="btn btn-success" style={{ width: '100%' }} onClick={ this.handleCarrierValidate.bind(this) }>Next ></button>
+						<button className="btn btn-success" style={{ width: '100%' }} onClick={ this.handleCarrierValidate.bind(this) }>Next <span style={{ verticalAlign: 'middle' }}><FontAwesomeIcon icon='angle-right' /></span></button>
 					</div>
 				);
 			} else {
@@ -53,7 +49,7 @@ class CarrierCard extends Component {
 
 const mapStateToProps = state => ({
 	visitor: state.visitor,
-	carriers: state.carriers.carriers
+	carriers: state.carriers
 });
 
 export default connect(mapStateToProps, { validateCarrier, getCarrierList })(CarrierCard);

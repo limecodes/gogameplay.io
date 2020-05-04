@@ -7,11 +7,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCheck, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faAngleRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import RootComponent from './components/RootComponent';
 
-library.add(faCheck, faAngleRight);
+library.add(faCheck, faAngleRight, faTimes);
 
 export default class App extends Component {
 
@@ -19,7 +19,7 @@ export default class App extends Component {
 		return (
 			<Provider store={ store }>
 				<PersistGate persistor={ persistor }>
-	        		<RootComponent uid={ this.props.uid } device={ this.props.device } connection={ this.props.connection } carrier={ this.props.carrier } />
+	        		<RootComponent device={ this.props.device } />
 	        	</PersistGate>
 	        </Provider>
     	);
@@ -28,10 +28,7 @@ export default class App extends Component {
 
 if (document.getElementById('app')) {
 	var elem = document.getElementById('app');
-	var uid = elem.getAttribute('data-uid');
 	var device = elem.getAttribute('data-device');
-	var connection = elem.getAttribute('data-connection');
-	var carrier = elem.getAttribute('data-carrier')
 
-    ReactDOM.render(<App uid={ uid } device={ device } connection={ connection } carrier={ carrier } />, elem);
+    ReactDOM.render(<App device={ device } />, elem);
 }

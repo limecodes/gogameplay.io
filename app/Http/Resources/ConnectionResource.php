@@ -16,7 +16,7 @@ class ConnectionResource extends JsonResource
     {
         return [
             'connection' => $this->mobile_connection,
-            'carrier' => ($this->carrier_from_data !== 'unknown') ? $this->carrier_from_data : false
+            'carrier' => $this->carrier_from_data
         ];
     }
 }
