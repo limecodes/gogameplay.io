@@ -16,7 +16,7 @@ class VisitorResource extends JsonResource
     {
         return [
             'uid' => $this->uid,
-            'connection' => boolval($this->mobile_connection),
+            'connection' => $this->mobile_connection,
             'carrier' => $this->carrier_from_data
         ];
     }

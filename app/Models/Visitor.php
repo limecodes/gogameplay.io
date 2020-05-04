@@ -8,6 +8,10 @@ class Visitor extends Model
 {
     protected $fillable = ['uid', 'ip_address', 'device', 'mobile_connection'];
 
+    protected $casts = [
+        'mobile_connection' => 'boolean'
+    ];
+
     public function country()
     {
     	return $this->belongsTo('App\Models\Country');
