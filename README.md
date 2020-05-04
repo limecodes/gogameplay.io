@@ -96,3 +96,9 @@ Write a script that generates all instagram assets
 Also remember to write down manual test cases with expected results, use a spreadsheet (Google Sheets)
 
 Remember to host static files (js, css, images, etc...) in S3 because EC2 traffic is expensive (need to automate this process upon deploy)
+
+[x][x] 'android' => Config::get('constants.devices.android')
+[x][x] 'ios' => Config::get('constants.devices.ios')
+[x][x] 'non-mobile' => Config::get('constants.devices.non_mobile')
+[x][x] '*' => Config::get('constants.devices.any')
+[x][x] '*' => Config::get('constants.carriers.any')
