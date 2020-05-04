@@ -44,4 +44,16 @@ class Visitor extends Model
             ->where('type', 'backup')
             ->all();
     }
+
+    public function setOrUpdateBasicAttributes(int $countryId, ?string $carrier, ?bool $mobileConnection = null)
+    {
+        $this->country_id = $countryId;
+        $this->carrier_from_data = $carrier;
+
+        if ($mobileConnection !== null) {
+            $this->mobile_connection = $mobileConnection;
+        }
+
+        $this->save();
+    }
 }

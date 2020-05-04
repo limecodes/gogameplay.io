@@ -27,10 +27,10 @@ class VisitorRepository implements VisitorInterface
 		if ( ($this->visitor->mobile_connection) && (!$this->visitor->country_id) ) {
 			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
 
-			$this->visitor->country_id = $locationData['country_id'];
-			$this->visitor->carrier_from_data = $locationData['carrier'];
+			$countryId = $locationData['country_id'];
+			$carrier = $locationData['carrier'];
 
-			$this->visitor->save();
+			$this->visitor->setOrUpdateBasicAttributes($countryId, $carrier);
 		}
 	}
 
@@ -39,13 +39,11 @@ class VisitorRepository implements VisitorInterface
 		if (!$this->visitor->country_id) {
 			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
 
-			$this->visitor->country_id = $locationData['country_id'];
+			$countryId = $locationData['country_id'];
+			$carrier = ($locationData['carrier']) ? $locationData['carrier'] : null;
+			$mobileConnection = ($locationData['carrier']) ? true : false;
 
-			$this->visitor->mobile_connection = ($locationData['carrier']) ? true : false;
-
-			$this->visitor->carrier_from_data = ($locationData['carrier']) ? $locationData['carrier'] : null;
-
-			$this->visitor->save();
+			$this->visitor->setOrUpdateBasicAttributes($countryId, $carrier, $mobileConnection);
 		}
 	}
 
@@ -54,9 +52,9 @@ class VisitorRepository implements VisitorInterface
 		if (!$this->visitor->country_id) {
 			$locationData = $this->locationApi->getCountryOnly($this->visitor->ip_address);
 
-			$this->visitor->country_id = $locationData['country_id'];
+			$countryId = $locationData['country_id'];
 
-			$this->visitor->save();
+			$this->visitor->setOrUpdateBasicAttributes($countryId, null);
 		}
 	}
 
