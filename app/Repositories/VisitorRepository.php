@@ -30,7 +30,7 @@ class VisitorRepository implements VisitorInterface
 			$countryId = $locationData['country_id'];
 			$carrier = $locationData['carrier'];
 
-			$this->visitor->setOrUpdateBasicAttributes($countryId, $carrier);
+			$this->visitor->setBasicAttributes($countryId, $carrier);
 		}
 	}
 
@@ -43,7 +43,7 @@ class VisitorRepository implements VisitorInterface
 			$carrier = ($locationData['carrier']) ? $locationData['carrier'] : null;
 			$mobileConnection = ($locationData['carrier']) ? true : false;
 
-			$this->visitor->setOrUpdateBasicAttributes($countryId, $carrier, $mobileConnection);
+			$this->visitor->setBasicAttributes($countryId, $carrier, $mobileConnection);
 		}
 	}
 
@@ -54,7 +54,7 @@ class VisitorRepository implements VisitorInterface
 
 			$countryId = $locationData['country_id'];
 
-			$this->visitor->setOrUpdateBasicAttributes($countryId, null);
+			$this->visitor->setBasicAttributes($countryId, null);
 		}
 	}
 
@@ -69,7 +69,7 @@ class VisitorRepository implements VisitorInterface
 			$carrier = ($locationData['carrier']) ? $locationData['carrier'] : null;
 		}
 
-		$this->visitor->setOrUpdateConnectionAttributes($mobileConnection, $carrier, $ipAddress, $countryId);
+		$this->visitor->updateConnectionAttributes($mobileConnection, $carrier, $ipAddress, $countryId);
 	}
 
 	private function connectionChangedApple($ipAddress):void
@@ -82,13 +82,13 @@ class VisitorRepository implements VisitorInterface
 			$mobileConnection = ($locationData['carrier']) ? true : false;
 			$carrier = ($locationData['carrier']) ? $locationData['carrier'] : null;
 
-			$this->visitor->setOrUpdateConnectionAttributes($mobileConnection, $carrier, $ipAddress);
+			$this->visitor->updateConnectionAttributes($mobileConnection, $carrier, $ipAddress);
 		}
 	}
 
 	public function set($ipAddress, $device, $connection):VisitorResourceWrapper
 	{
-		$this->visitor = Visitor::fetchOrSet($ipAddress, $device, $connection);
+		$this->visitor = Visitor::fetchOrNew($ipAddress, $device, $connection);
 
 		if ($this->visitor->device == Config::get('constants.devices.android')) {
 			$this->setAndroid();
@@ -97,6 +97,8 @@ class VisitorRepository implements VisitorInterface
 		} else if ($this->visitor->device == Config::get('constants.devices.non_mobile')) {
 			$this->setNonMobile();
 		}
+
+		$this->visitor->save();
 
 		return new VisitorResourceWrapper($this->visitor);
 	}
