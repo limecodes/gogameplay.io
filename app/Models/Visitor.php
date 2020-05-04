@@ -24,9 +24,9 @@ class Visitor extends Model
     	return static::where('uid', $uid)->first();
     }
 
-    public static function fetchOrSet(string $ipAddress, string $device, bool $connection):Visitor
+    public static function fetchOrNew(string $ipAddress, string $device, bool $connection):Visitor
     {
-        return Visitor::firstOrCreate(
+        return Visitor::firstOrNew(
             ['ip_address' => $ipAddress, 'device' => $device],
             ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
         );
@@ -55,7 +55,7 @@ class Visitor extends Model
             ->all();
     }
 
-    public function setOrUpdateBasicAttributes(int $countryId, ?string $carrier, bool $mobileConnection = null)
+    public function setBasicAttributes(int $countryId, ?string $carrier, bool $mobileConnection = null)
     {
         $this->country_id = $countryId;
         $this->carrier_from_data = $carrier;
@@ -63,11 +63,9 @@ class Visitor extends Model
         if ($mobileConnection !== null) {
             $this->mobile_connection = $mobileConnection;
         }
-
-        $this->save();
     }
 
-    public function setOrUpdateConnectionAttributes(bool $mobileConnection, ?string $carrier, ?string $ipAddress, int $countryId = null)
+    public function updateConnectionAttributes(bool $mobileConnection, ?string $carrier, ?string $ipAddress, int $countryId = null)
     {
         $this->mobile_connection = $mobileConnection;
 
