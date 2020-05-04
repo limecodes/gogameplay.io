@@ -1,6 +1,6 @@
 <?php
 
-namespace App\External;
+namespace App\Contracts;
 
 interface LocationApiInterface {
 	public function getCountryAndDetectCarrier($ipAddress):array;

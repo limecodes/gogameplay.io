@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\Config;
 use App\Contracts\VisitorInterface;
-use App\External\LocationApiInterface;
+use App\Contracts\LocationApiInterface;
 use App\Http\Resources\VisitorResourceWrapper;
 use App\Http\Resources\ConnectionResourceWrapper;
 use App\Http\Resources\ConnectionCarrierListResource;
