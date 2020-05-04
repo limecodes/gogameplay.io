@@ -26,8 +26,6 @@ class LocationApiProvider extends ServiceProvider
         }
 
         $this->app->singleton(LocationApi::class, function($app) use ($baseUrl, $apiKey, $appEnv) {
-            // TODO: MERGE NOTE: CHANGE THIS BEFORE PUSHING TO PROD
-            // return new LocationApi($baseUrl, $apiKey);
             return ($appEnv !== 'local') ? new LocationApi($baseUrl, $apiKey) : new MockLocationApi();
         });
     }
