@@ -119,7 +119,7 @@ class MockLocationApi implements LocationApiInterface {
 		$data = $this->sendRequest($ipAddress);
 
 		return [
-			'country_id' => Country::getCountryId($data['country_code']),
+			'country_id' => Country::getCountryIdByIsoCode($data['country_code']),
 			'carrier' => ($data['mobile_brand'] !== '-') ? $data['mobile_brand'] : null
 		];
 	}
@@ -129,7 +129,7 @@ class MockLocationApi implements LocationApiInterface {
 		$data = $this->sendRequestCountryOnly();
 
 		return [
-			'country_id' => Country::getCountryId($data['country_code'])
+			'country_id' => Country::getCountryIdByIsoCode($data['country_code'])
 		];
 	}
 
