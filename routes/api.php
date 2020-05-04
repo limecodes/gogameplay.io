@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'visitor'], function() {
-	Route::post('/set', 'VisitorController@set');
+	Route::post('set', 'VisitorController@set');
 });
 
 Route::group(['prefix' => 'connection'], function() {
