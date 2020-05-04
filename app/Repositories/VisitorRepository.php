@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 use App\Contracts\VisitorInterface;
 use App\External\LocationApiInterface;
@@ -89,10 +88,7 @@ class VisitorRepository implements VisitorInterface
 
 	public function set($ipAddress, $device, $connection):VisitorResourceWrapper
 	{
-		$this->visitor = Visitor::firstOrCreate(
-			['ip_address' => $ipAddress, 'device' => $device],
-			['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
-		);
+		$this->visitor = Visitor::fetchOrSet($ipAddress, $device, $connection);
 
 		if ($this->visitor->device == Config::get('constants.devices.android')) {
 			$this->setAndroid();

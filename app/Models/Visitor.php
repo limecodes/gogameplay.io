@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 
 class Visitor extends Model
@@ -21,6 +22,14 @@ class Visitor extends Model
     public static function findByUid($uid)
     {
     	return static::where('uid', $uid)->first();
+    }
+
+    public static function fetchOrSet(string $ipAddress, string $device, bool $connection):Visitor
+    {
+        return Visitor::firstOrCreate(
+            ['ip_address' => $ipAddress, 'device' => $device],
+            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
+        );
     }
 
     public function offers()
