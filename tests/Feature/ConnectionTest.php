@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use App\Models\Visitor;
 use App\Models\Country;
@@ -55,7 +56,7 @@ class ConnectionTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $oldIpAddress,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => null,
             'mobile_connection' => false,
             'carrier_from_data' => null
@@ -69,7 +70,7 @@ class ConnectionTest extends TestCase
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
             'ip_address' => $newIpAddress,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -104,7 +105,7 @@ class ConnectionTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $oldIpAddress,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => null,
             'mobile_connection' => false,
             'carrier_from_data' => null
@@ -118,7 +119,7 @@ class ConnectionTest extends TestCase
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
             'ip_address' => $newIpAddress,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => null
@@ -159,7 +160,7 @@ class ConnectionTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $oldIpAddress,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
@@ -173,7 +174,7 @@ class ConnectionTest extends TestCase
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
             'ip_address' => $newIpAddress,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -208,7 +209,7 @@ class ConnectionTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $oldIpAddress,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
@@ -222,7 +223,7 @@ class ConnectionTest extends TestCase
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
             'ip_address' => $newIpAddress,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
@@ -256,7 +257,7 @@ class ConnectionTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $oldIpAddress,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
@@ -270,7 +271,7 @@ class ConnectionTest extends TestCase
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
             'ip_address' => $oldIpAddress,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
