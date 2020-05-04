@@ -7,7 +7,6 @@ use App\Contracts\VisitorInterface;
 use App\External\LocationApiInterface;
 use App\Http\Resources\VisitorResourceWrapper;
 use App\Http\Resources\ConnectionResourceWrapper;
-use App\Http\Resources\VisitorCarrierListResource;
 use App\Http\Resources\ConnectionCarrierListResource;
 use App\Http\Resources\ConnectionResource;
 use App\Models\Visitor;

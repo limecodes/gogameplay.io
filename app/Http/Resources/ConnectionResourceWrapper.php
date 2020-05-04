@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ConnectionResource;
-use App\Http\Resources\CarrierResource;
+use App\Http\Resources\ConnectionCarrierListResource;
 
 class ConnectionResourceWrapper extends JsonResource
 {
@@ -17,15 +17,9 @@ class ConnectionResourceWrapper extends JsonResource
     public function toArray($request)
     {
         if ( ($this->device == 'android') && ($this->mobile_connection == true) && ($this->carrier_from_data == null) ) {
-            return [
-                'visitor' => new ConnectionResource($this),
-                'carriers_by_country' => CarrierResource::collection($this->country->mobileNetwork)
-            ];
+            return new ConnectionCarrierListResource($this);
         } else if ( ($this->device == 'ios') && ($this->mobile_connection == false) ) {
-            return [
-                'visitor' => new ConnectionResource($this),
-                'carriers_by_country' => CarrierResource::collection($this->country->mobileNetwork)
-            ];
+            return new ConnectionCarrierListResource($this);
         } else {
             return new ConnectionResource($this);
         }

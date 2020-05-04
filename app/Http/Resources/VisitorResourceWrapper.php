@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\VisitorResource;
-use App\Http\Resources\CarrierResource;
+use App\Http\Resources\VisitorCarrierListResource;
 
 class VisitorResourceWrapper extends JsonResource
 {
@@ -17,10 +17,7 @@ class VisitorResourceWrapper extends JsonResource
     public function toArray($request)
     {
         if ( ($this->mobile_connection) && ($this->carrier_from_data == null) ) {
-            return [
-                'visitor' => new VisitorResource($this),
-                'carriers_by_country' => CarrierResource::collection($this->country->mobileNetwork)
-            ];
+            return new VisitorCarrierListResource($this);
         } else {
             return new VisitorResource($this);
         }

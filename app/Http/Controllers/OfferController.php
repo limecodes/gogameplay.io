@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OfferRequest;
 use App\Contracts\OfferInterface;
-use App\Http\Resources\MobileOfferResource;
 
 class OfferController extends Controller
 {
@@ -21,6 +20,8 @@ class OfferController extends Controller
 
         $uid = $offerRequestValidated['uid'];
 
-        return response()->json($this->offerRepository->fetchOffers($uid), 200);
+        $response = $this->offerRepository->fetchOffers($uid);
+
+        return response()->json($response, 200);
     }
 }
