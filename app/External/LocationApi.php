@@ -33,7 +33,7 @@ class LocationApi implements LocationApiInterface {
 		$data = $this->sendRequest($ipAddress, 'WS19');
 
 		return [
-			'country_id' => Country::getCountryId($data['country_code']),
+			'country_id' => Country::getCountryIdByIsoCode($data['country_code']),
 			'carrier' => ($data['mobile_brand'] !== '-') ? $data['mobile_brand'] : null
 		];
 	}
@@ -43,7 +43,7 @@ class LocationApi implements LocationApiInterface {
 		$data = $this->sendRequest($ipAddress, 'WS1');
 
 		return [
-			'country_id' => Country::getCountryId($data['country_code'])
+			'country_id' => Country::getCountryIdByIsoCode($data['country_code'])
 		];
 	}
 
