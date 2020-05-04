@@ -20,9 +20,9 @@ class LocationApiProvider extends ServiceProvider
         $appEnv = env('APP_ENV');
 
         if ($appEnv !== 'local') {
-            $this->app->bind('App\External\LocationApiInterface', 'App\External\LocationApi');
+            $this->app->bind('App\Contracts\LocationApiInterface', 'App\External\LocationApi');
         } else {
-            $this->app->bind('App\External\LocationApiInterface', 'App\External\MockLocationApi');
+            $this->app->bind('App\Contracts\LocationApiInterface', 'App\External\MockLocationApi');
         }
 
         $this->app->singleton(LocationApi::class, function($app) use ($baseUrl, $apiKey, $appEnv) {

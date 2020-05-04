@@ -3,7 +3,7 @@
 namespace App\External;
 
 use Illuminate\Support\Facades\Http;
-use App\External\LocationApiInterface;
+use App\Contracts\LocationApiInterface;
 use App\Models\Country;
 
 class LocationApi implements LocationApiInterface {
