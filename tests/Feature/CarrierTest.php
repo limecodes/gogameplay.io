@@ -11,7 +11,7 @@ use App\Models\Country;
 
 class CarrierTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     /**
      *
@@ -46,7 +46,7 @@ class CarrierTest extends TestCase
         $country = factory(Country::class)->create();
 
         $visitor = factory(Visitor::class)->create([
-            'ip_address' => '1.1.1.9',
+            'ip_address' => $this->faker->ipv4,
             'device' => 'android',
             'country_id' => $country->id,
             'mobile_connection' => true,
@@ -83,7 +83,7 @@ class CarrierTest extends TestCase
         $country = factory(Country::class)->create();
 
         $visitor = factory(Visitor::class)->create([
-            'ip_address' => '1.1.1.9',
+            'ip_address' => $this->faker->ipv4,
             'device' => 'ios',
             'country_id' => $country->id,
             'mobile_connection' => false,
@@ -97,7 +97,7 @@ class CarrierTest extends TestCase
 
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
-            'ip_address' => '1.1.1.9',
+            'ip_address' => $visitor->ip_address,
             'device' => 'ios',
             'country_id' => $country->id,
             'mobile_connection' => false,
