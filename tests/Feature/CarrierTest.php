@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use App\Models\Visitor;
 use App\Models\Country;
@@ -47,7 +48,7 @@ class CarrierTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => null
@@ -60,7 +61,7 @@ class CarrierTest extends TestCase
 
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'A-Mobile'
@@ -84,7 +85,7 @@ class CarrierTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
@@ -98,7 +99,7 @@ class CarrierTest extends TestCase
         $this->assertDatabaseHas('visitors', [
             'uid' => $visitor->uid,
             'ip_address' => $visitor->ip_address,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => 'A-Mobile'

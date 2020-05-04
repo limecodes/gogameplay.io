@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use App\Models\Visitor;
 use App\Models\Country;
@@ -36,7 +37,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -44,7 +45,7 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'carrier' => 'Vodafone',
             'type' => 1
         ]);
@@ -73,7 +74,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -81,7 +82,7 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'carrier' => 'Vodafone',
             'type' => 1
         ]);
@@ -112,7 +113,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -120,7 +121,7 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'carrier' => 'Vodafone',
             'type' => 1
         ]);
@@ -147,7 +148,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -155,7 +156,7 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'carrier' => 'Vodafone',
             'type' => 1
         ]);
@@ -182,7 +183,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -190,8 +191,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => 'android',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.android'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -219,7 +220,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -227,8 +228,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => 'ios',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.ios'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -256,7 +257,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -264,8 +265,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => 'ios',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.ios'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -291,7 +292,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -299,8 +300,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => 'android',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.android'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -328,7 +329,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -336,8 +337,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => '*',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.any'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -365,7 +366,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -373,8 +374,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => '*',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.any'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -405,7 +406,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $visitorCountry->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'A-Mobile'
@@ -413,8 +414,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $offerCountry->id,
-            'device' => '*',
-            'carrier' =>  '*',
+            'device' => Config::get('constants.devices.any'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -441,7 +442,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $visitorCountry->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'A-Mobile'
@@ -449,8 +450,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $offerCountry->id,
-            'device' => '*',
-            'carrier' =>  '*',
+            'device' => Config::get('constants.devices.any'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -476,7 +477,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -484,8 +485,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => null,
-            'device' => '*',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.any'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -513,7 +514,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -521,8 +522,8 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => null,
-            'device' => '*',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.any'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 1
         ]);
 
@@ -551,7 +552,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -559,7 +560,7 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => '*',
+            'device' => Config::get('constants.devices.any'),
             'carrier' => 'Vodafone',
             'type' => 1
         ]);
@@ -589,7 +590,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -597,7 +598,7 @@ class OfferTest extends TestCase
 
         $offer = factory(Offer::class)->create([
             'country_id' => $country->id,
-            'device' => '*',
+            'device' => Config::get('constants.devices.any'),
             'carrier' => 'Vodafone',
             'type' => 1
         ]);
@@ -627,7 +628,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -637,7 +638,7 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => 'https://via.placeholder.com/350',
             'country_id' => $country->id,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'carrier' => 'Vodafone',
             'type' => 2
         ]);
@@ -669,7 +670,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -679,7 +680,7 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => 'https://via.placeholder.com/350',
             'country_id' => $country->id,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'carrier' => 'Vodafone',
             'type' => 2
         ]);
@@ -711,7 +712,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -721,8 +722,8 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => $this->faker->imageUrl($width = 640, $height = 480),
             'country_id' => $country->id,
-            'device' => 'android',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.android'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 2
         ]);
 
@@ -753,7 +754,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -763,8 +764,8 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => $this->faker->imageUrl(),
             'country_id' => $country->id,
-            'device' => 'ios',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.ios'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 2
         ]);
 
@@ -795,7 +796,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -805,7 +806,7 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => $this->faker->imageUrl(),
             'country_id' => $country->id,
-            'device' => '*',
+            'device' => Config::get('constants.devices.any'),
             'carrier' => 'Vodafone',
             'type' => 2
         ]);
@@ -837,7 +838,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -847,7 +848,7 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => $this->faker->imageUrl(),
             'country_id' => $country->id,
-            'device' => '*',
+            'device' => Config::get('constants.devices.any'),
             'carrier' => 'Vodafone',
             'type' => 2
         ]);
@@ -879,7 +880,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -889,8 +890,8 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => $this->faker->imageUrl(),
             'country_id' => $country->id,
-            'device' => '*',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.any'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 2
         ]);
 
@@ -921,7 +922,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -931,8 +932,8 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => $this->faker->imageUrl(),
             'country_id' => $country->id,
-            'device' => '*',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.any'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 2
         ]);
 
@@ -963,7 +964,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -973,8 +974,8 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => $this->faker->imageUrl(),
             'country_id' => null,
-            'device' => '*',
-            'carrier' => '*',
+            'device' => Config::get('constants.devices.any'),
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 2
         ]);
 
@@ -1013,7 +1014,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'A-Mobile'
@@ -1047,7 +1048,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => '1.1.1.5',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'A-Mobile'
@@ -1057,17 +1058,10 @@ class OfferTest extends TestCase
             'text' => $this->faker->words(5, true),
             'img' => 'https://via.placeholder.com/350',
             'country_id' => $country->id,
-            'device' => '*',
+            'device' => Config::get('constants.devices.any'),
             'carrier' => 'A-Mobile',
             'type' => 2
         ]);
-
-        $dd = $visitor->country->offers()
-            ->whereIn('device', [$visitor->device, '*'])
-            ->whereIn('carrier', [$visitor->carrier_from_data, '*'])
-            ->where('type', 'backup')->get();
-
-        // dd($dd);
 
         $response = $this->json('POST', '/api/offers/fetch', [
             'uid' => $visitor->uid
@@ -1095,7 +1089,7 @@ class OfferTest extends TestCase
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $this->faker->ipv4,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'A-Mobile'
@@ -1104,7 +1098,7 @@ class OfferTest extends TestCase
         $carrierOffers = factory(Offer::class, 2)->create([
             'text' => $this->faker->words(5, true),
             'img' => 'https://via.placeholder.com/350',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'carrier' => 'A-Mobile',
             'type' => 2
@@ -1113,9 +1107,9 @@ class OfferTest extends TestCase
         $anyCarrierOffers = factory(Offer::class, 2)->create([
             'text' => $this->faker->words(5, true),
             'img' => 'https://via.placeholder.com/350',
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
-            'carrier' => '*',
+            'carrier' => Config::get('constants.carriers.any'),
             'type' => 2
         ]);
 
