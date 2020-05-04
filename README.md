@@ -68,3 +68,31 @@ I can also have a flash for Android if the user is on wifi
 
     3) Serve the offers if a connection is detected where upon 'set' or on connection change
       
+
+      TODO:
+
+- Refactor some common stuff in visitorRepository to Visitor model
+- See if there's a ngrok equivalent to php so that I can access my VM through mobile if outside the network
+- Setup a staging environment that is always hooked to develop
+- If I have a develop branch the merge workflow should be
+    feature branch > develop > master
+    always branch off of develop when develop is in-sync with master
+- I also wanted to play around with navigator.connection (NetworkInformation) .prototype so that I can test and trigger certain events that aren't available to me (such as ontypechange)
+- See if I can dispatch the event (onchange) through the browser console (*** This could be something I can put publicly in my github)
+- ^ and see if I can have a snippet of code that is only added in 'dev' environment and not included in production so I don't have to remove it manually ... also could be a "helper" thing that I can publish in my giithub
+- Might also want to get Olia's opinion as a test user.
+- Would be good to add unit tests to test certain things in isolation.
+
+---
+
+Write a script that generates all instagram assets
+- Write a script that generates the image for #1 and #3 items in grid
+- Write a script that uses ffmpeg (the video cli) to generate the instagrame video for grid item #2
+    - gameplays
+    - blurry background
+    - initial image
+    ^ Compiles all these together in a 60 second video
+
+Also remember to write down manual test cases with expected results, use a spreadsheet (Google Sheets)
+
+Remember to host static files (js, css, images, etc...) in S3 because EC2 traffic is expensive (need to automate this process upon deploy)
