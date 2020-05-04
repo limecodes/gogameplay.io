@@ -44,4 +44,42 @@ class Visitor extends Model
             ->where('type', 'backup')
             ->all();
     }
+
+    public function setOrUpdateBasicAttributes(int $countryId, ?string $carrier, bool $mobileConnection = null)
+    {
+        $this->country_id = $countryId;
+        $this->carrier_from_data = $carrier;
+
+        if ($mobileConnection !== null) {
+            $this->mobile_connection = $mobileConnection;
+        }
+
+        $this->save();
+    }
+
+    public function setOrUpdateConnectionAttributes(bool $mobileConnection, ?string $carrier, ?string $ipAddress, int $countryId = null)
+    {
+        $this->mobile_connection = $mobileConnection;
+
+        $this->carrier_from_data = $carrier;
+
+        $this->ip_address = $ipAddress;
+
+        if ($countryId !== null) {
+            $this->country_id = $countryId;
+        }
+
+        $this->save();
+    }
+
+    public static function updateCarrier(string $uid, string $carrier):Visitor
+    {
+        $visitor = static::findByUid($uid);
+
+        $visitor->carrier_from_data = $carrier;
+
+        $visitor->save();
+
+        return $visitor;
+    }
 }
