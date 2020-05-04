@@ -102,3 +102,5 @@ Remember to host static files (js, css, images, etc...) in S3 because EC2 traffi
 [x][x] 'non-mobile' => Config::get('constants.devices.non_mobile')
 [x][x] '*' => Config::get('constants.devices.any')
 [x][x] '*' => Config::get('constants.carriers.any')
+
+ 
