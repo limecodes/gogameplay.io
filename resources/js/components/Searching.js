@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { COLOUR_SUCCESS, COLOUR_DANGER } from '../constants/colours'; 
+import { COLOUR_SUCCESS, COLOUR_DANGER } from '../constants/colours';
+import { ANDROID, IOS } from '../constants/devices';
+import { PLATFORMS } from '../constants/platforms';
 
 import { fetchOffer } from '../actions/offer';
 
@@ -78,12 +80,8 @@ class Searching extends Component {
 	}
 
 	render() {
-		const platforms = {
-			'ios': 'iTunes',
-			'android': 'Google Play'
-		};
 
-		const platform = platforms[this.props.visitor.device];
+		const platform = PLATFORMS[this.props.visitor.device];
 
 		const Progress = () => {
 			if (this.state.searching) {

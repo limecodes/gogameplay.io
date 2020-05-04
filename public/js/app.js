@@ -55161,9 +55161,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _actions_validation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/validation */ "./resources/js/actions/validation.js");
-/* harmony import */ var _actions_carrier__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/carrier */ "./resources/js/actions/carrier.js");
-/* harmony import */ var _ChangeConnection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ChangeConnection */ "./resources/js/components/ChangeConnection.js");
+/* harmony import */ var _constants_devices__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../constants/devices */ "./resources/js/constants/devices.js");
+/* harmony import */ var _actions_validation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/validation */ "./resources/js/actions/validation.js");
+/* harmony import */ var _actions_carrier__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../actions/carrier */ "./resources/js/actions/carrier.js");
+/* harmony import */ var _ChangeConnection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ChangeConnection */ "./resources/js/components/ChangeConnection.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55185,6 +55186,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -55256,7 +55258,7 @@ var CarrierCard = /*#__PURE__*/function (_Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Step 2. Verify Your Cellular Carrier"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_6__["default"], null), !this.props.visitor.connection && !this.props.visitor.carrier && this.props.visitor.device == 'android' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeConnection__WEBPACK_IMPORTED_MODULE_7__["default"], null), !this.props.visitor.connection && !this.props.visitor.carrier && this.props.visitor.device == _constants_devices__WEBPACK_IMPORTED_MODULE_4__["ANDROID"] ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "You need to be on a cellular connection to verify carrier") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmButton, null));
     }
   }]);
 
@@ -55271,8 +55273,8 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  validateCarrier: _actions_validation__WEBPACK_IMPORTED_MODULE_4__["validateCarrier"],
-  getCarrierList: _actions_carrier__WEBPACK_IMPORTED_MODULE_5__["getCarrierList"]
+  validateCarrier: _actions_validation__WEBPACK_IMPORTED_MODULE_5__["validateCarrier"],
+  getCarrierList: _actions_carrier__WEBPACK_IMPORTED_MODULE_6__["getCarrierList"]
 })(CarrierCard));
 
 /***/ }),
@@ -55319,8 +55321,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _actions_visitor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/visitor */ "./resources/js/actions/visitor.js");
-/* harmony import */ var _CarrierList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CarrierList */ "./resources/js/components/CarrierList.js");
+/* harmony import */ var _constants_devices__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../constants/devices */ "./resources/js/constants/devices.js");
+/* harmony import */ var _actions_visitor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/visitor */ "./resources/js/actions/visitor.js");
+/* harmony import */ var _CarrierList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CarrierList */ "./resources/js/components/CarrierList.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55342,6 +55345,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -55404,18 +55408,18 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
           className: "alert alert-primary"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
           onChange: this.carrierHandleChange.bind(this)
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Select your mobile carrier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CarrierList__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Select your mobile carrier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CarrierList__WEBPACK_IMPORTED_MODULE_6__["default"], {
           carriers: this.props.carriers
         })));
       } else if (this.props.visitor.carrier) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-success"
         }, this.props.visitor.carrier);
-      } else if (this.props.visitor.device == 'android' && !this.props.visitor.connection) {
+      } else if (this.props.visitor.device == _constants_devices__WEBPACK_IMPORTED_MODULE_4__["ANDROID"] && !this.props.visitor.connection) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-danger"
         }, "Please switch to cellular connection");
-      } else if (this.props.visitor.device == 'ios' && !this.props.visitor.connection) {
+      } else if (this.props.visitor.device == _constants_devices__WEBPACK_IMPORTED_MODULE_4__["IOS"] && !this.props.visitor.connection) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "alert alert-warning"
         }, "You need to be on a cellular connection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", {
@@ -55465,8 +55469,8 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  connectionChanged: _actions_visitor__WEBPACK_IMPORTED_MODULE_4__["connectionChanged"],
-  updateVisitorCarrier: _actions_visitor__WEBPACK_IMPORTED_MODULE_4__["updateVisitorCarrier"]
+  connectionChanged: _actions_visitor__WEBPACK_IMPORTED_MODULE_5__["connectionChanged"],
+  updateVisitorCarrier: _actions_visitor__WEBPACK_IMPORTED_MODULE_5__["updateVisitorCarrier"]
 })(ChangeConnection));
 
 /***/ }),
@@ -55851,7 +55855,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
 /* harmony import */ var _constants_colours__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../constants/colours */ "./resources/js/constants/colours.js");
-/* harmony import */ var _actions_offer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/offer */ "./resources/js/actions/offer.js");
+/* harmony import */ var _constants_devices__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../constants/devices */ "./resources/js/constants/devices.js");
+/* harmony import */ var _constants_platforms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../constants/platforms */ "./resources/js/constants/platforms.js");
+/* harmony import */ var _actions_offer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../actions/offer */ "./resources/js/actions/offer.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55873,6 +55879,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
 
 
 
@@ -55964,11 +55972,7 @@ var Searching = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      var platforms = {
-        'ios': 'iTunes',
-        'android': 'Google Play'
-      };
-      var platform = platforms[this.props.visitor.device];
+      var platform = _constants_platforms__WEBPACK_IMPORTED_MODULE_6__["PLATFORMS"][this.props.visitor.device];
 
       var Progress = function Progress() {
         if (_this3.state.searching) {
@@ -56176,7 +56180,7 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, {
-  fetchOffer: _actions_offer__WEBPACK_IMPORTED_MODULE_5__["fetchOffer"]
+  fetchOffer: _actions_offer__WEBPACK_IMPORTED_MODULE_7__["fetchOffer"]
 })(Searching));
 
 /***/ }),
@@ -56194,6 +56198,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLOUR_DANGER", function() { return COLOUR_DANGER; });
 var COLOUR_SUCCESS = '#38c172';
 var COLOUR_DANGER = '#dc3545';
+
+/***/ }),
+
+/***/ "./resources/js/constants/devices.js":
+/*!*******************************************!*\
+  !*** ./resources/js/constants/devices.js ***!
+  \*******************************************/
+/*! exports provided: ANDROID, IOS, ANY */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ANDROID", function() { return ANDROID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IOS", function() { return IOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ANY", function() { return ANY; });
+var ANDROID = 'android';
+var IOS = 'ios';
+var ANY = '*';
+
+/***/ }),
+
+/***/ "./resources/js/constants/platforms.js":
+/*!*********************************************!*\
+  !*** ./resources/js/constants/platforms.js ***!
+  \*********************************************/
+/*! exports provided: PLATFORMS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLATFORMS", function() { return PLATFORMS; });
+/* harmony import */ var _devices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./devices */ "./resources/js/constants/devices.js");
+var _PLATFORMS;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var PLATFORMS = (_PLATFORMS = {}, _defineProperty(_PLATFORMS, _devices__WEBPACK_IMPORTED_MODULE_0__["ANDROID"], 'Google Play'), _defineProperty(_PLATFORMS, _devices__WEBPACK_IMPORTED_MODULE_0__["IOS"], 'iTunes'), _PLATFORMS);
 
 /***/ }),
 

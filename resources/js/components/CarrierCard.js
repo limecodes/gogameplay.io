@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { ANDROID } from '../constants/devices';
+
 import { validateCarrier } from '../actions/validation';
 import { getCarrierList } from '../actions/carrier';
 
@@ -39,7 +41,7 @@ class CarrierCard extends Component {
 				<div className="card-header" style={{ textAlign: 'center' }}><p style={{ marginBottom: 0, fontSize: '1rem' }}><strong>Step 2. Verify Your Cellular Carrier</strong></p></div>
 				<div className="card-body">
 					<ChangeConnection />
-					{( (!this.props.visitor.connection) && (!this.props.visitor.carrier) && (this.props.visitor.device == 'android') ) ? <small>You need to be on a cellular connection to verify carrier</small> : <p></p>}
+					{( (!this.props.visitor.connection) && (!this.props.visitor.carrier) && (this.props.visitor.device == ANDROID) ) ? <small>You need to be on a cellular connection to verify carrier</small> : <p></p>}
 				</div>
 				<ConfirmButton />
 			</div>
