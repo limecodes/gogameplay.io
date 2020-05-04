@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { ANDROID, IOS } from '../constants/devices';
+
 import { connectionChanged, updateVisitorCarrier } from '../actions/visitor';
 
 import CarrierList from './CarrierList';
@@ -54,11 +56,11 @@ class ChangeConnection extends Component {
 			);
 		} else if (this.props.visitor.carrier) {
 			return <div className="alert alert-success">{ this.props.visitor.carrier }</div>;
-		} else if ( (this.props.visitor.device == 'android') && (!this.props.visitor.connection) ) {
+		} else if ( (this.props.visitor.device == ANDROID) && (!this.props.visitor.connection) ) {
 			return (
 				<div className="alert alert-danger">Please switch to cellular connection</div>
 			);
-		} else if ( (this.props.visitor.device == 'ios') && (!this.props.visitor.connection) ) {
+		} else if ( (this.props.visitor.device == IOS) && (!this.props.visitor.connection) ) {
 			return (
 				<div>
 					<div className="alert alert-warning">You need to be on a cellular connection</div>
