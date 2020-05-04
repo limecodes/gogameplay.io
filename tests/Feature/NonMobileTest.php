@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use App\Models\Country;
 use App\External\LocationApi;
@@ -32,7 +33,7 @@ class NonMobileTest extends TestCase
         $response = $this->get('/nonmobile');
 
         $this->assertDatabaseHas('visitors', [
-            'device' => 'non-mobile',
+            'device' => Config::get('constants.devices.non_mobile'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null

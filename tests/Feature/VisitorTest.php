@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use App\Models\Country;
 use App\Models\Visitor;
@@ -39,7 +40,7 @@ class VisitorTest extends TestCase
      */
     public function shouldFailIfConnectionNotSpecified()
     {   
-        $response = $this->json('POST', '/api/visitor/set', ['device' => 'android']);
+        $response = $this->json('POST', '/api/visitor/set', ['device' => Config::get('constants.devices.android')]);
 
         $response->assertStatus(422);
     }
@@ -53,11 +54,11 @@ class VisitorTest extends TestCase
         $this->withoutExceptionHandling();
 
         $response = $this->json('POST', '/api/visitor/set', [
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'connection' => false
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
-        $this->assertDatabasehas('visitors', ['ip_address' => $this->ipAddress, 'device' => 'android', 'mobile_connection' => false]);
+        $this->assertDatabasehas('visitors', ['ip_address' => $this->ipAddress, 'device' => Config::get('constants.devices.android'), 'mobile_connection' => false]);
     }
 
     /**
@@ -69,13 +70,13 @@ class VisitorTest extends TestCase
         $this->withoutExceptionHandling();
 
         $response = $this->json('POST', '/api/visitor/set', [
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'connection' => false
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'ip_address' => $this->ipAddress,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => null,
             'mobile_connection' => false,
             'carrier_from_data' => null
@@ -110,13 +111,13 @@ class VisitorTest extends TestCase
         }));
 
         $response = $this->json('POST', '/api/visitor/set', [
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'connection' => true
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'ip_address' => $this->ipAddress,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -152,13 +153,13 @@ class VisitorTest extends TestCase
         }));
 
         $response = $this->json('POST', '/api/visitor/set', [
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'connection' => true
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'ip_address' => $this->ipAddress,
-            'device' => 'android',
+            'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => null
@@ -201,13 +202,13 @@ class VisitorTest extends TestCase
         }));
 
         $response = $this->json('POST', '/api/visitor/set', [
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'connection' => false
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'ip_address' => $this->ipAddress,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
@@ -242,13 +243,13 @@ class VisitorTest extends TestCase
         }));
 
         $response = $this->json('POST', '/api/visitor/set', [
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'connection' => false
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'ip_address' => $this->ipAddress,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => true,
             'carrier_from_data' => 'Vodafone'
@@ -283,13 +284,13 @@ class VisitorTest extends TestCase
         }));
 
         $response = $this->json('POST', '/api/visitor/set', [
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'connection' => false
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
             'ip_address' => $this->ipAddress,
-            'device' => 'ios',
+            'device' => Config::get('constants.devices.ios'),
             'country_id' => $country->id,
             'mobile_connection' => false,
             'carrier_from_data' => null
