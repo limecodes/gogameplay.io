@@ -67,4 +67,4 @@ I can also have a flash for Android if the user is on wifi
     2) It would be great if, when a new carrier is found from IP2Location, it can automatically store it in the database.
 
     3) Serve the offers if a connection is detected where upon 'set' or on connection change
-     
+      
