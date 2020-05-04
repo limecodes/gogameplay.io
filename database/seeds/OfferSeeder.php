@@ -15,7 +15,7 @@ class OfferSeeder extends Seeder
     		'name' => 'Test Game Offer',
 	        'text' => null,
 	        'country_id' => 1,
-            'device' => '*'
+            'device' => '*',
 	        'carrier' => 'Vodafone',
 	        'url' => 'http://www.example.com',
 	        'type' => 1
