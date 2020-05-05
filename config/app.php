@@ -177,6 +177,7 @@ return [
         App\Providers\VisitorServiceProvider::class,
         App\Providers\LocationApiProvider::class,
         App\Providers\OfferServiceProvider::class,
+        App\Providers\DeviceServiceProvider::class,
 
     ],
 
@@ -230,6 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'LocationApi' => App\Facades\LocationApi::class,
+        'DeviceHelper' => App\Facades\DeviceHelper::class,
 
     ],
 
