@@ -14,7 +14,7 @@
         <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/appstore.png" as="image">
         <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/googleplay.png" as="image">
     </head>
-    <body class="homepage">
+    <body id="homepage">
         <header>
             <h1>GoGamePlay.io</h1>
         </header>
