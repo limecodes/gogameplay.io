@@ -38,11 +38,21 @@ class Visitor extends Model
                 $model->country_id = $locationData['country_id'];
                 $model->carrier_from_data = $locationData['carrier'];
                 $model->mobile_connection = $locationData['connection'];
+            } else if ( ($model->device == Config::get('constants.devices.non_mobile')) && (!$model->country_id) ) {
+                $locationData = LocationApi::getCountryOnly($model->ip_address);
+
+                $model->country_id = $locationData['country_id'];
             }
         });
 
         static::updating(function($model) {
-            var_dump('expression');
+            if ( (!$model->country_id) || (!$model->carrier_from_data) ) {
+                $locationData = LocationApi::getCountryAndDetectCarrier($model->ip_address);
+
+                $model->country_id = $locationData['country_id'];
+                $model->carrier_from_data = $locationData['carrier'];
+                $model->mobile_connection = (!$model->mobile_connection) ? $locationData['connection'] : $model->mobile_connection;
+            }
         });
     }
 
@@ -56,11 +66,11 @@ class Visitor extends Model
     	return static::where('uid', $uid)->first();
     }
 
-    public static function fetchOrNew(string $ipAddress, string $device, bool $connection):Visitor
+    public static function fetchOrCreate(string $ipAddress, string $device, bool $connection):Visitor
     {
         return Visitor::firstOrNew(
             ['ip_address' => $ipAddress, 'device' => $device],
-            ['uid' => (string) Str::uuid(), 'ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
+            ['ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
         );
     }
 
@@ -87,17 +97,10 @@ class Visitor extends Model
             ->all();
     }
 
-    public function updateConnectionAttributes(bool $mobileConnection, ?string $carrier, ?string $ipAddress, int $countryId = null)
+    public function updateConnectionAttributes(?string $ipAddress, ?bool $mobileConnection = null)
     {
-        $this->mobile_connection = $mobileConnection;
-
-        $this->carrier_from_data = $carrier;
-
         $this->ip_address = $ipAddress;
-
-        if ($countryId !== null) {
-            $this->country_id = $countryId;
-        }
+        $this->mobile_connection = ($mobileConnection !== null) ? $mobileConnection : $this->mobile_connection;
 
         $this->save();
     }
