@@ -9,8 +9,7 @@ use Tests\TestCase;
 use App\Models\Country;
 use App\Models\Visitor;
 use App\Models\MobileNetwork;
-use App\External\LocationApi;
-use Mockery;
+use App\Facades\LocationApi;
 
 class VisitorTest extends TestCase
 {
@@ -103,12 +102,11 @@ class VisitorTest extends TestCase
 
         $country = factory(Country::class)->create();
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
-                'country_id' => $country->id,
-                'carrier' => 'Vodafone'
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryAndDetectCarrier')->andReturn([
+            'country_id' => $country->id,
+            'carrier' => 'Vodafone',
+            'connection' => true
+        ]);
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => Config::get('constants.devices.android'),
@@ -145,12 +143,11 @@ class VisitorTest extends TestCase
         $country = factory(Country::class)->create();
         $mobileNetworks = factory(MobileNetwork::class, 3)->create(['country_id' => $country->id]);
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
-                'country_id' => $country->id,
-                'carrier' => null
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryAndDetectCarrier')->andReturn([
+            'country_id' => $country->id,
+            'carrier' => null,
+            'connection' => false
+        ]);
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => Config::get('constants.devices.android'),
@@ -194,12 +191,11 @@ class VisitorTest extends TestCase
 
         $country = factory(Country::class)->create();
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
-                'country_id' => $country->id,
-                'carrier' => null
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryAndDetectCarrier')->andReturn([
+            'country_id' => $country->id,
+            'carrier' => null,
+            'connection' => false
+        ]);
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => Config::get('constants.devices.ios'),
@@ -235,12 +231,11 @@ class VisitorTest extends TestCase
 
         $country = factory(Country::class)->create();
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
-                'country_id' => $country->id,
-                'carrier' => 'Vodafone'
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryAndDetectCarrier')->andReturn([
+            'country_id' => $country->id,
+            'carrier' => 'Vodafone',
+            'connection' => true
+        ]);
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => Config::get('constants.devices.ios'),
@@ -276,12 +271,11 @@ class VisitorTest extends TestCase
 
         $country = factory(Country::class)->create();
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
-                'country_id' => $country->id,
-                'carrier' => null
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryAndDetectCarrier')->andReturn([
+            'country_id' => $country->id,
+            'carrier' => null,
+            'connection' => false
+        ]);
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => Config::get('constants.devices.ios'),

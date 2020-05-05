@@ -7,8 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use App\Models\Country;
-use App\External\LocationApi;
-use Mockery;
+use App\Facades\LocationApi;
 
 class NonMobileTest extends TestCase
 {
@@ -24,11 +23,9 @@ class NonMobileTest extends TestCase
 
         $country = factory(Country::class)->create();
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryOnly')->andReturn([
-                'country_id' => $country->id
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryOnly')->andReturn([
+            'country_id' => $country->id
+        ]);
 
         $response = $this->get('/nonmobile');
 

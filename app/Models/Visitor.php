@@ -68,7 +68,7 @@ class Visitor extends Model
 
     public static function fetchOrCreate(string $ipAddress, string $device, bool $connection):Visitor
     {
-        return Visitor::firstOrNew(
+        return Visitor::firstOrCreate(
             ['ip_address' => $ipAddress, 'device' => $device],
             ['ip_address' => $ipAddress, 'device' => $device, 'mobile_connection' => $connection]
         );
