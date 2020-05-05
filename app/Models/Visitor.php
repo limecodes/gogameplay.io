@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
+use App\Contracts\LocationApiInterface;
 
 class Visitor extends Model
 {
@@ -13,6 +14,22 @@ class Visitor extends Model
     protected $casts = [
         'mobile_connection' => 'boolean'
     ];
+
+    private static function location(LocationApiInterface $locationApi)
+    {
+        return $locationApi;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        
+
+        static::saving(function($model) use ($locationApi) {
+            dd($locationApi);
+        });
+    }
 
     public function country()
     {
