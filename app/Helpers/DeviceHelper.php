@@ -47,7 +47,7 @@ class DeviceHelper implements DeviceHelperInterface {
 
 			$visitor->country_id = $locationData['country_id'];
 			$visitor->carrier_from_data = $locationData['carrier'];
-			$visitor->mobile_connection = (!$visitor->mobile_connection) ? $locationData['connection'] : $visitor->mobile_connection;
+			$visitor->mobile_connection = $locationData['connection'];
 		}
 
 		return $visitor;

@@ -17,9 +17,7 @@ class ConnectionResourceWrapper extends JsonResource
      */
     public function toArray($request)
     {
-        if ( ($this->device == Config::get('constants.devices.android')) && ($this->mobile_connection == true) && ($this->carrier_from_data == null) ) {
-            return new ConnectionCarrierListResource($this);
-        } else if ( ($this->device == Config::get('constants.devices.ios')) && ($this->mobile_connection == false) ) {
+        if ($this->carrier_from_data == null) {
             return new ConnectionCarrierListResource($this);
         } else {
             return new ConnectionResource($this);
