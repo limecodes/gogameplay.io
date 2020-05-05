@@ -10902,47 +10902,47 @@ img {
   text-align: center;
 }
 
-small p {
-  margin-bottom: 0;
-}
-
-small ol,
-small ul {
-  margin-left: 0;
-  margin-bottom: 0.2rem;
-  padding-left: 0;
-}
-
-small ul {
-  list-style-type: none;
-}
-
-small ul li {
-  margin-bottom: 0.5rem;
-}
-
-small ul.searching-progress-list li {
-  margin-botton: 1.2rem;
-}
-
-.col-6 {
-  flex: 0 0 48%;
-  max-width: 45%;
-}
-
 .btn {
   border-radius: 2.25rem;
-}
-
-.btn.border-right-flat {
-  border-radius: 2.25rem 0 0 2.25rem;
 }
 
 .badge {
   font-size: 100%;
 }
 
-ul.searching-progress-list li {
+#app small p {
+  margin-bottom: 0;
+}
+
+#app small ol,
+#app small ul {
+  margin-left: 0;
+  margin-bottom: 0.2rem;
+  padding-left: 0;
+}
+
+#app small ul {
+  list-style-type: none;
+}
+
+#app small ul li {
+  margin-bottom: 0.5rem;
+}
+
+#app small ul.searching-progress-list li {
+  margin-botton: 1.2rem;
+}
+
+#app .col-6 {
+  flex: 0 0 48%;
+  max-width: 45%;
+}
+
+#app .btn.border-right-flat {
+  border-radius: 2.25rem 0 0 2.25rem;
+}
+
+#app ul.searching-progress-list li {
   margin-bottom: 0.5rem;
 }
 
