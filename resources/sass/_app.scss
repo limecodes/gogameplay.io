@@ -1,0 +1,46 @@
+#app {
+	small {
+		p {
+			margin-bottom: 0;
+		}
+
+		ol, ul {
+			margin-left: 0;
+			margin-bottom: 0.2rem;
+			padding-left: 0;
+		}
+
+		ul {
+			list-style-type: none;
+
+			li {
+				margin-bottom: 0.5rem;
+			}
+
+			&.searching-progress-list {
+				li {
+					margin-botton: 1.2rem;
+				}
+			}
+		}
+	}
+
+	.col-6 {
+		flex: 0 0 48%;
+		max-width: 45%;
+	}
+
+	.btn {
+		&.border-right-flat {
+			border-radius: 2.25rem 0 0 2.25rem;
+		}
+	}
+
+	ul {
+		&.searching-progress-list {
+			li {
+				margin-bottom: 0.5rem;
+			}
+		}
+	}
+}
