@@ -19,6 +19,7 @@ class CreateGameTable extends Migration
             $table->string('title')->nullable();
             $table->string('image')->nullable();
             $table->decimal('price')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
