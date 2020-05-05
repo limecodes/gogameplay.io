@@ -4,23 +4,15 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\Config;
 use App\Contracts\VisitorInterface;
-use App\Contracts\LocationApiInterface;
 use App\Http\Resources\VisitorResourceWrapper;
 use App\Http\Resources\ConnectionResourceWrapper;
 use App\Http\Resources\ConnectionCarrierListResource;
 use App\Http\Resources\ConnectionResource;
 use App\Models\Visitor;
-use App\Models\Country;
 
 class VisitorRepository implements VisitorInterface
 {
 	protected $visitor;
-	protected $locationApi;
-
-	public function __construct(LocationApiInterface $locationApi)
-	{
-		$this->locationApi = $locationApi;
-	}
 
 	private function connectionChangedAndroid($ipAddress):void
 	{
