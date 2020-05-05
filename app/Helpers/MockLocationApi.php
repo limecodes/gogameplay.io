@@ -1,6 +1,6 @@
 <?php
 
-namespace App\External;
+namespace App\Helpers;
 
 use Illuminate\Support\Facades\Http;
 use App\Contracts\LocationApiInterface;

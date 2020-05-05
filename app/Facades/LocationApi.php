@@ -1,50 +1,14 @@
 <?php
 
-namespace App\External;
+namespace App\Facades;
 
-use Illuminate\Support\Facades\Http;
-use App\Contracts\LocationApiInterface;
-use App\Models\Country;
+use Illuminate\Support\Facades\Facade;
 
-class LocationApi implements LocationApiInterface {
+class LocationApi extends Facade {
 
-	protected $baseUrl;
-	private $apiKey;
-
-	public function __construct($baseUrl, $apiKey)
+	protected static function getFacadeAccessor()
 	{
-		$this->baseUrl = $baseUrl;
-		$this->apiKey = $apiKey;
-	}
-
-	private function sendRequest($ipAddress, $package)
-	{
-		$response = Http::get($this->baseUrl, [
-			'ip' => $ipAddress,
-			'key' => $this->apiKey,
-			'package' => $package
-		]);
-
-		return $response->json();
-	}
-
-	public function getCountryAndDetectCarrier($ipAddress):array
-	{
-		$data = $this->sendRequest($ipAddress, 'WS19');
-
-		return [
-			'country_id' => Country::getCountryIdByIsoCode($data['country_code']),
-			'carrier' => ($data['mobile_brand'] !== '-') ? $data['mobile_brand'] : null
-		];
-	}
-
-	public function getCountryOnly($ipAddress):array
-	{
-		$data = $this->sendRequest($ipAddress, 'WS1');
-
-		return [
-			'country_id' => Country::getCountryIdByIsoCode($data['country_code'])
-		];
+		return 'LocationApi';
 	}
 
 }

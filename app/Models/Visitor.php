@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
-use App\Contracts\LocationApiInterface;
+use App\Facades\LocationApi;
 
 class Visitor extends Model
 {
@@ -24,10 +24,10 @@ class Visitor extends Model
     {
         parent::boot();
 
-        
+        static::creating(function($model) {
+            $locationData = LocationApi::getCountryAndDetectCarrier('1.1.1.1');
 
-        static::saving(function($model) use ($locationApi) {
-            dd($locationApi);
+            $model->country_id = $locationData['country_id'];
         });
     }
 
