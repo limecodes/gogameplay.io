@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Game::class, function (Faker $faker) {
     return [
-        'name' => $faker->words(1, true)
+        'name' => $faker->words(2, true)
     ];
 });
