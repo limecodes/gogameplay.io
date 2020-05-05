@@ -118,7 +118,7 @@ class ConnectionTest extends TestCase
             'ip_address' => $newIpAddress,
             'device' => Config::get('constants.devices.android'),
             'country_id' => $country->id,
-            'mobile_connection' => true,
+            'mobile_connection' => false,
             'carrier_from_data' => null
         ]);
 
@@ -126,7 +126,7 @@ class ConnectionTest extends TestCase
             ->assertOk()
             ->assertJson([
                 'visitor' => [
-                    'connection' => true,
+                    'connection' => false,
                     'carrier' => null
                 ],
                 'carriers_by_country' => [
