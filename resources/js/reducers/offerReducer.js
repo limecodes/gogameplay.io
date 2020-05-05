@@ -16,7 +16,8 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
-				...action.payload
+				success: action.payload.success,
+				url: action.payload.offer.url
 			}
 		case FETCH_OFFER_FAIL:
 			return {

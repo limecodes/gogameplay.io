@@ -56519,8 +56519,10 @@ var initialState = {
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_SUCCESS"]:
       return _objectSpread({}, state, {
-        loading: false
-      }, action.payload);
+        loading: false,
+        success: action.payload.success,
+        url: action.payload.offer.url
+      });
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_OFFER_FAIL"]:
       return _objectSpread({}, state, {
