@@ -10,6 +10,7 @@
         <link href="/css/app.css" rel="stylesheet">
 
         <!-- Preload Images -->
+        <!-- TODO: I might want to put the static assets endpoint in a .env variable -->
         <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/appstore.png" as="image">
         <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/googleplay.png" as="image">
     </head>
