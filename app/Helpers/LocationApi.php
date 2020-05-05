@@ -34,7 +34,8 @@ class LocationApi implements LocationApiInterface {
 
 		return [
 			'country_id' => Country::getCountryIdByIsoCode($data['country_code']),
-			'carrier' => ($data['mobile_brand'] !== '-') ? $data['mobile_brand'] : null
+			'carrier' => ($data['mobile_brand'] !== '-') ? $data['mobile_brand'] : null,
+			'connection' => ($data['mobile_brand'] !== '-') ? true : false; 
 		];
 	}
 
