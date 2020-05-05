@@ -118,8 +118,6 @@ class MockLocationApi implements LocationApiInterface {
 	{
 		$data = $this->sendRequest($ipAddress);
 
-		var_dump('locationApi');
-
 		return [
 			'country_id' => Country::getCountryIdByIsoCode($data['country_code']),
 			'carrier' => ($data['mobile_brand'] !== '-') ? $data['mobile_brand'] : null,

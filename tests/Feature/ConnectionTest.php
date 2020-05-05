@@ -9,8 +9,7 @@ use Tests\TestCase;
 use App\Models\Visitor;
 use App\Models\Country;
 use App\Models\MobileNetwork;
-use App\External\LocationApi;
-use Mockery;
+use App\Facades\LocationApi;
 
 class ConnectionTest extends TestCase
 {
@@ -44,12 +43,11 @@ class ConnectionTest extends TestCase
 
         $country = factory(Country::class)->create();
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
-                'country_id' => $country->id,
-                'carrier' => 'Vodafone'
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryAndDetectCarrier')->andReturn([
+            'country_id' => $country->id,
+            'carrier' => 'Vodafone',
+            'connection' => true
+        ]);
 
         $oldIpAddress = $this->faker->ipv4;
         $newIpAddress = $this->ipAddress;
@@ -93,12 +91,11 @@ class ConnectionTest extends TestCase
         $country = factory(Country::class)->create();
         $mobileNetworks = factory(MobileNetwork::class, 3)->create(['country_id' => $country->id]);
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
-                'country_id' => $country->id,
-                'carrier' => null
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryAndDetectCarrier')->andReturn([
+            'country_id' => $country->id,
+            'carrier' => null,
+            'connection' => false
+        ]);
 
         $oldIpAddress = $this->faker->ipv4;
         $newIpAddress = $this->ipAddress;
@@ -151,12 +148,11 @@ class ConnectionTest extends TestCase
         $oldIpAddress = $this->faker->ipv4;
         $newIpAddress = $this->ipAddress;
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
-                'country_id' => $country->id,
-                'carrier' => 'Vodafone'
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryAndDetectCarrier')->andReturn([
+            'country_id' => $country->id,
+            'carrier' => 'Vodafone',
+            'connection' => true
+        ]);
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $oldIpAddress,
@@ -200,12 +196,11 @@ class ConnectionTest extends TestCase
         $oldIpAddress = $this->faker->ipv4;
         $newIpAddress = $this->ipAddress;
 
-        $this->instance(LocationApi::class, Mockery::mock(LocationApi::class, function($mock) use ($country) {
-            $mock->shouldReceive('getCountryAndDetectCarrier')->andReturn([
-                'country_id' => $country->id,
-                'carrier' => null
-            ]);
-        }));
+        LocationApi::shouldReceive('getCountryAndDetectCarrier')->andReturn([
+            'country_id' => $country->id,
+            'carrier' => null,
+            'connection' => false
+        ]);
 
         $visitor = factory(Visitor::class)->create([
             'ip_address' => $oldIpAddress,
