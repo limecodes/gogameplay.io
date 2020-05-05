@@ -25,9 +25,6 @@ class GameTest extends TestCase
      */
     public function nonMobileUserShouldBeRedirected()
     {
-        // For some reason it's not going through the middleware so a game has to exist
-        // Makes sense because the homepage would display an existing game
-
         $game = factory(Game::class)->create();
 
         $response = $this->get('/game/'.$game->slug);
