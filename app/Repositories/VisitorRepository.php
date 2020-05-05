@@ -22,58 +22,23 @@ class VisitorRepository implements VisitorInterface
 		$this->locationApi = $locationApi;
 	}
 
-	private function setNonMobile():void
-	{
-		if (!$this->visitor->country_id) {
-			$locationData = $this->locationApi->getCountryOnly($this->visitor->ip_address);
-
-			$countryId = $locationData['country_id'];
-
-			$this->visitor->setBasicAttributes($countryId, null);
-		}
-	}
-
 	private function connectionChangedAndroid($ipAddress):void
 	{
 		$mobileConnection = true;
 
-		if ( (!$this->visitor->country_id) && (!$this->visitor->carrier_from_data) ) {
-			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
-
-			$countryId = $locationData['country_id'];
-			$carrier = ($locationData['carrier']) ? $locationData['carrier'] : null;
-		}
-
-		$this->visitor->updateConnectionAttributes($mobileConnection, $carrier, $ipAddress, $countryId);
+		$this->visitor->updateConnectionAttributes($ipAddress, $mobileConnection);
 	}
 
 	private function connectionChangedApple($ipAddress):void
 	{
-		$locationData = ($this->visitor->ip_address !== $ipAddress)
-			? $this->locationApi->getCountryAndDetectCarrier($ipAddress)
-			: null;
-
-		if ($locationData !== null) {
-			$mobileConnection = ($locationData['carrier']) ? true : false;
-			$carrier = ($locationData['carrier']) ? $locationData['carrier'] : null;
-
-			$this->visitor->updateConnectionAttributes($mobileConnection, $carrier, $ipAddress);
+		if ($this->visitor->ip_address !== $ipAddress) {
+			$this->visitor->updateConnectionAttributes($ipAddress);
 		}
 	}
 
 	public function set($ipAddress, $device, $connection):VisitorResourceWrapper
 	{
-		$this->visitor = Visitor::fetchOrNew($ipAddress, $device, $connection);
-
-		if ($this->visitor->device == Config::get('constants.devices.android')) {
-			$this->setAndroid();
-		} else if ($this->visitor->device == Config::get('constants.devices.ios')) {
-			$this->setApple();
-		} else if ($this->visitor->device == Config::get('constants.devices.non_mobile')) {
-			$this->setNonMobile();
-		}
-
-		$this->visitor->save();
+		$this->visitor = Visitor::fetchOrCreate($ipAddress, $device, $connection);
 
 		return new VisitorResourceWrapper($this->visitor);
 	}
