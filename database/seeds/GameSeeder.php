@@ -13,6 +13,7 @@ class GameSeeder extends Seeder
     {
         DB::Table('games')->insert([
         	'name' => 'example',
+            'slug' => 'example',
             'title' => 'Example',
             'image' => 'http://static.offers.gogameplay.io/images/example.png',
             'price' => 2.79
