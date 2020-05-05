@@ -12,10 +12,11 @@ class GameController extends Controller
     {
         $device = $request->headers->get('device');
 
-        $gameTitle = $game->title;
-        $gameImage = $game->image;
-        $gamePrice = $game->price;
-
-        return view('game', ['title' => $gameTitle, 'image' => $gameImage, 'price' => $gamePrice, 'device' => $device]);
+        return view('game', [
+        	'title' => $game->title,
+        	'image' => $game->image,
+        	'price' => $game->price,
+        	'device' => $device
+        ]);
     }
 }
