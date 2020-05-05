@@ -78,10 +78,9 @@ class Visitor extends Model
             ->all();
     }
 
-    public function updateConnectionAttributes(?string $ipAddress, ?bool $mobileConnection = null)
+    public function updateConnectionAttributes(?string $ipAddress)
     {
         $this->ip_address = $ipAddress;
-        $this->mobile_connection = ($mobileConnection !== null) ? $mobileConnection : $this->mobile_connection;
 
         $this->save();
     }

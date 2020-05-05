@@ -14,20 +14,6 @@ class VisitorRepository implements VisitorInterface
 {
 	protected $visitor;
 
-	private function connectionChangedAndroid($ipAddress):void
-	{
-		$mobileConnection = true;
-
-		$this->visitor->updateConnectionAttributes($ipAddress, $mobileConnection);
-	}
-
-	private function connectionChangedApple($ipAddress):void
-	{
-		if ($this->visitor->ip_address !== $ipAddress) {
-			$this->visitor->updateConnectionAttributes($ipAddress);
-		}
-	}
-
 	public function set($ipAddress, $device, $connection):VisitorResourceWrapper
 	{
 		$this->visitor = Visitor::fetchOrCreate($ipAddress, $device, $connection);
@@ -39,10 +25,8 @@ class VisitorRepository implements VisitorInterface
 	{
 		$this->visitor = Visitor::findByUid($uid);
 
-		if ($this->visitor->device == Config::get('constants.devices.android')) {
-			$this->connectionChangedAndroid($ipAddress);
-		} else if ($this->visitor->device == Config::get('constants.devices.ios')) {
-			$this->connectionChangedApple($ipAddress);
+		if ($this->visitor->ip_address !== $ipAddress) {
+			$this->visitor->updateConnectionAttributes($ipAddress);
 		}
 
 		return new ConnectionResourceWrapper($this->visitor);
