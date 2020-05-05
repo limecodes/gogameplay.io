@@ -33,13 +33,7 @@ class Visitor extends Model
         });
 
         static::updating(function($model) {
-            if ( (!$model->country_id) || (!$model->carrier_from_data) ) {
-                $locationData = LocationApi::getCountryAndDetectCarrier($model->ip_address);
-
-                $model->country_id = $locationData['country_id'];
-                $model->carrier_from_data = $locationData['carrier'];
-                $model->mobile_connection = (!$model->mobile_connection) ? $locationData['connection'] : $model->mobile_connection;
-            }
+            $model = DeviceHelper::updatedData($model);
         });
     }
 
