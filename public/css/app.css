@@ -10910,6 +10910,43 @@ img {
   font-size: 100%;
 }
 
+.homepage .download,
+.homepage p {
+  text-align: center;
+}
+
+.homepage .tyl {
+  width: 100%;
+}
+
+.homepage .strike {
+  text-decoration: line-through;
+}
+
+.homepage header {
+  height: 60px;
+  background-color: black;
+  text-align: center;
+  color: white;
+}
+
+.homepage main {
+  margin-top: 1rem;
+}
+
+.homepage .screenshot {
+  margin-bottom: 0.5rem;
+}
+
+.homepage .download p .badge,
+.homepage .download .badge {
+  margin-bottom: 0.5rem;
+}
+
+.homepage .getitpiad {
+  margin-bottom: 0.5rem;
+}
+
 #app small p {
   margin-bottom: 0;
 }
