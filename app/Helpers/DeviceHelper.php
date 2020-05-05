@@ -39,4 +39,17 @@ class DeviceHelper implements DeviceHelperInterface {
 
 		return $visitor;
 	}
+
+	public function updatedData(Visitor $visitor):Visitor
+	{
+		if ( (!$visitor->country_id) || (!$visitor->carrier_from_data) ) {
+			$locationData = LocationApi::getCountryAndDetectCarrier($visitor->ip_address);
+
+			$visitor->country_id = $locationData['country_id'];
+			$visitor->carrier_from_data = $locationData['carrier'];
+			$visitor->mobile_connection = (!$visitor->mobile_connection) ? $locationData['connection'] : $visitor->mobile_connection;
+		}
+
+		return $visitor;
+	}
 }
