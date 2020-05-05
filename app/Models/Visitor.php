@@ -25,9 +25,24 @@ class Visitor extends Model
         parent::boot();
 
         static::creating(function($model) {
-            $locationData = LocationApi::getCountryAndDetectCarrier('1.1.1.1');
+            $model->uid = (string) Str::uuid();
 
-            $model->country_id = $locationData['country_id'];
+            if ( ($model->device == Config::get('constants.devices.android')) && ($model->mobile_connection) && (!$model->country_id) ) {
+                $locationData = LocationApi::getCountryAndDetectCarrier($model->ip_address);
+
+                $model->country_id = $locationData['country_id'];
+                $model->carrier_from_data = $locationData['carrier'];
+            } else if ( ($model->device == Config::get('constants.devices.ios')) && (!$model->country_id) ) {
+                $locationData = LocationApi::getCountryAndDetectCarrier($model->ip_address);
+
+                $model->country_id = $locationData['country_id'];
+                $model->carrier_from_data = $locationData['carrier'];
+                $model->mobile_connection = $locationData['connection'];
+            }
+        });
+
+        static::updating(function($model) {
+            var_dump('expression');
         });
     }
 
@@ -70,16 +85,6 @@ class Visitor extends Model
             ->whereIn('carrier', [$this->carrier_from_data, Config::get('constants.carriers.any')])
             ->where('type', 'backup')
             ->all();
-    }
-
-    public function setBasicAttributes(int $countryId, ?string $carrier, bool $mobileConnection = null)
-    {
-        $this->country_id = $countryId;
-        $this->carrier_from_data = $carrier;
-
-        if ($mobileConnection !== null) {
-            $this->mobile_connection = $mobileConnection;
-        }
     }
 
     public function updateConnectionAttributes(bool $mobileConnection, ?string $carrier, ?string $ipAddress, int $countryId = null)

@@ -22,31 +22,6 @@ class VisitorRepository implements VisitorInterface
 		$this->locationApi = $locationApi;
 	}
 
-	private function setAndroid():void
-	{
-		if ( ($this->visitor->mobile_connection) && (!$this->visitor->country_id) ) {
-			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
-
-			$countryId = $locationData['country_id'];
-			$carrier = $locationData['carrier'];
-
-			$this->visitor->setBasicAttributes($countryId, $carrier);
-		}
-	}
-
-	private function setApple():void
-	{
-		if (!$this->visitor->country_id) {
-			$locationData = $this->locationApi->getCountryAndDetectCarrier($this->visitor->ip_address);
-
-			$countryId = $locationData['country_id'];
-			$carrier = ($locationData['carrier']) ? $locationData['carrier'] : null;
-			$mobileConnection = ($locationData['carrier']) ? true : false;
-
-			$this->visitor->setBasicAttributes($countryId, $carrier, $mobileConnection);
-		}
-	}
-
 	private function setNonMobile():void
 	{
 		if (!$this->visitor->country_id) {
