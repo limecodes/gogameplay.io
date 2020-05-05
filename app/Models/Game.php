@@ -13,6 +13,7 @@ class Game extends Model
     {
     	parent::boot();
 
+    	// This could be useful in other things :-)
     	static::saving(function($model) {
     		$model->slug = Str::slug($model->name);
     	});
