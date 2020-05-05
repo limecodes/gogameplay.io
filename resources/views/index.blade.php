@@ -51,7 +51,7 @@
         </style>
         
     </head>
-    <body>
+    <body class="homepage">
         <header>
             <h1>GoGamePlay.io</h1>
         </header>
