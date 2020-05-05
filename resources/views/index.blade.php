@@ -8,48 +8,10 @@
 
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
-        <!-- All of this should be in the stylesheet in SASS -->
-        <style>
-            img {
-                width: 100%;
-            }
 
-            .download, p {
-                text-align: center;
-            }           
-
-            .tyl {
-                width: 100%;
-            }           
-
-            .strike {
-                text-decoration: line-through;
-            }           
-
-            header {
-                height: 60px;
-                background-color: black;
-                text-align: center;
-                color: white;
-            }           
-
-            main {
-                margin-top: 1rem;
-            }           
-
-            .screenshot {
-                margin-bottom: 0.5rem;
-            }           
-
-            .download p, .download .badge {
-                margin-bottom: 0.5rem;
-            }           
-
-            .getitpiad {
-                margin-bottom: 0.5rem;
-            }
-        </style>
-        
+        <!-- Preload Images -->
+        <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/appstore.png" as="image">
+        <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/googleplay.png" as="image">
     </head>
     <body class="homepage">
         <header>
@@ -59,7 +21,7 @@
             <div class="container-fluid">
                 <div class="row screenshot">
                     <div class="col-sm-12">
-                        <img src="https://s3.amazonaws.com/staging.gogameplay.io/images/overdrivecity.png" />
+                        <img src="https://s3.amazonaws.com/static.offers.gogameplay.io/images/overdrivecity.jpg" />
                     </div>
                 </div>
 
