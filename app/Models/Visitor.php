@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
+use App\Facades\DeviceHelper;
 use App\Facades\LocationApi;
 
 class Visitor extends Model
@@ -15,11 +16,6 @@ class Visitor extends Model
         'mobile_connection' => 'boolean'
     ];
 
-    private static function location(LocationApiInterface $locationApi)
-    {
-        return $locationApi;
-    }
-
     public static function boot()
     {
         parent::boot();
@@ -27,21 +23,12 @@ class Visitor extends Model
         static::creating(function($model) {
             $model->uid = (string) Str::uuid();
 
-            if ( ($model->device == Config::get('constants.devices.android')) && ($model->mobile_connection) && (!$model->country_id) ) {
-                $locationData = LocationApi::getCountryAndDetectCarrier($model->ip_address);
-
-                $model->country_id = $locationData['country_id'];
-                $model->carrier_from_data = $locationData['carrier'];
-            } else if ( ($model->device == Config::get('constants.devices.ios')) && (!$model->country_id) ) {
-                $locationData = LocationApi::getCountryAndDetectCarrier($model->ip_address);
-
-                $model->country_id = $locationData['country_id'];
-                $model->carrier_from_data = $locationData['carrier'];
-                $model->mobile_connection = $locationData['connection'];
-            } else if ( ($model->device == Config::get('constants.devices.non_mobile')) && (!$model->country_id) ) {
-                $locationData = LocationApi::getCountryOnly($model->ip_address);
-
-                $model->country_id = $locationData['country_id'];
+            if ($model->device == Config::get('constants.devices.android')) {
+                $model = DeviceHelper::getDataAndroid($model);
+            } else if ($model->device == Config::get('constants.devices.ios')) {
+                $model = DeviceHelper::getDataApple($model);
+            } else if ($model->device == Config::get('constants.devices.non_mobile')) {
+                $model = DeviceHelper::getDataNonMobile($model);
             }
         });
 
