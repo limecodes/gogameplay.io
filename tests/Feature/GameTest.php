@@ -25,9 +25,12 @@ class GameTest extends TestCase
      */
     public function nonMobileUserShouldBeRedirected()
     {
-        $this->withoutExceptionHandling();
+        // For some reason it's not going through the middleware so a game has to exist
+        // Makes sense because the homepage would display an existing game
 
-        $response = $this->get('/game/example');
+        $game = factory(Game::class)->create();
+
+        $response = $this->get('/game/'.$game->slug);
 
         $response->assertRedirect('/nonmobile');
     }
@@ -36,23 +39,8 @@ class GameTest extends TestCase
      *
      * @test
      */
-    public function shouldFailIfGameNameIsNumber()
-    {
-        $this->withoutExceptionHandling();
-
-        $response = $this->get('/game/1234', ['HTTP_USER_AGENT' => $this->androidUserAgent]);
-
-        $response->assertStatus(422);
-    }
-
-    /**
-     *
-     * @test
-     */
     public function shouldFailIfGameNotExistent()
     {
-        $this->withoutExceptionHandling();
-
         $response = $this->get('/game/nonexistent', ['HTTP_USER_AGENT' => $this->androidUserAgent]);
 
         $response->assertStatus(404);
@@ -68,7 +56,7 @@ class GameTest extends TestCase
 
         $game = factory(Game::class)->create();
 
-        $response = $this->get('/game/'.$game->name, ['HTTP_USER_AGENT' => $this->androidUserAgent]);
+        $response = $this->get('/game/'.$game->slug, ['HTTP_USER_AGENT' => $this->androidUserAgent]);
 
         $response
             ->assertStatus(200)
