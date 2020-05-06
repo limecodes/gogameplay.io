@@ -10882,10 +10882,6 @@ a.text-dark:focus {
   }
 }
 
-body {
-  margin-top: 1rem;
-}
-
 img {
   width: 100%;
 }
@@ -10910,9 +10906,12 @@ img {
   font-size: 100%;
 }
 
-#homepage .download,
-#homepage p {
+#homepage .download {
   text-align: center;
+}
+
+#homepage .download .badge {
+  margin-bottom: 0.5rem;
 }
 
 #homepage .tyl {
@@ -10938,13 +10937,12 @@ img {
   margin-bottom: 0.5rem;
 }
 
-#homepage .download p .badge,
-#homepage .download .badge {
+#homepage .getitpiad {
   margin-bottom: 0.5rem;
 }
 
-#homepage .getitpiad {
-  margin-bottom: 0.5rem;
+.container {
+  padding-top: 1rem;
 }
 
 #app small p {
