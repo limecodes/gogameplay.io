@@ -199,7 +199,7 @@ class VisitorTest extends TestCase
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => Config::get('constants.devices.ios'),
-            'connection' => false
+            'connection' => null
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
@@ -239,7 +239,7 @@ class VisitorTest extends TestCase
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => Config::get('constants.devices.ios'),
-            'connection' => false
+            'connection' => null
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
@@ -279,7 +279,7 @@ class VisitorTest extends TestCase
 
         $response = $this->json('POST', '/api/visitor/set', [
             'device' => Config::get('constants.devices.ios'),
-            'connection' => false
+            'connection' => null
         ], ['REMOTE_ADDR' => $this->ipAddress]);
 
         $this->assertDatabaseHas('visitors', [
