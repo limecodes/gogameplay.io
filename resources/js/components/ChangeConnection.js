@@ -18,14 +18,6 @@ class ChangeConnection extends Component {
 			if (typeof navigator.connection.ontypechange == 'object') {
 				navigator.connection.ontypechange = this.connectionDidChange.bind(this);
 			}
-
-			if (process.env.NODE_ENV === 'local') {
-				if (typeof navigator.connection.onchange == 'object') {
-					// TODO: (MERGE NOTE)
-					// TODO: Remove this after front-end is done
-					navigator.connection.onchange = this.connectionOnChange.bind(this);
-				}
-			}
 		}
 	}
 
@@ -33,14 +25,6 @@ class ChangeConnection extends Component {
 		if ( (this.props.visitor.error !== prevProps.visitor.error) && (this.props.visitor.error) ) {
 			this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
 
-		}
-	}
-
-	// TODO: (MERGE NOTE)
-	// TODO: Remove this after front-end is done
-	connectionOnChange(e) {
-		if (process.env.NODE_ENV === 'local') {
-			this.props.connectionChanged(this.props.visitor.uid);
 		}
 	}
 
