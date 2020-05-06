@@ -14,7 +14,13 @@ import {
 import axios from 'axios';
 
 export const setVisitorData = (device) => async dispatch => {
-	const connection = ( (navigator.connection) && (navigator.connection.type == 'cellular') ) ? true : false;
+	const connection = (() => {
+		if ( (navigator.connection) && (navigator.connection.type) ) {
+			return (navigator.connection.type == 'cellular') ? true : false;
+		} else {
+			return null;
+		}
+	})();
 
 	dispatch({
 		type: SET_VISITOR_STATE_START,
