@@ -346,7 +346,7 @@ var MUTATION_APPROACH_ASYNC = 'async';
 var TAGNAMES_TO_SKIP_FOR_PSEUDOELEMENTS = ['HTML', 'HEAD', 'STYLE', 'SCRIPT'];
 var PRODUCTION = function () {
   try {
-    return "development" === 'production';
+    return "local" === 'production';
   } catch (e) {
     return false;
   }
@@ -9863,7 +9863,7 @@ function convert(createElement, element) {
 var PRODUCTION = false;
 
 try {
-  PRODUCTION = "development" === 'production';
+  PRODUCTION = "local" === 'production';
 } catch (e) {}
 
 function log () {
@@ -50482,7 +50482,7 @@ function createPersistoid(config) {
     // @TODO add fail handlers (typically storage full)
     if (writeFailHandler) writeFailHandler(err);
 
-    if (err && "development" !== 'production') {
+    if (err && "local" !== 'production') {
       console.error('Error storing data', err);
     }
   }
@@ -51135,7 +51135,7 @@ function purgeStoredState(config) {
 }
 
 function warnIfRemoveError(err) {
-  if (err && "development" !== 'production') {
+  if (err && "local" !== 'production') {
     console.error('redux-persist/purgeStoredState: Error purging data stored state', err);
   }
 }
@@ -54889,7 +54889,14 @@ var setVisitorData = function setVisitorData(device) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              connection = navigator.connection && navigator.connection.type == 'cellular' ? true : false;
+              connection = function () {
+                if (navigator.connection && navigator.connection.type) {
+                  return navigator.connection.type == 'cellular' ? true : false;
+                } else {
+                  return null;
+                }
+              }();
+
               dispatch({
                 type: _types__WEBPACK_IMPORTED_MODULE_1__["SET_VISITOR_STATE_START"],
                 payload: {
