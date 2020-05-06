@@ -26,7 +26,7 @@ class VisitorRepository implements VisitorInterface
 		$this->visitor = Visitor::findByUid($uid);
 
 		if ($this->visitor->ip_address !== $ipAddress) {
-			$this->visitor->updateConnectionAttributes($ipAddress);
+			$this->visitor->update(['ip_address' => $ipAddress]);
 		}
 
 		return new ConnectionResourceWrapper($this->visitor);
