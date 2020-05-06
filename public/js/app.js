@@ -55139,9 +55139,6 @@ var App = /*#__PURE__*/function (_Component) {
 if (document.getElementById('app')) {
   var elem = document.getElementById('app');
   var device = elem.getAttribute('data-device');
-
-  if (false) {}
-
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, {
     device: device
   }), elem);
@@ -55375,8 +55372,6 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
         if (_typeof(navigator.connection.ontypechange) == 'object') {
           navigator.connection.ontypechange = this.connectionDidChange.bind(this);
         }
-
-        if (false) {}
       }
     }
   }, {
@@ -55385,13 +55380,6 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
       if (this.props.visitor.error !== prevProps.visitor.error && this.props.visitor.error) {
         this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
       }
-    } // TODO: (MERGE NOTE)
-    // TODO: Remove this after front-end is done
-
-  }, {
-    key: "connectionOnChange",
-    value: function connectionOnChange(e) {
-      if (false) {}
     }
   }, {
     key: "connectionDidChange",
