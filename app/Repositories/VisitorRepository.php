@@ -23,10 +23,10 @@ class VisitorRepository implements VisitorInterface
 
 	public function connectionChanged($uid, $ipAddress):ConnectionResourceWrapper
 	{
-		$this->visitor = Visitor::findByUid($uid);
+		$this->visitor = Visitor::findByUid($uid)->fill(['ip_address' => $ipAddress]);
 
-		if ($this->visitor->ip_address !== $ipAddress) {
-			$this->visitor->update(['ip_address' => $ipAddress]);
+		if ($this->visitor->isDirty()) {
+			$this->visitor->update();
 		}
 
 		return new ConnectionResourceWrapper($this->visitor);

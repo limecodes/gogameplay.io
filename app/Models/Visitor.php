@@ -96,9 +96,9 @@ class Visitor extends Model
 
     public static function updateCarrier(string $uid, string $carrier):Visitor
     {
-        $visitor = static::findByUid($uid)->fill(['carrier_from_data' => $carrier]);
+        $visitor = static::findByUid($uid);
 
-        $visitor->update();
+        $visitor->update(['carrier_from_data' => $carrier]);
 
         return $visitor;
     }
