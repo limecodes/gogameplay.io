@@ -24,7 +24,6 @@ class ChangeConnection extends Component {
 	componentDidUpdate(prevProps) {
 		if ( (this.props.visitor.error !== prevProps.visitor.error) && (this.props.visitor.error) ) {
 			this.props.connectionChanged(this.props.visitor.uid, this.props.visitor.device);
-
 		}
 	}
 
