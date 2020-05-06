@@ -103,4 +103,4 @@ Remember to host static files (js, css, images, etc...) in S3 because EC2 traffi
 [x][x] '*' => Config::get('constants.devices.any')
 [x][x] '*' => Config::get('constants.carriers.any')
 
- 
+ Create GameServiceProvider and refactor from RouteServiceProvider ?? maybe
