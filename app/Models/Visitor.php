@@ -9,7 +9,7 @@ use App\Facades\LocationApi;
 
 class Visitor extends Model
 {
-    protected $fillable = ['uid', 'ip_address', 'device', 'mobile_connection', 'country_id', 'carrier_from_data'];
+    protected $fillable = ['ip_address', 'device', 'mobile_connection', 'country_id', 'carrier_from_data'];
 
     protected $casts = [
         'mobile_connection' => 'boolean'
@@ -49,7 +49,7 @@ class Visitor extends Model
     	return static::where('uid', $uid)->first();
     }
 
-    public static function fetchOrCreate(string $ipAddress, string $device, bool $connection):Visitor
+    public static function fetchOrCreate(string $ipAddress, string $device, ?bool $connection):Visitor
     {
         return Visitor::firstOrCreate(
             ['ip_address' => $ipAddress, 'device' => $device],
@@ -66,7 +66,7 @@ class Visitor extends Model
                 'country_id' => $locationData['country_id'],
                 'carrier_from_data' => $locationData['carrier']
             ]);
-        } else if ( ($visitor->device !== Config::get('constants.devices.android')) && (!$visitor->country_id) ) {
+        } else if ( ($visitor->mobile_connection === null) && (!$visitor->country_id) ) {
             $locationData = LocationApi::getCountryAndDetectCarrier($visitor->ip_address);
 
             $visitor->fill([

@@ -25,7 +25,7 @@ class VisitorRequest extends FormRequest
     {
         return [
             'device' => 'bail|required|string|max:10',
-            'connection' => 'required|boolean'
+            'connection' => 'present|nullable|boolean'
         ];
     }
 }
