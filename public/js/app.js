@@ -55138,11 +55138,9 @@ var App = /*#__PURE__*/function (_Component) {
 
 if (document.getElementById('app')) {
   var elem = document.getElementById('app');
-  var device = elem.getAttribute('data-device'); // THIS IS FOR TESTING ONLY!!!
+  var device = elem.getAttribute('data-device');
 
-  if (device == 'android' && navigator.connection) {
-    NetworkInformation.prototype.type = 'wifi';
-  }
+  if (false) {}
 
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, {
     device: device
@@ -55376,11 +55374,9 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
       if (navigator.connection) {
         if (_typeof(navigator.connection.ontypechange) == 'object') {
           navigator.connection.ontypechange = this.connectionDidChange.bind(this);
-        } else if (_typeof(navigator.connection.onchange) == 'object') {
-          // TODO: (MERGE NOTE)
-          // TODO: Remove this after front-end is done
-          navigator.connection.onchange = this.connectionOnChange.bind(this);
         }
+
+        if (false) {}
       }
     }
   }, {
@@ -55395,8 +55391,7 @@ var ChangeConnection = /*#__PURE__*/function (_Component) {
   }, {
     key: "connectionOnChange",
     value: function connectionOnChange(e) {
-      console.log('connection on change');
-      this.props.connectionChanged(this.props.visitor.uid);
+      if (false) {}
     }
   }, {
     key: "connectionDidChange",
