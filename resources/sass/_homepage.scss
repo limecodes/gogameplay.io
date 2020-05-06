@@ -1,6 +1,10 @@
 #homepage {
-	.download, p {
+	.download {
 		text-align: center;
+
+		.badge {
+			margin-bottom: 0.5rem;
+		}
 	}           
 
     .tyl {
@@ -24,13 +28,7 @@
 
 	.screenshot {
 		margin-bottom: 0.5rem;
-	}           
-
-	.download p, .download {
-		.badge {
-			margin-bottom: 0.5rem;
-		}
-	}           
+	}       
 
 	.getitpiad {
 		margin-bottom: 0.5rem;
