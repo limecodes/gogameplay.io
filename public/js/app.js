@@ -346,7 +346,7 @@ var MUTATION_APPROACH_ASYNC = 'async';
 var TAGNAMES_TO_SKIP_FOR_PSEUDOELEMENTS = ['HTML', 'HEAD', 'STYLE', 'SCRIPT'];
 var PRODUCTION = function () {
   try {
-    return "local" === 'production';
+    return "development" === 'production';
   } catch (e) {
     return false;
   }
@@ -9863,7 +9863,7 @@ function convert(createElement, element) {
 var PRODUCTION = false;
 
 try {
-  PRODUCTION = "local" === 'production';
+  PRODUCTION = "development" === 'production';
 } catch (e) {}
 
 function log () {
@@ -50482,7 +50482,7 @@ function createPersistoid(config) {
     // @TODO add fail handlers (typically storage full)
     if (writeFailHandler) writeFailHandler(err);
 
-    if (err && "local" !== 'production') {
+    if (err && "development" !== 'production') {
       console.error('Error storing data', err);
     }
   }
@@ -51135,7 +51135,7 @@ function purgeStoredState(config) {
 }
 
 function warnIfRemoveError(err) {
-  if (err && "local" !== 'production') {
+  if (err && "development" !== 'production') {
     console.error('redux-persist/purgeStoredState: Error purging data stored state', err);
   }
 }
