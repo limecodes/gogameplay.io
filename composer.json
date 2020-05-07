@@ -59,6 +59,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "lint": [
+            "phpcs -sw --standard=PSR2 --ignore=/vendor,/node_modules,*.js,*.css,*/database/,*/views ."
         ]
     }
 }
