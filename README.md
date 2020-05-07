@@ -104,3 +104,11 @@ Remember to host static files (js, css, images, etc...) in S3 because EC2 traffi
 [x][x] '*' => Config::get('constants.carriers.any')
 
  Create GameServiceProvider and refactor from RouteServiceProvider ?? maybe
+
+ Remember to omit the redux dev tools from a production build.
+
+ TODO: Automate pushing static assets to S3 and create a static assets endpoint.
+
+ Maybe use Next.JS with Laravel
+
+ PHPLint the code
