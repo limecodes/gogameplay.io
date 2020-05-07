@@ -38,7 +38,7 @@ class VisitorTest extends TestCase
      * @test
      */
     public function shouldFailIfConnectionNotSpecified()
-    {   
+    {
         $response = $this->json('POST', '/api/visitor/set', ['device' => Config::get('constants.devices.android')]);
 
         $response->assertStatus(422);
