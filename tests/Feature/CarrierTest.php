@@ -44,8 +44,6 @@ class CarrierTest extends TestCase
      */
     public function shouldUpdateCarrierAndroid()
     {
-        $this->withoutExceptionHandling();
-
         $country = factory(Country::class)->create();
 
         $visitor = factory(Visitor::class)->create([
