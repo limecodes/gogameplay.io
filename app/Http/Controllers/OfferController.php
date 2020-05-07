@@ -14,9 +14,10 @@ class OfferController extends Controller
         $this->offerRepository = $offerRepository;
     }
 
-    public function fetch(OfferRequest $request) {
+    public function fetch(OfferRequest $request)
+    {
 
-    	$offerRequestValidated = $request->validated();
+        $offerRequestValidated = $request->validated();
 
         $uid = $offerRequestValidated['uid'];
 

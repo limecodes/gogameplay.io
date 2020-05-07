@@ -12,28 +12,28 @@ use App\Models\Visitor;
 
 class VisitorRepository implements VisitorInterface
 {
-	protected $visitor;
+    protected $visitor;
 
-	public function set($ipAddress, $device, $connection):VisitorResourceWrapper
-	{
-		$this->visitor = Visitor::fetchOrCreate($ipAddress, $device, $connection);
+    public function set($ipAddress, $device, $connection):VisitorResourceWrapper
+    {
+        $this->visitor = Visitor::fetchOrCreate($ipAddress, $device, $connection);
 
-		return new VisitorResourceWrapper($this->visitor);
-	}
+        return new VisitorResourceWrapper($this->visitor);
+    }
 
-	public function connectionChanged($uid, $ipAddress):ConnectionResourceWrapper
-	{
-		$this->visitor = Visitor::findByUid($uid)->fill(['ip_address' => $ipAddress]);
+    public function connectionChanged($uid, $ipAddress):ConnectionResourceWrapper
+    {
+        $this->visitor = Visitor::findByUid($uid)->fill(['ip_address' => $ipAddress]);
 
-		if ($this->visitor->isDirty()) {
-			$this->visitor->update();
-		}
+        if ($this->visitor->isDirty()) {
+            $this->visitor->update();
+        }
 
-		return new ConnectionResourceWrapper($this->visitor);
-	}
+        return new ConnectionResourceWrapper($this->visitor);
+    }
 
-	public function updateCarrier($uid, $carrier):ConnectionResource
-	{
-		return new ConnectionResource(Visitor::updateCarrier($uid, $carrier));
-	}
+    public function updateCarrier($uid, $carrier):ConnectionResource
+    {
+        return new ConnectionResource(Visitor::updateCarrier($uid, $carrier));
+    }
 }

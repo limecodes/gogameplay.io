@@ -19,7 +19,7 @@ class Visitor extends Model
     {
         parent::boot();
 
-        static::creating(function($model) {
+        static::creating(function ($model) {
             $model->uid = (string) Str::uuid();
 
             if ($model->device !== Config::get('constants.devices.non_mobile')) {
@@ -29,14 +29,14 @@ class Visitor extends Model
             }
         });
 
-        static::updating(function($model) {
+        static::updating(function ($model) {
             $model = static::updateMobileData($model);
         });
     }
 
     public function country()
     {
-    	return $this->belongsTo('App\Models\Country');
+        return $this->belongsTo('App\Models\Country');
     }
 
     public function offers()
@@ -46,7 +46,7 @@ class Visitor extends Model
 
     public static function findByUid($uid)
     {
-    	return static::where('uid', $uid)->first();
+        return static::where('uid', $uid)->first();
     }
 
     public static function fetchOrCreate(string $ipAddress, string $device, ?bool $connection):Visitor
@@ -59,14 +59,14 @@ class Visitor extends Model
 
     private static function getMobileData(Visitor $visitor):Visitor
     {
-        if ( ($visitor->mobile_connection) && (!$visitor->country_id) ) {
+        if (($visitor->mobile_connection) && (!$visitor->country_id)) {
             $locationData = LocationApi::getCountryAndDetectCarrier($visitor->ip_address);
 
             $visitor->fill([
                 'country_id' => $locationData['country_id'],
                 'carrier_from_data' => $locationData['carrier']
             ]);
-        } else if ( ($visitor->mobile_connection === null) && (!$visitor->country_id) ) {
+        } elseif (($visitor->mobile_connection === null) && (!$visitor->country_id)) {
             $locationData = LocationApi::getCountryAndDetectCarrier($visitor->ip_address);
 
             $visitor->fill([
@@ -81,7 +81,7 @@ class Visitor extends Model
 
     private static function updateMobileData(Visitor $visitor):Visitor
     {
-        if ( (!$visitor->country_id) || (!$visitor->carrier_from_data) ) {
+        if ((!$visitor->country_id) || (!$visitor->carrier_from_data)) {
             $locationData = LocationApi::getCountryAndDetectCarrier($visitor->ip_address);
 
             $visitor->fill([
