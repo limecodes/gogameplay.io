@@ -20,32 +20,34 @@
         </header>
         <main id="main" role="main">
             <div class="container-fluid">
+                @foreach ($games as $game)
                 <div class="row screenshot">
                     <div class="col-sm-12">
-                        <img src="https://s3.amazonaws.com/static.offers.gogameplay.io/images/overdrivecity.jpg" />
+                        <img src="{{ $game->image }}" />
                     </div>
                 </div>
 
                 <div class="row getitpiad">
-                    <div class="col-6 download"><span class="badge badge-primary">$1.99</span>
+                    <div class="col-6 download"><span class="badge badge-primary">${{ $game->price }}</span>
                         <p><img src="https://s3.amazonaws.com/staging.gogameplay.io/images/appstore.png" /></p>
-                        
+
                     </div>
 
                     <div class="col-6 download">
-                        <span class="badge badge-primary">$1.99</span>
+                        <span class="badge badge-primary">${{ $game->price }}</span>
                         <p><img src="https://s3.amazonaws.com/staging.gogameplay.io/images/googleplay.png" /></p>
-                        
+
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-12">
-                        <a href="/game/example" class="btn btn-success tyl">
-                            <span class="badge badge-light"><span class="strike">$1.99</span> => $0.00</span><br/>Try your luck, Get it Free >
+                        <a href="/game/{{ $game->slug }}" class="btn btn-success tyl">
+                            <span class="badge badge-light"><span class="strike">${{ $game->price }}</span> => $0.00</span><br/>Try your luck, Get it Free >
                         </a>
                     </div>
                 </div>
+                @endforeach
             </div>
         </main>
     </body>
