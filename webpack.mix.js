@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const S3Plugin = require('webpack-s3-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -17,4 +18,21 @@ mix.react('resources/js/app.js', 'public/js')
 
 if (mix.inProduction()) {
     mix.version();
+
+    mix.webpackConfig({
+        plugins: [
+            new S3Plugin({
+                include: /.*\.(css|js)/,
+                s3Options: {
+                    accessKeyId: process.env.MIX_AWS_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.MIX_AWS_SECRET_ACCESS_KEY,
+                    region: process.env.MIX_AWS_DEFAULT_REGION
+                },
+                s3UploadOptions: {
+                    Bucket: process.env.MIX_AWS_BUCKET
+                },
+                directory: 'public'
+            })
+        ]
+    });
 }
