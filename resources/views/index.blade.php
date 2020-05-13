@@ -7,13 +7,13 @@
         <title>GoGamePlay.io :: Get Free Games</title>
 
         <!-- Styles -->
-        <link href="/css/app.css" rel="stylesheet">
+        <link href="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/css/app.css" rel="stylesheet">
 
         <!-- Preload Images -->
         <!-- TODO: I might want to put the static assets endpoint in a .env variable -->
-        <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/appstore.png" as="image">
-        <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/googleplay.png" as="image">
-        <link rel="preload" href="/images/logo.png" as="image">
+        <link rel="preload" href="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/appstore.png" as="image">
+        <link rel="preload" href="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/googleplay.png" as="image">
+        <link rel="preload" href="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/logo.png" as="image">
     </head>
     <body id="homepage">
         <header>
