@@ -24,7 +24,7 @@ class CheckMobileDevice
 
         if ($iPhone) {
             $request->headers->add(['DEVICE' => Config::get('constants.devices.ios')]);
-        } elseif ($android) {
+        } else if ($android) {
             $request->headers->add(['DEVICE' => Config::get('constants.devices.android')]);
         } else {
             return redirect(RouteServiceProvider::NONMOBILE);

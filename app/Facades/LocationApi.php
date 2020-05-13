@@ -4,11 +4,11 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class LocationApi extends Facade
-{
+class LocationApi extends Facade {
 
-    protected static function getFacadeAccessor()
-    {
-        return 'LocationApi';
-    }
+	protected static function getFacadeAccessor()
+	{
+		return 'LocationApi';
+	}
+
 }

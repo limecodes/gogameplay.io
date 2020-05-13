@@ -7,22 +7,22 @@ use App\Contracts\VisitorInterface;
 
 class CarrierController extends Controller
 {
-    protected $visitorRepository;
+	protected $visitorRepository;
 
-    public function __construct(VisitorInterface $visitorRepository)
-    {
-        $this->visitorRepository = $visitorRepository;
-    }
+	public function __construct(VisitorInterface $visitorRepository)
+	{
+		$this->visitorRepository = $visitorRepository;
+	}
 
     public function updateCarrier(CarrierRequest $request)
     {
-        $carrierRequestValidated = $request->validated();
+    	$carrierRequestValidated = $request->validated();
 
-        $uid = $carrierRequestValidated['uid'];
-        $carrier = $carrierRequestValidated['carrier'];
+    	$uid = $carrierRequestValidated['uid'];
+    	$carrier = $carrierRequestValidated['carrier'];
 
-        $response = $this->visitorRepository->updateCarrier($uid, $carrier);
+    	$response = $this->visitorRepository->updateCarrier($uid, $carrier);
 
-        return response()->json($response, 200);
+    	return response()->json($response, 200);
     }
 }

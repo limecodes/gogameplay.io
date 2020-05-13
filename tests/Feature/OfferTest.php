@@ -19,7 +19,7 @@ class OfferTest extends TestCase
      * @test
      */
     public function shouldFailIfUIDIsNotSpecified()
-    {
+    {   
         $response = $this->json('POST', '/api/offers/fetch', []);
 
         $response->assertStatus(422);
@@ -995,11 +995,11 @@ class OfferTest extends TestCase
             ]);
     }
 
-    //
-    //
-    //
-    //
-    //
+    // 
+    // 
+    // 
+    // 
+    // 
 
     // shouldReturnNullMatchCountryMatchDeviceMismatchCarrier
     // shouldReturnNullMatchCountryMismatchDeviceMatchCarrier
@@ -1136,6 +1136,7 @@ class OfferTest extends TestCase
      */
     public function offerForCountryExistButCarrierMismatchNoCarrierBackups()
     {
+
     }
 
     /**
@@ -1144,6 +1145,7 @@ class OfferTest extends TestCase
      */
     public function offerForCountryDoesNotExist()
     {
+
     }
 
     /**
@@ -1152,6 +1154,7 @@ class OfferTest extends TestCase
      */
     public function nonMobileOfferForCountryDoesNotExist()
     {
+
     }
 
     /**
@@ -1160,6 +1163,7 @@ class OfferTest extends TestCase
      */
     public function nonMobileOfferForCountryExists()
     {
+
     }
 
     // TODO: Write case where no main offer exists but backup exists
