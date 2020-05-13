@@ -30,13 +30,13 @@
 
                 <div class="row getitpiad">
                     <div class="col-6 download"><span class="badge badge-primary">${{ $game->price }}</span>
-                        <p><img src="https://s3.amazonaws.com/staging.gogameplay.io/images/appstore.png" /></p>
+                        <p><img src="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/appstore.png" /></p>
 
                     </div>
 
                     <div class="col-6 download">
                         <span class="badge badge-primary">${{ $game->price }}</span>
-                        <p><img src="https://s3.amazonaws.com/staging.gogameplay.io/images/googleplay.png" /></p>
+                        <p><img src="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/googleplay.png" /></p>
 
                     </div>
                 </div>
