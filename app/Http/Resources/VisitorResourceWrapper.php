@@ -16,7 +16,7 @@ class VisitorResourceWrapper extends JsonResource
      */
     public function toArray($request)
     {
-        if (($this->mobile_connection) && ($this->carrier_from_data == null)) {
+        if ( ($this->mobile_connection) && ($this->carrier_from_data == null) ) {
             return new VisitorCarrierListResource($this);
         } else {
             return new VisitorResource($this);

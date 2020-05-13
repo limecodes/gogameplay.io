@@ -18,18 +18,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'visitor'], function () {
-    Route::post('set', 'VisitorController@set');
+Route::group(['prefix' => 'visitor'], function() {
+	Route::post('set', 'VisitorController@set');
 });
 
-Route::group(['prefix' => 'connection'], function () {
-    Route::patch('changed', 'ConnectionController@connectionChanged');
+Route::group(['prefix' => 'connection'], function() {
+	Route::patch('changed', 'ConnectionController@connectionChanged');
 });
 
-Route::group(['prefix' => 'carrier'], function () {
-    Route::patch('update', 'CarrierController@updateCarrier');
+Route::group(['prefix' => 'carrier'], function() {
+	Route::patch('update', 'CarrierController@updateCarrier');
 });
 
-Route::group(['prefix'=> 'offers'], function () {
-    Route::post('fetch', 'OfferController@fetch');
+Route::group(['prefix'=> 'offers'], function() {
+	Route::post('fetch', 'OfferController@fetch');
 });

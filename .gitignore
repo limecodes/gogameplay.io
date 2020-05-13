@@ -7,7 +7,6 @@
 .env.backup
 .env.testing
 .phpunit.result.cache
-.phplint-cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
