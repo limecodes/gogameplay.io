@@ -17,37 +17,39 @@
     </head>
     <body id="homepage">
         <header>
-            <h1><img src="/images/logo.png" /></h1>
+            <h1><img src="/images/logo.png" alt="GoGamePlay.io" /></h1>
         </header>
         <main id="main" role="main">
             <div class="container-fluid">
                 @foreach ($games as $game)
-                <div class="row screenshot">
-                    <div class="col-sm-12">
-                        <img src="{{ $game->image }}" />
-                    </div>
-                </div>
-
-                <div class="row getitpiad">
-                    <div class="col-6 download"><span class="badge badge-primary">${{ $game->price }}</span>
-                        <p><img src="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/appstore.png" /></p>
-
+                <section>
+                    <div class="row screenshot">
+                        <div class="col-sm-12">
+                            <img src="{{ $game->image }}" />
+                        </div>
                     </div>
 
-                    <div class="col-6 download">
-                        <span class="badge badge-primary">${{ $game->price }}</span>
-                        <p><img src="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/googleplay.png" /></p>
+                    <div class="row getitpiad">
+                        <div class="col-6 download"><span class="badge badge-primary">${{ $game->price }}</span>
+                            <p><img src="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/appstore.png" /></p>
 
-                    </div>
-                </div>
+                        </div>
 
-                <div class="row">
-                    <div class="col-12">
-                        <a href="/game/{{ $game->slug }}" class="btn btn-success tyl">
-                            <span class="badge badge-light"><span class="strike">${{ $game->price }}</span> => $0.00</span><br/>Try your luck, Get it Free >
-                        </a>
+                        <div class="col-6 download">
+                            <span class="badge badge-primary">${{ $game->price }}</span>
+                            <p><img src="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/googleplay.png" /></p>
+
+                        </div>
                     </div>
-                </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="/game/{{ $game->slug }}" class="btn btn-success tyl">
+                                <span class="badge badge-light"><span class="strike">${{ $game->price }}</span> => $0.00</span><br/>Try your luck, Get it Free >
+                            </a>
+                        </div>
+                    </div>
+                </section>
                 @endforeach
             </div>
         </main>
