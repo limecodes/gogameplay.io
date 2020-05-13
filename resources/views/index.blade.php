@@ -7,13 +7,13 @@
         <title>GoGamePlay.io :: Get Free Games</title>
 
         <!-- Styles -->
-        <link href="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/css/app.css" rel="stylesheet">
+        <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 
         <!-- Preload Images -->
         <!-- TODO: I might want to put the static assets endpoint in a .env variable -->
-        <link rel="preload" href="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/appstore.png" as="image">
-        <link rel="preload" href="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/googleplay.png" as="image">
-        <link rel="preload" href="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/logo.png" as="image">
+        <link rel="preload" href="{{ env('MIX_ASSET_URL') }}/images/appstore.png" as="image">
+        <link rel="preload" href="{{ env('MIX_ASSET_URL') }}/images/googleplay.png" as="image">
+        <link rel="preload" href="{{ env('MIX_ASSET_URL') }}/images/logo.png" as="image">
     </head>
     <body id="homepage">
         <header>
@@ -31,13 +31,13 @@
 
                     <div class="row getitpiad">
                         <div class="col-6 download"><span class="badge badge-primary">${{ $game->price }}</span>
-                            <p><img src="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/appstore.png" /></p>
+                            <p><img src="{{ env('MIX_ASSET_URL') }}/images/appstore.png" /></p>
 
                         </div>
 
                         <div class="col-6 download">
                             <span class="badge badge-primary">${{ $game->price }}</span>
-                            <p><img src="{{ env('APP_STATIC_ASSETS_ENDPOINT') }}/images/googleplay.png" /></p>
+                            <p><img src="{{ env('MIX_ASSET_URL') }}/images/googleplay.png" /></p>
 
                         </div>
                     </div>

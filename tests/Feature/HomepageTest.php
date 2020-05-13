@@ -36,7 +36,7 @@ class HomepageTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSee('<link href="'.env('APP_STATIC_ASSETS_ENDPOINT').'/css/app.css" rel="stylesheet">', false);
+            ->assertSee('<link rel="preload" href="'.env('MIX_ASSET_URL').'/images/appstore.png" as="image">', false);
     }
 
     /**
