@@ -2,6 +2,6 @@
 
 namespace App\Contracts;
 
-interface GamesInterface {
+interface GameInterface {
     public function getGames();
 }

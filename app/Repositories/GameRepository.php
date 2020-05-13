@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Contracts\GamesInterface;
+use App\Contracts\GameInterface;
 use App\Models\Game;
 
-class GamesRepository implements GamesInterface {
+class GameRepository implements GameInterface {
     public function getGames()
     {
         return Game::all();
