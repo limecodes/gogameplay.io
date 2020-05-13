@@ -11,15 +11,15 @@ class Game extends Model
 
     public static function boot()
     {
-    	parent::boot();
+        parent::boot();
 
-    	static::saving(function($model) {
-    		$model->slug = Str::slug($model->name);
-    	});
+        static::saving(function ($model) {
+            $model->slug = Str::slug($model->name);
+        });
     }
 
     public function getRouteKeyName()
     {
-    	return 'slug';
+        return 'slug';
     }
 }
