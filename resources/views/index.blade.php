@@ -13,10 +13,11 @@
         <!-- TODO: I might want to put the static assets endpoint in a .env variable -->
         <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/appstore.png" as="image">
         <link rel="preload" href="https://s3.amazonaws.com/staging.gogameplay.io/images/googleplay.png" as="image">
+        <link rel="preload" href="/images/logo.png" as="image">
     </head>
     <body id="homepage">
         <header>
-            <h1>GoGamePlay.io</h1>
+            <h1><img src="/images/logo.png" /></h1>
         </header>
         <main id="main" role="main">
             <div class="container-fluid">

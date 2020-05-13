@@ -5,30 +5,36 @@
 		.badge {
 			margin-bottom: 0.5rem;
 		}
-	}           
+	}
 
     .tyl {
         width: 100%;
-    }           
+    }
 
 	.strike {
 		text-decoration: line-through;
-    }           
+    }
 
 	header {
-        height: 60px;
-        background-color: black;
+        padding: 0.5rem 0rem 0.5rem 0rem;
+        border-bottom: 1px solid rgb(229, 132, 77);
+        background-color: rgb(119, 214, 216);
         text-align: center;
         color: white;
-    }           
+
+        img {
+            padding-top: 0.5rem;
+            width: 60%;
+        }
+    }
 
 	main {
 		margin-top: 1rem;
-	}           
+	}
 
 	.screenshot {
 		margin-bottom: 0.5rem;
-	}       
+	}
 
 	.getitpiad {
 		margin-bottom: 0.5rem;
