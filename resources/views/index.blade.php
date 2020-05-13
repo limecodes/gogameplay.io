@@ -44,7 +44,7 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <a href="{{ route('game', ['game' => $game], false) }}" class="btn btn-success tyl">
+                            <a href="{{ route('game', ['game' => $game->slug], false) }}" class="btn btn-success tyl">
                                 <span class="badge badge-light"><span class="strike">${{ $game->price }}</span> => $0.00</span><br/>Try your luck, Get it Free >
                             </a>
                         </div>
