@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'IndexController@index');
 
 Route::middleware('mobile')->group(function () {
-    Route::get('/game/{game}', 'GameController@index');
+    Route::get('/game/{game}', 'GameController@index')->name('game');
 });
 
 Route::get('/nonmobile', 'NonmobileController@index');

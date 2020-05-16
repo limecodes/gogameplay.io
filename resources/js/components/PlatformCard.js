@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import { validatePlatform } from '../actions/validation';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
- 
+
+import Asset from '../helpers/Asset';
+
 class PlatformCard extends Component {
 
 	constructor(props) {
@@ -81,20 +83,20 @@ class PlatformCard extends Component {
 					<div className="card-body">
 						<div className="row">
 			                <button className="btn btn-link col-6" style={ this.state.androidStyle } onClick={ this.handleSelectAndroid.bind(this) }>
-			                	<img src="http://static.offers.gogameplay.io/images/android.png" style={{ width: '50%' }} />
+			                	<img src={ Asset('/images/android.png') } style={{ width: '50%' }} />
 			                </button>
 
 			                <button className="btn btn-link col-6" style={ this.state.iosStyle } onClick={ this.handleSelectIOS.bind(this) }>
-			                	<img src="http://static.offers.gogameplay.io/images/ios.png" style={{ width: '50%' }} />
+			                	<img src={ Asset('/images/ios.png') } style={{ width: '50%' }} />
 			                </button>
 		                </div>
 		            </div>
 		            <div className="card-footer">
-		            	{(this.state.selected) ? 
+		            	{(this.state.selected) ?
 		            		<button className="btn btn-success" style={{ width: '100%' }} onClick={ this.handleConfimPlatform.bind(this) }>Next <FontAwesomeIcon icon='angle-right' /></button>
 		            		:
 		            		<div>
-		            			
+
 		            		</div>
 		            	}
 		            </div>

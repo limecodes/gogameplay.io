@@ -22,4 +22,9 @@ class Game extends Model
     {
         return 'slug';
     }
+
+    public function getImageAttribute($value)
+    {
+        return asset($value);
+    }
 }

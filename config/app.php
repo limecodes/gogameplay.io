@@ -56,6 +56,8 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'mix_url' => env('MIX_ASSET_URL', null),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -177,6 +179,7 @@ return [
         App\Providers\VisitorServiceProvider::class,
         App\Providers\LocationApiProvider::class,
         App\Providers\OfferServiceProvider::class,
+        App\Providers\GameServiceProvider::class,
 
     ],
 
