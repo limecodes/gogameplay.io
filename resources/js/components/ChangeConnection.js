@@ -11,6 +11,8 @@ import { connectionChanged, updateVisitorCarrier } from '../actions/visitor';
 
 import CarrierList from './CarrierList';
 
+import Asset from '../helpers/Asset'
+
 class ChangeConnection extends Component {
 
 	componentDidMount() {
@@ -70,7 +72,7 @@ class ChangeConnection extends Component {
 					</ol>
 					<div className='row'>
 						<div className='col-12'>
-							<img src="https://s3.amazonaws.com/static.offers.gogameplay.io/images/iphoneinstructions.gif" style={{ marginBottom: '0.5rem', width: '35%' }} />
+							<img src={ Asset('/images/iphoneinstructions.gif') } style={{ marginBottom: '0.5rem', width: '35%' }} />
 						</div>
 					</div>
 					<button className="btn btn-success" onClick={ this.connectionHandleChange.bind(this) } style={{ width: '80%', verticalAlign: 'middle' }}>Next <span style={{ verticalAlign: 'middle' }}><FontAwesomeIcon icon='angle-right' /></span></button>
