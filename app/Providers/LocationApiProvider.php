@@ -20,7 +20,7 @@ class LocationApiProvider extends ServiceProvider
             $baseUrl = config('app.locationapi_base_url');
             $apiKey = config('app.locationapi_key');
 
-            return ($app->environment(['local', 'testing'])) ? new LocationApi($baseUrl, $apiKey) : new MockLocationApi();
+            return (!$app->environment(['local', 'testing'])) ? new LocationApi($baseUrl, $apiKey) : new MockLocationApi();
         });
     }
 }
