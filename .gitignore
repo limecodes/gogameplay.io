@@ -20,3 +20,4 @@ yarn-error.log
 #Figure out where to put this file later, for now ignore it
 mcc-mnc-table.json
 *.save
+/resources/images/games/
