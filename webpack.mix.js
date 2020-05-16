@@ -22,7 +22,7 @@ if (mix.inProduction()) {
     mix.webpackConfig({
         plugins: [
             new S3Plugin({
-                include: /.*\.(css|js)/,
+                include: /.*\.(css|js|png|gif)/,
                 s3Options: {
                     accessKeyId: process.env.MIX_AWS_ACCESS_KEY_ID,
                     secretAccessKey: process.env.MIX_AWS_SECRET_ACCESS_KEY,
