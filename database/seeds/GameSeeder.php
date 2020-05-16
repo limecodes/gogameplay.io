@@ -14,7 +14,7 @@ class GameSeeder extends Seeder
         DB::Table('games')->insert([
             'name' => 'example',
             'slug' => 'example',
-            'image' => 'example.png',
+            'image' => '/images/games/example.png',
             'price' => 2.79
         ]);
     }
