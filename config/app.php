@@ -136,6 +136,10 @@ return [
     |
     */
 
+    'locationapi_base_url' => env('IP2LOCATION_BASE_URL', null),
+
+    'locationapi_key' => env('IP2LOCATION_API_KEY', null),
+
     'providers' => [
 
         /*

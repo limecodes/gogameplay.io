@@ -16,12 +16,11 @@ class LocationApiProvider extends ServiceProvider
      */
     public function register()
     {
-        $baseUrl = env('IP2LOCATION_BASE_URL');
-        $apiKey = env('IP2LOCATION_API_KEY');
-        $appEnv = env('APP_ENV');
+        $this->app->bind('LocationApi', function ($app) {
+            $baseUrl = config('app.locationapi_base_url');
+            $apiKey = config('app.locationapi_key');
 
-        $this->app->bind('LocationApi', function ($app) use ($baseUrl, $apiKey, $appEnv) {
-            return ($appEnv !== 'local') ? new LocationApi($baseUrl, $apiKey) : new MockLocationApi();
+            return (!$app->environment(['local', 'testing'])) ? new LocationApi($baseUrl, $apiKey) : new MockLocationApi();
         });
     }
 }
