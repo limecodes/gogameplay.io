@@ -1,3 +1,5 @@
+import { PURGE } from 'redux-persist';
+
 import {
 	SET_VISITOR_STATE_START,
 	SET_VISITOR_STATE_COMPLETE,
@@ -117,4 +119,12 @@ export const updateVisitorCarrier = (uid, carrier) => async dispatch => {
 			type: UPDATE_VISITOR_CARRIER_FAIL
 		});
 	}
+}
+
+export const purgeStorage = () => async dispatch => {
+    dispatch({
+        type: PURGE,
+        key: 'root',
+        result: () => null
+    });
 }

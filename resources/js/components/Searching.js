@@ -10,6 +10,7 @@ import { ANDROID, IOS } from '../constants/devices';
 import { PLATFORMS } from '../constants/platforms';
 
 import { fetchOffer } from '../actions/offer';
+import { purgeStorage } from '../actions/visitor';
 
 class Searching extends Component {
 
@@ -78,6 +79,10 @@ class Searching extends Component {
 	handleOfferClick() {
 		document.location.href = this.props.offer.url;
 	}
+
+    handlePurge() {
+        this.props.purgeStorage();
+    }
 
 	render() {
 
@@ -161,6 +166,7 @@ class Searching extends Component {
 					<div>
 						<p className="alert alert-warning">Unfortunately coupon expired</p>
 						<p>However, you may be interested in the coupons below</p>
+                        <button onClick={ this.handlePurge.bind(this) }>Purge</button>
 					</div>
 				);
 			} else {
@@ -175,7 +181,7 @@ class Searching extends Component {
 					<Progress />
 				</div>
 				<div className="card-footer">
-					{ 
+					{
 						( (this.props.offer.success) && (!this.state.searching) )
 						?
 						<button onClick={ this.handleOfferClick.bind(this) } className='input-group' style={{ width: '100%', padding: 0, 'border': 0, background: 'transparent' }}>
@@ -201,4 +207,4 @@ const mapStateToProps = state => ({
 	offer: state.offer
 });
 
-export default connect(mapStateToProps, { fetchOffer })(Searching);
+export default connect(mapStateToProps, { fetchOffer, purgeStorage })(Searching);
