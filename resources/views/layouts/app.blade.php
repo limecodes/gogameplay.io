@@ -16,5 +16,17 @@
     </head>
     <body>
         @yield('content')
+
+        @production
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23004656-26"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'UA-23004656-26');
+            </script>
+        @endproduction
     </body>
 </html>
