@@ -20,7 +20,9 @@ class RequestIpAddress
         // I'm happier in doing this through Charles, and it will only work when environment is local
         // Otherwise it'll use the standard REMOTE_ADDR header
         // To modify the server header, it'll have to be an apache setting
-        if ((App::environment('local')) && ($request->header('X-Forwarded-For'))) {
+        if ((App::environment('production')) && ($request->server('HTTP_X_FORWARDED_FOR'))) {
+            $correctIp = $request->server('HTTP_X_FORWARDED_FOR');
+        } else if ((App::environment('local')) && ($request->header('X-Forwarded-For'))) {
             $correctIp = $request->header('X-Forwarded-For');
         } else {
             $correctIp = $request->server('REMOTE_ADDR');
